@@ -1,0 +1,383 @@
+body {
+    background-color: #f4f4f4;
+}
+
+/*主体部分*/
+.gm-nav-wrap:after, .gm-nav:after{
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.gm-nav {
+    margin: 0 auto;
+    width: 1190px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    background-image: linear-gradient(to right,#ff9000 0,#ff5000 100%);
+}
+
+.gm-nav h2 {
+    float: left;
+    width: 190px;
+    text-align: center;
+    font-size: 16px;
+    background: #ff5000;
+}
+
+.gm-nav-hd {
+    float: left;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.gm-nav-hd li {
+    float: left;
+    margin-left: 30px;
+    text-align: center;
+    padding: 0 4px;
+}
+
+.search-keys {
+    padding-top: 5px;
+}
+
+.gm-nav-wrap {
+    margin-top: 10px;
+}
+
+.gm-service {
+    background: #FFF;
+}
+
+.service-bd {
+    border: 1px solid #ff5000;
+    border-top: none;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
+}
+
+.service-bd li {
+    overflow: hidden;
+    line-height: 32px;
+    height: 32px;
+    padding-left: 25px;
+    padding-right: 19px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 400;
+    width: 145px;
+    color: #666;
+}
+
+.service-bd span {
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+}
+
+.service-bd li.on {
+    background: #FFE4DC;
+    color:  #FF5000;
+}
+
+.service-float-item {
+    height: 300px;
+}
+
+.sub-column {
+    float: right;
+    width: 160px;
+    height: 512px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.col-right {
+    background: #FFF;
+    position: relative;
+    float: right;
+    width: 290px;
+    height: 280px;
+    margin-top: 10px;
+}
+
+.avatar-wrap {
+    display: block;
+    margin: 0 auto;
+    width: 74px;
+    height: 56px;
+}
+
+.screen-outer:after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.main:after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+/*member部分*/
+.member {
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 10px;
+}
+
+.member-nick-info {
+    display: block;
+    line-height: 17px;
+    height: 17px;
+}
+
+.member-nick {
+    font-weight: 400;
+}
+
+.member-club {
+    height: 17px;
+    line-height: 17px;
+}
+
+.member-club a {
+    border-radius: 9px;
+    background-clip: padding-box;
+    background: #ffe4db;
+    padding: 0 10px 0 20px;
+    position: relative;
+    border: none;
+    color: #ff5000!important;
+}
+
+.member-club span {
+    position: absolute;
+    top: 0;
+    display: block;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+    background: url(https://img.alicdn.com/tfs/TB1eiXTXlTH8KJjy0FiXXcRsXXa-24-595.png) 0 0 no-repeat;
+    background-position: 0 -528px;
+}
+
+.member-ft a {
+    float: left;
+    margin-left: -1px;
+    width: 66px;
+    text-align: center;
+    border-left: 1px solid #FFF;
+}
+.member-ft strong {
+    display: block;
+    font-size: 14px;
+    color: #F40;
+}
+
+.member-ft {
+    height: 40px;
+    overflow: hidden;
+    margin-top: 2px;
+    padding-left: 15px;
+}
+
+
+.tipoff a {
+    position: relative;
+    padding-left: 94px;
+    color: #f40;
+    display: block;
+    height: 26px;
+    line-height: 26px;
+    background: #ffe4dd;
+    font-size: 12px;
+}
+
+.tipoff span {
+    position: absolute;
+    right: 52px;
+    top: 9px;
+    line-height: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    margin-left: 32px;
+    border-width: 5px 0 5px 7px;
+    border-color: transparent transparent transparent #f40;
+}
+
+.notice {
+    height: 98px;
+    padding-top: 10px;
+    width: 290px;
+}
+
+.notice-hd {
+    position: relative;
+    height: 24px;
+    margin-top: 4px;
+    overflow: hidden;
+    margin-right: -2px;
+    padding: 0 8px;
+}
+
+.notice-hd li {
+    float: left;
+    line-height: 20px;
+    width: 32px;
+    text-align: center;
+    margin: 0 17px;
+}
+
+.notice-hd li:hover {
+    border-bottom: 3px solid orange;
+}
+
+.notice-ft ul {
+    margin: 0 12px;
+    height: 50px;
+    overflow: hidden;
+    padding-top: 9px;
+    padding-bottom: 6px;
+}
+
+.notice-ft ul li {
+    width: 260px;
+    line-height: 25px;
+    height: 25px;
+    overflow: hidden;
+}
+
+.ntc-panel-0.first-panel {
+    display: block;
+}
+
+.mod {
+    margin: 0 12px;
+    height: 50px;
+    overflow: hidden;
+    padding-top: 9px;
+    padding-bottom: 6px;
+}
+
+/*layer层*/
+.gm-layer {
+    width: 1190px;
+    margin: 0 auto;
+    margin-top: 10px;
+    background: #FFF;
+}
+
+.gm-layer:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.qiang-hd {
+    position: relative;
+}
+
+.qiang-switch {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    line-height: 24px;
+    height: 24px;
+    font-size: 12px;
+    color: #999;
+    width: 100px;
+    text-align: right;
+}
+
+.img-wrap {
+    float: left;
+    width: 180px;
+    height: 180px;
+}
+
+.qiang-list:before {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.qiang-list:after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.qiang-inner li {
+    float: left;
+    width: 355px;
+    padding: 0 20px 0 20px;
+}
+
+.qiang-inner .info {
+    margin-left: 194px;
+    overflow: hidden;
+}
+
+.progress {
+    position: relative;
+    width: 159px;
+    height: 6px;
+    border-radius: 3px;
+    background-clip: padding-box;
+    background: #FFE4Dc;
+}
+
+.progress-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 6px;
+    border-radius: 3px;
+    background-clip: padding-box;
+    background: #FE3338;
+}
+
+.qiang-inner .desc {
+    line-height: 28px;
+    height: 28px;
+    color: #FE3338;
+}
+
+.qiang-inner h4 {
+    margin-top: 11px;
+    line-height: 22px;
+    height: 44px;
+    overflow: hidden;
+    font-size: 16px;
+    color: #333;
+    font-weight: normal;
+}
+
+.qiang-inner .title {
+    margin-top: 12px;
+    line-height: 28px;
+    color: #999;
+}
+
+.qiang-inner .yan {
+    font-size: 12px;
+    color: #ff5000;
+}
+
+.qiang-inner .yan, .qiang-inner .cur {
+    font-size: 20px;
+    color: #ff5000;
+}
+
+.qiang-inner .price {
+    color: #999;
+    margin-left: 6px;
+    text-decoration: line-through;
+}

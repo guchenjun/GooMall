@@ -1,0 +1,133 @@
+body {
+    min-width: 1468px;
+}
+
+.clearfix {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+/*导航栏*/
+.gm-cover-wrap {
+    background-color: #F5F5F5;
+}
+
+.gm-cover {
+    width: 1190px;
+    margin: 0 auto;
+}
+
+/*浮动*/
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+
+/*导航栏迷你购物车*/
+.mini-cart dd {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.mini-cart div {
+    line-height: 20px;
+}
+
+.mini-cart a {
+    padding: 0 !important;
+}
+
+.mini-cart-title a {
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-cart-info span {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #9C9C9C;
+}
+
+.mini-cart-count, .mini-cart-del {
+    margin-right: 7px;
+}
+
+.mini-cart a:hover {
+    background-color: #fff !important;
+}
+
+/*header部分*/
+
+.gm-head-wrap {
+    width: 100%;
+    background-color: #FFF;
+    padding-top: 24px;
+    height: 97px;
+}
+.gm-head {
+    width: 1190px;
+    background: #FFF;
+    margin: 0 auto;
+}
+
+.gm-head::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.gm-head-search {
+    margin-left: 270px;
+    margin-right: 302px;
+    padding-top: 10px;
+}
+
+.search-keys a{
+    margin-right: 10px;
+}
+
+.search-fm {
+    width: 100%;
+}
+
+.search-ipt-wrap {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.search-ipt {
+    padding: 9px 7px;
+    width: 450px;
+    height: 20px;
+    border: 1px solid #b8b8b8;
+    line-height: 20px;
+    font: 16px arial;
+}
+
+.search-btn-wrap {
+    height: 38px;
+    border: 1px solid #ff9800fa;
+    border-bottom: 1px solid #ff9800;
+    background-color: #ff9800fa;
+    display: inline-block;
+}
+
+.search-btn {
+    cursor: pointer;
+    width: 72px;
+    height: 38px;
+    line-height: 38px;
+    padding: 0;
+    border: 0;
+    background-color: #ff9800fa;
+    font-size: 16px;
+    color: white;
+    box-shadow: none;
+    font-weight: normal;
+}
