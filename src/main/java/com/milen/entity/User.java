@@ -1,22 +1,50 @@
 package com.milen.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 
 public class User implements Serializable {
 
-    private Integer id;
+    private BigInteger id;
 
     private String username;
 
+    private String nickName;
+
+    private String realName;
+
     private String password;
 
-    private String email;
+    private String headImage;
 
-    public Integer getId() {
+    private String eMail;
+
+    private String phoneNumber;
+
+    private Integer experience;
+
+    private Integer level;
+
+    private BigDecimal money;
+
+    private Integer role;
+
+    private Integer status;
+
+    private Date gmtCreate;
+
+    private Date gmtModified;
+
+    public User() {
+    }
+
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -28,6 +56,22 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -36,12 +80,84 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getHeadImage() {
+        return headImage;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Integer getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Integer experience) {
+        this.experience = experience;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     @Override
@@ -49,8 +165,19 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", realName='" + realName + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
+                ", headImage='" + headImage + '\'' +
+                ", eMail='" + eMail + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", experience=" + experience +
+                ", level=" + level +
+                ", money=" + money +
+                ", role=" + role +
+                ", status=" + status +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
                 '}';
     }
 }

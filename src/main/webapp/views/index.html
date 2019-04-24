@@ -11,7 +11,7 @@
 	<div class="gm-cover-wrap">
 		<div class="gm-cover">
 			<ul class="layui-nav" style="padding: 0">
-				<li class="layui-nav-item"><a href="">你好，请登录</a></li>
+				<li class="layui-nav-item"><a href="javascript:void(0);" onclick="loginLayer()">你好，请登录</a></li>
 				<li class="layui-nav-item f-right"><a href="">收藏夹</a></li>
 				<li class="layui-nav-item layui-this f-right">
 					<a href="">购物车</a>
@@ -295,11 +295,35 @@
 			</div>
 		</div>
 	</div>
+	<div class="templates">
+		<div class="login-template" style="display: none">
+			<form action="" class="layui-form">
+				<div class="layui-form-item">
+					<label class="layui-form-label">帐号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="username" lay-verify="required" placeholder="会员名" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">密码</label>
+					<div class="layui-input-inline">
+						<input type="text" name="username" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn layui-btn-primary loginBtn">登录</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
 <script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
 <script type="text/javascript">
+	// Layui的组件初始化
 	$(function() {
 		layui.use('carousel', function(){
 			var carousel = layui.carousel;
@@ -310,6 +334,8 @@
 			});
 		});
 	});
+
+	// DOM元素绑定点击事件和功能函数
 	$(function() {
 		var enterItem = false;
 
@@ -351,6 +377,25 @@
 			$("ul[class^=ntc-panel-]").css("display", "none");
 			$("ul[class^=ntc-panel-"+dataIndex+"]").css("display", "block");
 		});
+
+		$(".loginBtn").bind("click", function () {
+			console.log("login");
+		});
+
 	});
+
+	// 登录弹出层
+	function loginLayer() {
+		let templateText = $(".login-template").prop("outerHTML");
+		let template = $(templateText).css("display", "block");
+
+		layer.open({
+			type: 1,
+			title: "登录窗口",
+			skin: 'layui-layer-moon', //加上边框
+			area: ['420px', '240px'], //宽高
+			content: template.prop("outerHTML")
+		});
+	}
 </script>
 </html>

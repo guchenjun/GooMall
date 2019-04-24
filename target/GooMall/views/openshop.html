@@ -11,8 +11,10 @@
 <div class="gm-cover-wrap">
     <div class="gm-cover">
         <ul class="layui-nav" style="padding: 0">
-            <li class="layui-nav-item"><a href="">你好，请登录</a></li>
-            <li class="layui-nav-item f-right"><a href="">收藏夹</a></li>
+            <li class="layui-nav-item"><a th:href="@{/}" style="padding: 0">首页</a></li>
+            <li class="layui-nav-item" style="margin: 0px 10px 0px 20px;"><a th:href="@{/}" style="padding: 0;">gcj顾晨俊</a></li>
+            <li class="layui-nav-item"><a th:href="@{/logout}" style="padding: 0">退出</a></li>
+            <li class="layui-nav-item f-right"><a href="#">收藏夹</a></li>
             <li class="layui-nav-item layui-this f-right">
                 <a href="">购物车</a>
                 <dl class="layui-nav-child mini-cart">
@@ -123,7 +125,7 @@
                     </div>
                     <h3 class="select-title">个人店铺</h3>
                     <p class="select-desc">通过个人实名认证的商家创建的店铺, 就是个人店铺。</p>
-                    <a class="next-btn next-btn-primary next-btn-large ice-link  select-type-item-btn">创建个人店铺</a>
+                    <a class="next-btn next-btn-primary next-btn-large ice-link  select-type-item-btn self-shop-btn">创建个人店铺</a>
                 </div>
             </div>
             <div class="open-type-item">
@@ -155,8 +157,51 @@
                 </div>
                 <div class="read-agreement-actions">
                     <a class="next-btn next-btn-normal next-btn-large ice-link goback-btn " type="normal">上一步</a>
-                    <a type="primary" class="next-btn next-btn-primary next-btn-large ice-link  ">我已了解, 继续开店</a>
+                    <a type="primary" class="next-btn next-btn-primary next-btn-large ice-link continue-btn">我已了解, 继续开店</a>
                 </div>
+            </div>
+        </div>
+        <div class="open-page apply-open-shop" style="display: none">
+            <div class="apply-open-shop-wrapper">
+                <form action="" class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">店铺名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="shop-name" lay-verify="required" placeholder="如：小李店铺" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">店铺头像</label>
+                        <div class="layui-input-inline">
+                            <img src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg" width="50" height="50">
+                            <button type="button" class="layui-btn" id="test1">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">店铺押金</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="shop-deposit" lay-verify="required" placeholder="如：1000（单位元）" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">店铺地址</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="shop-address" lay-verify="required" placeholder="如：浙江省杭州市余杭区仓前街道101号" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">店铺描述</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="shop-description" lay-verify="required" placeholder="如：华为手机专卖店" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="apply-open-shop-actions">
+                <a class="next-btn next-btn-normal next-btn-large ice-link goback2-btn" type="normal">上一步</a>
+                <a type="primary" class="next-btn next-btn-primary next-btn-large ice-link confirm-btn">确认开店</a>
             </div>
         </div>
     </div>
@@ -166,7 +211,24 @@
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
 <script type="text/javascript">
     $(function() {
-        $(".select-type-item-btn").bind("click", function() {
+        layui.use('upload', function(){
+            var upload = layui.upload;
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1' //绑定元素
+                ,url: '/upload/' //上传接口
+                ,done: function(res){
+                    //上传完毕回调
+                }
+                ,error: function(){
+                    //请求异常回调
+                }
+            });
+        });
+    });
+
+    $(function() {
+        $(".self-shop-btn").bind("click", function() {
             // 步骤显示状态
             $(".next-step-item-first").removeClass("next-step-item-process");
             $(".next-step-item-first").addClass("next-step-item-finish");
@@ -186,6 +248,32 @@
             // 内容显示状态
             $(".read-agreement").css("display", "none");
             $(".select-type").css("display", "block");
+        });
+
+        $(".continue-btn").bind("click", function() {
+            $(".next-step .next-step-item:nth-child(2)").removeClass("next-step-item-process");
+            $(".next-step .next-step-item:nth-child(2)").addClass("next-step-item-finish");
+            $(".next-step .next-step-item:nth-child(3)").removeClass("next-step-item-wait");
+            $(".next-step .next-step-item:nth-child(3)").addClass("next-step-item-process");
+            // 内容显示状态
+            $(".read-agreement").css("display", "none");
+            $(".apply-open-shop").css("display", "block");
+        });
+
+        $(".goback2-btn").bind("click", function() {
+            $(".next-step .next-step-item:nth-child(3)").removeClass("next-step-item-process");
+            $(".next-step .next-step-item:nth-child(3)").addClass("next-step-item-wait");
+            $(".next-step .next-step-item:nth-child(2)").removeClass("next-step-item-finish");
+            $(".next-step .next-step-item:nth-child(2)").addClass("next-step-item-process");
+            // 内容显示状态
+            $(".apply-open-shop").css("display", "none");
+            $(".read-agreement").css("display", "block");
+        });
+
+        // 正式创建商铺
+        $(".confirm-btn").bind("click", function () {
+            // ajax请求服务器后台创建商铺记录
+            // code...
         });
     });
 </script>

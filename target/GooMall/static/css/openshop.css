@@ -105,7 +105,7 @@
 }
 
 .next-step-arrow .next-step-item-first:before, .next-step-arrow .next-step-item-last:after {
-    border: 24px solid transparent;
+    border: 24px solid transparent !important;
 }
 
 .next-step-arrow .next-step-item-wait {
@@ -130,6 +130,11 @@
 
 .next-step-arrow .next-step-item-wait:before {
     border: 24px solid #F2F3F7;
+    border-left-color: transparent;
+}
+
+.next-step-arrow .next-step-item-finish:before {
+    border: 24px solid #E4F0FD;
     border-left-color: transparent;
 }
 
@@ -354,7 +359,7 @@
 }
 
 .read-agreement-content .read-agreement-actions {
-    margin-top: 70px;
+    margin-top: 30px;
     text-align: center;
 }
 
@@ -364,5 +369,13 @@
 }
 
 .read-agreement-content .read-agreement-actions .next-btn-primary {
+    margin-left: 20px;
+}
+
+.apply-open-shop .apply-open-shop-actions {
+    text-align: center;
+}
+
+.apply-open-shop .apply-open-shop-actions .next-btn-primary {
     margin-left: 20px;
 }
