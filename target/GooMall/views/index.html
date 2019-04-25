@@ -8,349 +8,525 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}">
 </head>
 <body>
-	<div class="gm-cover-wrap">
-		<div class="gm-cover">
-			<ul class="layui-nav" style="padding: 0">
-				<li class="layui-nav-item"><a href="">你好，请登录</a></li>
-				<li class="layui-nav-item f-right"><a href="">收藏夹</a></li>
-				<li class="layui-nav-item layui-this f-right">
-					<a href="">购物车</a>
-					<dl class="layui-nav-child mini-cart">
-						<dd style="margin-left: 7px;">最近加入的宝贝：</dd>
-						<dd>
-							<div class="mini-cart-img f-left">
-								<a href="#" style="margin: 0 7px;">
-									<img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
-								</a>
-							</div>
-							<div class="mini-cart-count f-right" style="font-family: Arial;">
-								<strong class="mini-cat-price" style="color: red;">￥22.00</strong>
-							</div>
-							<div class="mini-cart-title">
-								<a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
-							</div>
-							<div class="mini-cart-del f-right">
-								<a href="" style="font-size: 13px;">删除</a>
-							</div>
-							<div class="mini-cart-info">
-								<span>口味:圆形奶油夹心125g*1包 </span>
-							</div>
-						</dd>
-						<dd>
-							<div class="mini-cart-img f-left">
-								<a href="#" style="margin: 0 7px;">
-									<img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
-								</a>
-							</div>
-							<div class="mini-cart-count f-right" style="font-family: Arial;">
-								<strong class="mini-cat-price" style="color: red;">￥22.00</strong>
-							</div>
-							<div class="mini-cart-title">
-								<a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
-							</div>
-							<div class="mini-cart-del f-right">
-								<a href="" style="font-size: 13px;">删除</a>
-							</div>
-							<div class="mini-cart-info">
-								<span>口味:圆形奶油夹心125g*1包 </span>
-							</div>
-						</dd>
-					</dl>
-				</li>
-				<li class="layui-nav-item layui-this f-right">
-					<a href="">我的逛购</a>
-					<dl class="layui-nav-child">
-						<dd><a href="">我的订单</a></dd>
-						<dd><a href="">浏览足迹</a></dd>
-					</dl>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="gm-head-wrap" style="width: 100%;">
-		<div class="gm-head">
-			<div class="gm-head-logo" style="float: left;">
-				<img src="http://img.alicdn.com/tfs/TB1_uT8a5ERMeJjSspiXXbZLFXa-143-59.png" alt="">
-			</div>
-			<div class="gm-head-search">
-				<form class="search-fm" action="POST">
-					<span class="search-ipt-wrap"><input class="search-ipt" type="text"></span><span class="search-btn-wrap"><input class="search-btn" type="button" value="搜索"></span>
-				</form>
-				<div class="search-keys">
-					<a href="https://www.baidu.com">手机</a>
-					<a href="https://www.baidu.com">电脑</a>
-					<a href="https://www.baidu.com">相机</a>
-					<a href="https://www.baidu.com">AJ</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="gm-nav-wrap">
-		<div class="gm-nav">
-			<h2>主题市场</h2>
-			<ul class="gm-nav-hd">
-				<li>秒杀</li>
-				<li>优惠券</li>
-				<li>购会员</li>
-			</ul>
-		</div>
-	</div>
-	<div class="screen-outer" style="width: 1190px; height: 290px; margin: 0 auto;">
-		<div class="main" style="float: left;width: 900px;height: 100%">
-			<div class="gm-service f-left" style="position: relative;width: 190px">
-				<ul class="service-bd">
-					<li th:data-groupid="101">
-						<a href="">家电</a>
-						/
-						<a href="">数码</a>
-						/
-						<a href="">手机</a>
-						<span>&gt;</span>
-					</li>
-					<li th:data-groupid="102">
-						<a href="">女装</a>
-						<a href="">男装</a>
-						<a href="">内衣</a>
-					</li>
-					<li th:data-groupid="103">
-						<a href="">女鞋</a>
-						<a href="">男鞋</a>
-						<a href="">箱包</a>
-					</li>
-				</ul>
-				<div class="service-float" style="background-color:#fff; display: none;z-index: 101;width: 702px;position: absolute;left: 188px;top: 0;height: 290px;border: 2px solid #F94A14;">
-					<div class="service-float-item" th:data-index="1" style="display: none;">家电 / 数码 / 手机</div>
-					<div class="service-float-item" th:data-index="2" style="display: none;">女装 / 男装 / 内衣</div>
-					<div class="service-float-item" th:data-index="3" style="display: none;">女鞋 / 男鞋 / 箱包</div>
-				</div>
-			</div>
-			<div class="promo-wrap f-left" style="margin-top: 10px;margin-left:10px;">
-				<div class="gm-promo" style="width: 520px;height: 280px;">
-					<div class="layui-carousel" id="layui-promo">
-						<div carousel-item>
-							<div>
-								<a href="https://click.mz.simba.taobao.com/ecpm?e=CMKJgfFZ%2FNsPO53EdXrfSxsQmLP5zomMR%2BJOBe6Fo%2F2dlolNnyTa%2B3LvAKcvSR5UsTunZ%2Fl9b0bMh%2Bv%2B2a2ubbT0MF2BWcbHtbR9sxq9q4hbP149m5qBPAUxj5B42IyfGA2%2Byj1TQmTt%2Fa5kzycNuYFiZMWAM3MVrzD%2FdF4KdCCICHpGfNUjJev8nECm%2B%2F%2FymiC36ISPam0Lei3BmlIy2m4NeahIPZ4Z%2FUr8vdzLwasEpveHITzJq8ENIH1k%2Fzb%2Bxtt%2BREhh4xOjia0b%2BMn1hage%2FhRdAvzgrJyiWIlbym9El6gb7MOOv2o%2F4ZS2d5ywgLkOYaBmslFMQLOL%2BeSu4UiHENoFtqThDB3GCnDU%2BsflejrKc4856zcHe6Xoki2bH0cWPXg3piHHNxpbW7AMK%2Bmg%2Fdld%2FgfP0Mva71KhKafvfzlgu2tRAb%2BfwSabZtKjyDOEi52UCbImW9GQ5R0burAKgWaOZvk99gB%2Fd8mKSr7Q%2FPiQZYxPkZl2hKW%2BNp57OPAACXaTgmY%3D&u=https%3A%2F%2Fzzspbjb.tmall.com%2Fp%2Frd845234.htm&k=525">
-									<img border="0" src="https://img.alicdn.com/simba/img/TB19u.bRAvoK1RjSZFwSuwiCFXa.jpg" width="520px" height="280px">
-								</a>
-							</div>
-							<div>条目2</div>
-							<div>条目3</div>
-							<div>条目4</div>
-							<div>条目5</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="sub-column">
-				<a href="https://market.m.taobao.com/apps/abs/10/557/49a3c7?scm=20140637.1.62703.254411&wh_weex=true&psId=2166135">
-					<img src="http://img.alicdn.com/tfs/TB1JHUSRmzqK1RjSZPcXXbTepXa-160-280.jpg_290x290q90.jpg_.webp" alt="全民造家宠物鲜花会场">
-				</a>
-			</div>
-		</div>
-		<div class="col-right">
-			<div class="member-wrap">
-				<div class="member">
-					<div class="member-bd">
-						<div class="avatar-wrap">
-							<a href=""><img src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg"></a>
-						</div>
-						<div class="member-nick-info">Hi!
-							<strong class="member-nick">gcj顾晨俊</strong>
-						</div>
-						<p class="member-club">
-							<a href="#"><span></span>会员俱乐部</a>
-						</p>
-					</div>
-					<div class="member-ft">
-						<div class="member-column-4">
-							<a href=""><strong>0</strong>待收货</a>
-							<a href=""><strong>0</strong>待发货</a>
-							<a href=""><strong>0</strong>待付款</a>
-							<a href=""><strong>0</strong>待评价</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tipoff">
-				<a href="#">网上意见反馈专区
-					<span class="triangle"></span>
-				</a>
-			</div>
-			<div class="notice">
-				<div class="notice-hd">
-					<ul>
-						<li class="ntc-tab-0 first-tab" data-index="0" style="border-bottom: 3px solid orange;">公告</li>
-						<li class="ntc-tab-1" data-index="1">规则</li>
-						<li class="ntc-tab-2" data-index="2">安全</li>
-						<li class="ntc-tab-3" data-index="3">更多</li>
-					</ul>
-				</div>
-				<div class="notice-ft">
-					<ul class="ntc-panel-0 first-panel mod" data-index="0">
-						<li><a href="#">逛购网正式成立 打造琳琅网上购物之家</a></li>
-						<li><a href="#">欢饮广大用户和商家入驻 共创互联经济</a></li>
-					</ul>
-					<ul class="ntc-panel-1 mod" data-index="1" style="display: none">
-						<li><a href="#">逛购网用户的规则</a></li>
-						<li><a href="#">规则</a></li>
-					</ul>
-					<ul class="ntc-panel-2  mod" data-index="2" style="display: none">
-						<li><a href="#">安全3</a></li>
-						<li><a href="#">安全3</a></li>
-					</ul>
-					<ul class="ntc-panel-3 mod" data-index="3" style="display: none">
-						<li><a href="#">更多资讯 请关注逛购网..</a></li>
-						<li><a href="#">更多资讯 请关注管沟网...</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="gm-layer">
-		<div class="gm-layer-inner">
-			<div class="qiang-inner">
-				<h3 class="qiang-hd">
-					<a href="#" style="float: left"><img src="http://img.alicdn.com/tfs/TB1UfJnb3oQMeJjy0FpXXcTxpXa-160-44.png" title="逛抢购" style="height: 22px"></a>
-					<p>
+<div class="gm-cover-wrap">
+    <div class="gm-cover">
+        <ul class="layui-nav" style="padding: 0">
+            <li class="layui-nav-item"><a href="javascript:void(0);" onclick="loginLayer()">你好，请登录</a></li>
+            <li class="layui-nav-item f-right"><a href="">收藏夹</a></li>
+            <li class="layui-nav-item layui-this f-right">
+                <a href="">购物车</a>
+                <dl class="layui-nav-child mini-cart">
+                    <dd style="margin-left: 7px;">最近加入的宝贝：</dd>
+                    <dd>
+                        <div class="mini-cart-img f-left">
+                            <a href="#" style="margin: 0 7px;">
+                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
+                            </a>
+                        </div>
+                        <div class="mini-cart-count f-right" style="font-family: Arial;">
+                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
+                        </div>
+                        <div class="mini-cart-title">
+                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
+                        </div>
+                        <div class="mini-cart-del f-right">
+                            <a href="" style="font-size: 13px;">删除</a>
+                        </div>
+                        <div class="mini-cart-info">
+                            <span>口味:圆形奶油夹心125g*1包 </span>
+                        </div>
+                    </dd>
+                    <dd>
+                        <div class="mini-cart-img f-left">
+                            <a href="#" style="margin: 0 7px;">
+                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
+                            </a>
+                        </div>
+                        <div class="mini-cart-count f-right" style="font-family: Arial;">
+                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
+                        </div>
+                        <div class="mini-cart-title">
+                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
+                        </div>
+                        <div class="mini-cart-del f-right">
+                            <a href="" style="font-size: 13px;">删除</a>
+                        </div>
+                        <div class="mini-cart-info">
+                            <span>口味:圆形奶油夹心125g*1包 </span>
+                        </div>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item layui-this f-right">
+                <a href="">我的逛购</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">我的订单</a></dd>
+                    <dd><a href="">浏览足迹</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="gm-head-wrap" style="width: 100%;">
+    <div class="gm-head">
+        <div class="gm-head-logo" style="float: left;">
+            <img src="http://img.alicdn.com/tfs/TB1_uT8a5ERMeJjSspiXXbZLFXa-143-59.png" alt="">
+        </div>
+        <div class="gm-head-search">
+            <form class="search-fm" action="POST">
+                <span class="search-ipt-wrap"><input class="search-ipt" type="text"></span><span
+                    class="search-btn-wrap"><input class="search-btn" type="button" value="搜索"></span>
+            </form>
+            <div class="search-keys">
+                <a href="https://www.baidu.com">手机</a>
+                <a href="https://www.baidu.com">电脑</a>
+                <a href="https://www.baidu.com">相机</a>
+                <a href="https://www.baidu.com">AJ</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="gm-nav-wrap">
+    <div class="gm-nav">
+        <h2>主题市场</h2>
+        <ul class="gm-nav-hd">
+            <li>秒杀</li>
+            <li>优惠券</li>
+            <li>购会员</li>
+        </ul>
+    </div>
+</div>
+<div class="screen-outer" style="width: 1190px; height: 290px; margin: 0 auto;">
+    <div class="main" style="float: left;width: 900px;height: 100%">
+        <div class="gm-service f-left" style="position: relative;width: 190px">
+            <ul class="service-bd">
+                <li th:data-groupid="101">
+                    <a href="">家电</a>
+                    /
+                    <a href="">数码</a>
+                    /
+                    <a href="">手机</a>
+                    <span>&gt;</span>
+                </li>
+                <li th:data-groupid="102">
+                    <a href="">女装</a>
+                    <a href="">男装</a>
+                    <a href="">内衣</a>
+                </li>
+                <li th:data-groupid="103">
+                    <a href="">女鞋</a>
+                    <a href="">男鞋</a>
+                    <a href="">箱包</a>
+                </li>
+            </ul>
+            <div class="service-float"
+                 style="background-color:#fff; display: none;z-index: 101;width: 702px;position: absolute;left: 188px;top: 0;height: 290px;border: 2px solid #F94A14;">
+                <div class="service-float-item" th:data-index="1" style="display: none;">家电 / 数码 / 手机</div>
+                <div class="service-float-item" th:data-index="2" style="display: none;">女装 / 男装 / 内衣</div>
+                <div class="service-float-item" th:data-index="3" style="display: none;">女鞋 / 男鞋 / 箱包</div>
+            </div>
+        </div>
+        <div class="promo-wrap f-left" style="margin-top: 10px;margin-left:10px;">
+            <div class="gm-promo" style="width: 520px;height: 280px;">
+                <div class="layui-carousel" id="layui-promo">
+                    <div carousel-item>
+                        <div>
+                            <a href="https://click.mz.simba.taobao.com/ecpm?e=CMKJgfFZ%2FNsPO53EdXrfSxsQmLP5zomMR%2BJOBe6Fo%2F2dlolNnyTa%2B3LvAKcvSR5UsTunZ%2Fl9b0bMh%2Bv%2B2a2ubbT0MF2BWcbHtbR9sxq9q4hbP149m5qBPAUxj5B42IyfGA2%2Byj1TQmTt%2Fa5kzycNuYFiZMWAM3MVrzD%2FdF4KdCCICHpGfNUjJev8nECm%2B%2F%2FymiC36ISPam0Lei3BmlIy2m4NeahIPZ4Z%2FUr8vdzLwasEpveHITzJq8ENIH1k%2Fzb%2Bxtt%2BREhh4xOjia0b%2BMn1hage%2FhRdAvzgrJyiWIlbym9El6gb7MOOv2o%2F4ZS2d5ywgLkOYaBmslFMQLOL%2BeSu4UiHENoFtqThDB3GCnDU%2BsflejrKc4856zcHe6Xoki2bH0cWPXg3piHHNxpbW7AMK%2Bmg%2Fdld%2FgfP0Mva71KhKafvfzlgu2tRAb%2BfwSabZtKjyDOEi52UCbImW9GQ5R0burAKgWaOZvk99gB%2Fd8mKSr7Q%2FPiQZYxPkZl2hKW%2BNp57OPAACXaTgmY%3D&u=https%3A%2F%2Fzzspbjb.tmall.com%2Fp%2Frd845234.htm&k=525">
+                                <img border="0" src="https://img.alicdn.com/simba/img/TB19u.bRAvoK1RjSZFwSuwiCFXa.jpg"
+                                     width="520px" height="280px">
+                            </a>
+                        </div>
+                        <div>条目2</div>
+                        <div>条目3</div>
+                        <div>条目4</div>
+                        <div>条目5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-column">
+            <a href="https://market.m.taobao.com/apps/abs/10/557/49a3c7?scm=20140637.1.62703.254411&wh_weex=true&psId=2166135">
+                <img src="http://img.alicdn.com/tfs/TB1JHUSRmzqK1RjSZPcXXbTepXa-160-280.jpg_290x290q90.jpg_.webp"
+                     alt="全民造家宠物鲜花会场">
+            </a>
+        </div>
+    </div>
+    <div class="col-right">
+        <div class="member-wrap">
+            <div class="member">
+                <div class="member-bd">
+                    <div class="avatar-wrap">
+                        <a href=""><img
+                                src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg"></a>
+                    </div>
+                    <div class="member-nick-info">Hi!
+                        <strong class="member-nick">gcj顾晨俊</strong>
+                    </div>
+                    <p class="member-club">
+                        <a href="#"><span></span>会员俱乐部</a>
+                    </p>
+                </div>
+                <div class="member-ft">
+                    <div class="member-column-4">
+                        <a href=""><strong>0</strong>待收货</a>
+                        <a href=""><strong>0</strong>待发货</a>
+                        <a href=""><strong>0</strong>待付款</a>
+                        <a href=""><strong>0</strong>待评价</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tipoff">
+            <a href="#">网上意见反馈专区
+                <span class="triangle"></span>
+            </a>
+        </div>
+        <div class="notice">
+            <div class="notice-hd">
+                <ul>
+                    <li class="ntc-tab-0 first-tab" data-index="0" style="border-bottom: 3px solid orange;">公告</li>
+                    <li class="ntc-tab-1" data-index="1">规则</li>
+                    <li class="ntc-tab-2" data-index="2">安全</li>
+                    <li class="ntc-tab-3" data-index="3">更多</li>
+                </ul>
+            </div>
+            <div class="notice-ft">
+                <ul class="ntc-panel-0 first-panel mod" data-index="0">
+                    <li><a href="#">逛购网正式成立 打造琳琅网上购物之家</a></li>
+                    <li><a href="#">欢饮广大用户和商家入驻 共创互联经济</a></li>
+                </ul>
+                <ul class="ntc-panel-1 mod" data-index="1" style="display: none">
+                    <li><a href="#">逛购网用户的规则</a></li>
+                    <li><a href="#">规则</a></li>
+                </ul>
+                <ul class="ntc-panel-2  mod" data-index="2" style="display: none">
+                    <li><a href="#">安全3</a></li>
+                    <li><a href="#">安全3</a></li>
+                </ul>
+                <ul class="ntc-panel-3 mod" data-index="3" style="display: none">
+                    <li><a href="#">更多资讯 请关注逛购网..</a></li>
+                    <li><a href="#">更多资讯 请关注管沟网...</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="gm-layer">
+    <div class="gm-layer-inner">
+        <div class="qiang-inner">
+            <h3 class="qiang-hd">
+                <a href="#" style="float: left"><img
+                        src="http://img.alicdn.com/tfs/TB1UfJnb3oQMeJjy0FpXXcTxpXa-160-44.png" title="逛抢购"
+                        style="height: 22px"></a>
+                <p>
 						<span class="sub-title">
 							距结束：
 							<span class="hour">00</span>:<span class="minutes">15</span>:<span class="seconds">41</span>
 						</span>
-					</p>
-					<span class="qiang-switch">
+                </p>
+                <span class="qiang-switch">
 						<a class="more" href="#">换一换</a>
 					</span>
-				</h3>
-				<ul class="qiang-list">
-					<li>
-						<a href="https://qiang.taobao.com/?itemId=559380170352">
-							<div class="img-wrap">
-								<img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
-							</div>
-							<div class="info">
-								<h4>现挖新鲜蜜薯10斤农家香薯</h4>
-								<p class="title">产地直发</p>
-								<div class="progress">
-									<div class="progress-bar" style="width: 12%;"></div>
-								</div>
-								<div class="desc">
-									<span class="percentage">12%</span>
-									<span class="letter">已抢12件</span>
-								</div>
-								<div class="extra">
-									<span class="yan">￥</span>
-									<span class="cur">1899</span>
-									<span class="price">￥3700.00</span>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="https://qiang.taobao.com/?itemId=559380170352">
-							<div class="img-wrap">
-								<img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
-							</div>
-							<div class="info">
-								<h4>现挖新鲜蜜薯10斤农家香薯</h4>
-								<p class="title">产地直发</p>
-								<div class="progress">
-									<div class="progress-bar" style="width: 12%;"></div>
-								</div>
-								<div class="desc">
-									<span class="percentage">12%</span>
-									<span class="letter">已抢12件</span>
-								</div>
-								<div class="extra">
-									<span class="yan">￥</span>
-									<span class="cur">1899</span>
-									<span class="price">￥3700.00</span>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="https://qiang.taobao.com/?itemId=559380170352">
-							<div class="img-wrap">
-								<img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
-							</div>
-							<div class="info">
-								<h4>现挖新鲜蜜薯10斤农家香薯</h4>
-								<p class="title">产地直发</p>
-								<div class="progress">
-									<div class="progress-bar" style="width: 12%;"></div>
-								</div>
-								<div class="desc">
-									<span class="percentage">12%</span>
-									<span class="letter">已抢12件</span>
-								</div>
-								<div class="extra">
-									<span class="yan">￥</span>
-									<span class="cur">1899</span>
-									<span class="price">￥3700.00</span>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+            </h3>
+            <ul class="qiang-list">
+                <li>
+                    <a href="https://qiang.taobao.com/?itemId=559380170352">
+                        <div class="img-wrap">
+                            <img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
+                        </div>
+                        <div class="info">
+                            <h4>现挖新鲜蜜薯10斤农家香薯</h4>
+                            <p class="title">产地直发</p>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 12%;"></div>
+                            </div>
+                            <div class="desc">
+                                <span class="percentage">12%</span>
+                                <span class="letter">已抢12件</span>
+                            </div>
+                            <div class="extra">
+                                <span class="yan">￥</span>
+                                <span class="cur">1899</span>
+                                <span class="price">￥3700.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://qiang.taobao.com/?itemId=559380170352">
+                        <div class="img-wrap">
+                            <img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
+                        </div>
+                        <div class="info">
+                            <h4>现挖新鲜蜜薯10斤农家香薯</h4>
+                            <p class="title">产地直发</p>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 12%;"></div>
+                            </div>
+                            <div class="desc">
+                                <span class="percentage">12%</span>
+                                <span class="letter">已抢12件</span>
+                            </div>
+                            <div class="extra">
+                                <span class="yan">￥</span>
+                                <span class="cur">1899</span>
+                                <span class="price">￥3700.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://qiang.taobao.com/?itemId=559380170352">
+                        <div class="img-wrap">
+                            <img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
+                        </div>
+                        <div class="info">
+                            <h4>现挖新鲜蜜薯10斤农家香薯</h4>
+                            <p class="title">产地直发</p>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 12%;"></div>
+                            </div>
+                            <div class="desc">
+                                <span class="percentage">12%</span>
+                                <span class="letter">已抢12件</span>
+                            </div>
+                            <div class="extra">
+                                <span class="yan">￥</span>
+                                <span class="cur">1899</span>
+                                <span class="price">￥3700.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="templates">
+    <div class="login-template-wrapper" style="display: none">
+        <div class="login-template">
+            <form th:action="@{/login}" class="layui-form" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">帐号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" lay-verify="required" placeholder="会员名"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="password" lay-verify="required" placeholder=""
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary loginBtn">登录</button>
+                        <a href="javascript:void(0);" onclick="regLayer()" class="go-reg"
+                           style="position: absolute;right: 10px; bottom: 0;">没有帐号,去注册</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="reg-template-wrapper" style="display: none">
+        <div class="reg-template">
+            <form th:action="@{/reg}" class="layui-form" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">帐号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" required  lay-verify="username" placeholder="会员名"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="password" required  lay-verify="password" placeholder=""
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">昵称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="nick_name" lay-verify="nickname" placeholder=""
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">真实姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="real_name" required  lay-verify="realname" placeholder=""
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电子邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="e_mail" required lay-verify="email" placeholder=""
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="phone_number" required lay-verify="phone" placeholder=""
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary regBtn" lay-submit>注册</button>
+                        <a href="javascript:void(0);" onclick="loginLayer()" class="go-login"
+                           style="position: absolute;right: 10px; bottom: 0;">已有帐号,去登录</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
 <script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
 <script type="text/javascript">
-	$(function() {
-		layui.use('carousel', function(){
-			var carousel = layui.carousel;
-			carousel.render({
-				elem: '#layui-promo'
-				,width: 520
-				,arrow: 'hover'
-			});
-		});
-	});
-	$(function() {
-		var enterItem = false;
+    // Layui的组件初始化
+    $(function () {
+        // layui组件轮播图
+        layui.use('carousel', function () {
+            var carousel = layui.carousel;
+            carousel.render({
+                elem: '#layui-promo'
+                , width: 520
+                , arrow: 'hover'
+            });
+        });
 
-		$(".service-bd li").bind("mouseenter", function(e) {
-			$(this).addClass("on");
-			groupId = $(this).attr("data-groupid");
-			dataIndex = groupId -100;
-			$(".service-float").css("display", "block");
-			$(".service-float-item[data-index="+dataIndex+"]").css("display", "block");
-			$(".service-float-item:not([data-index="+dataIndex+"])").css("display", "none");
-		});
-		$(".service-bd li").bind("mouseleave", function(e) {
-			$(this).removeClass("on");
-			if (enterItem == false) {
-				$(".service-float").css("display", "none");
-			}
-		});
+        // 表单验证字段
+        layui.use('form', function () {
+            var form = layui.form;
+            form.verify({
+                username: function (value) {
+                    if (value.length < 5) {
+                        return '用户名不得小于5个字符';
+                    }
+                },
+                password: [
+                    /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/,
+                    '密码需包含数字和字母,且长度不得低于6位'
+                ],
+                realname: function (value) {
+                    if (value.length < 2) {
+                        return '请重新输入真实姓名';
+                    }
+                },
+                email: [
+                    /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
+                    '邮箱格式不正确'
+                ],
+                phone: [
+                    /^0?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/,
+                    '电话格式不正确'
+                ]
+            });
+        });
 
-		$(".service-float-item").bind("mouseenter", function(e) {
-			enterItem = true;
-			$(".service-float").css("display", "block");
-			dataIndex = $(this).attr("data-index");
-			groupId = parseInt(dataIndex) +100;
-			$(".service-bd li[data-groupid="+groupId+"]").addClass("on");
-		});
-		$(".service-float-item").bind("mouseleave", function(e) {
-			enterItem = false;
-			dataIndex = $(this).attr("data-index");
-			groupId = parseInt(dataIndex) +100;
-			$(".service-bd li[data-groupid="+groupId+"]").removeClass("on");
-			$(".service-float").css("display", "none");
-		});
 
-		// 公告规则安全更多
-		$("li[class^=ntc-tab-]").bind("mouseenter", function() {
-			$("li[class^=ntc-tab-]").css("border-bottom", "");
-			$(this).css("border-bottom", "3px solid orange");
-			dataIndex = $(this).attr("data-index");
-			$("ul[class^=ntc-panel-]").css("display", "none");
-			$("ul[class^=ntc-panel-"+dataIndex+"]").css("display", "block");
-		});
-	});
+    });
+
+    // DOM元素绑定点击事件和功能函数
+    $(function () {
+        var enterItem = false;
+
+        $(".service-bd li").bind("mouseenter", function (e) {
+            $(this).addClass("on");
+            groupId = $(this).attr("data-groupid");
+            dataIndex = groupId - 100;
+            $(".service-float").css("display", "block");
+            $(".service-float-item[data-index=" + dataIndex + "]").css("display", "block");
+            $(".service-float-item:not([data-index=" + dataIndex + "])").css("display", "none");
+        });
+        $(".service-bd li").bind("mouseleave", function (e) {
+            $(this).removeClass("on");
+            if (enterItem == false) {
+                $(".service-float").css("display", "none");
+            }
+        });
+
+        $(".service-float-item").bind("mouseenter", function (e) {
+            enterItem = true;
+            $(".service-float").css("display", "block");
+            dataIndex = $(this).attr("data-index");
+            groupId = parseInt(dataIndex) + 100;
+            $(".service-bd li[data-groupid=" + groupId + "]").addClass("on");
+        });
+        $(".service-float-item").bind("mouseleave", function (e) {
+            enterItem = false;
+            dataIndex = $(this).attr("data-index");
+            groupId = parseInt(dataIndex) + 100;
+            $(".service-bd li[data-groupid=" + groupId + "]").removeClass("on");
+            $(".service-float").css("display", "none");
+        });
+
+        // 公告规则安全更多
+        $("li[class^=ntc-tab-]").bind("mouseenter", function () {
+            $("li[class^=ntc-tab-]").css("border-bottom", "");
+            $(this).css("border-bottom", "3px solid orange");
+            dataIndex = $(this).attr("data-index");
+            $("ul[class^=ntc-panel-]").css("display", "none");
+            $("ul[class^=ntc-panel-" + dataIndex + "]").css("display", "block");
+        });
+
+        $(".loginBtn").bind("click", function () {
+            console.log("login");
+        });
+
+
+    });
+
+    // 检测并关闭弹出层
+    function checkAndCloseLayer() {
+        if ($(".layui-layer-close")[0] != null) {
+            $(".layui-layer-close")[0].click();
+        }
+    }
+
+    // 注册弹出层
+    function regLayer() {
+        checkAndCloseLayer();
+        let templateText = $(".reg-template-wrapper").prop("outerHTML");
+        let template = $(templateText).css("display", "flex");
+
+        layer.open({
+            type: 1,
+            title: "注册窗口",
+            skin: 'layui-layer-moon', //加上边框
+            area: ['380px', '440px'], //宽高
+            zIndex: 12345678,     // 不覆盖表单验证弹出层提示信息
+            content: template.prop("outerHTML")
+        });
+
+        $(".go-reg").bind("click", function () {
+            $(".layui-layer-close")[0].click();
+            regLayer();
+        });
+    }
+
+    // 登录弹出层
+    function loginLayer() {
+        checkAndCloseLayer();
+        let templateText = $(".login-template-wrapper").prop("outerHTML");
+        let template = $(templateText).css("display", "flex");
+
+        layer.open({
+            type: 1,
+            title: "登录窗口",
+            skin: 'layui-layer-moon', //加上边框
+            area: ['380px', '240px'], //宽高
+            zIndex: 12345678,
+            content: template.prop("outerHTML")
+        });
+    }
 </script>
 </html>
