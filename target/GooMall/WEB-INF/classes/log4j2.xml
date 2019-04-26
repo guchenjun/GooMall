@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--status设置log4j2自身的输出日志级别， monitorInterval设置自动检测更新log4j2.xml时间-->
+<Configuration status="WARN" monitorInterval="60">
+    <!--<properties>-->
+        <!--<property name="LOG_HOME">D:/logs/</property>-->
+        <!--<property name="FILE_NAME">error</property>-->
+    <!--</properties>-->
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <!--<logger name="org.springframework" level="INFO"></logger>-->
+        <!--<logger name="org.mybatis" level="INFO"></logger>-->
+        <!--<logger name="org.thymeleaf" level="INFO"></logger>-->
+
+        <!--additivity=false表示不使用Root节点的输出-->
+        <Logger  name="com.milen.mapper" level="debug" additivity="false">
+            <Appender-ref ref="Console"/>
+        </Logger >
+        <logger name="org.mybatis" level="DEBUG"></logger>
+
+        <!--设置所有日志默认输出级别-->
+        <Root level="INFO">
+            <AppenderRef ref="Console"></AppenderRef>
+        </Root>
+    </Loggers>
+</Configuration>
