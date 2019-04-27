@@ -22,12 +22,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUser(User user) {
-        User loginUser = userMapper.findUser(user);
-        return loginUser;
-    }
-
-    @Override
     public Boolean getUsername(String username) {
         Integer row = userMapper.getUsername(username);
         return row > 0;
@@ -37,5 +31,11 @@ public class UserServiceImpl implements UserService {
     public String getPasswordByUsername(String username) {
         String md5Password = userMapper.getPasswordByUsername(username);
         return md5Password;
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        User user = userMapper.getUserByUsername(username);
+        return user;
     }
 }

@@ -11,9 +11,43 @@
 <div class="gm-cover-wrap">
     <div class="gm-cover">
         <ul class="layui-nav" style="padding: 0">
-            <li class="layui-nav-item"><a href="javascript:void(0);" onclick="loginLayer()">你好，请登录</a></li>
+            <li th:if="${session.loginUser eq null}" class="layui-nav-item"><a href="javascript:void(0);" onclick="loginLayer()">你好，请登录</a></li>
+            <li th:if="${session.loginUser != null}" class="layui-nav-item">
+                <a href="#" th:text="${session.loginUser.username}"></a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <div class="nav-menu-bd-panel">
+                            <div class="nav-user-wrapper"><img src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_80x80.jpg" alt=""></div>
+                            <div class="nav-user-info">
+                                <p class="nav-user-operate" style="text-align: right">
+                                    <a th:href="@{/member}">帐号管理</a>
+                                    <span class="site-nav-pipe">|</span>
+                                    <a th:href="@{/logout}">退出</a>
+                                </p>
+                                <p class="level-info gm-score" th:text="'逛购值: ' + ${session.loginUser.experience}">逛购值:123</p>
+                                <p class="level-info">LV1</p>
+                            </div>
+                            <a class="site-nav-user-privilege" href="//vip.taobao.com" target="_top">查看你的专属权益</a>
+                        </div>
+                    </dd>
+                </dl>
+            </li>
+
+            <li class="layui-nav-item f-right">
+                <a href="">意见反馈</a>
+            </li>
+            <li class="layui-nav-item f-right">
+                <a href="">卖家中心</a>
+                <dl class="layui-nav-child">
+                    <dd><a th:href="@{/openshop}">免费开店</a></dd>
+                    <dd><a href="">发布商品</a></dd>
+                    <dd><a href="">管理发布商品</a></dd>
+                    <dd><a href="">商品成交订单</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item site-nav-pipe f-right">|</li>
             <li class="layui-nav-item f-right"><a href="">收藏夹</a></li>
-            <li class="layui-nav-item layui-this f-right">
+            <li class="layui-nav-item f-right">
                 <a href="">购物车</a>
                 <dl class="layui-nav-child mini-cart">
                     <dd style="margin-left: 7px;">最近加入的宝贝：</dd>
@@ -57,7 +91,7 @@
                     </dd>
                 </dl>
             </li>
-            <li class="layui-nav-item layui-this f-right">
+            <li class="layui-nav-item f-right">
                 <a href="">我的逛购</a>
                 <dl class="layui-nav-child">
                     <dd><a href="">我的订单</a></dd>
@@ -160,7 +194,7 @@
                                 src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg"></a>
                     </div>
                     <div class="member-nick-info">Hi!
-                        <strong class="member-nick" th:text="${session.username}">gcj顾晨俊</strong>
+                        <strong class="member-nick" th:text="${session.loginUser?.username}? ${session.loginUser?.username} : '你好'">gcj顾晨俊</strong>
                     </div>
                     <p class="member-club">
                         <a href="#"><span></span>会员俱乐部</a>

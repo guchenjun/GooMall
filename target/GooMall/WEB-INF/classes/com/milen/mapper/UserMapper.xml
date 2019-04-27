@@ -16,7 +16,7 @@
         select password from gm_user where username = #{username}
     </select>
 
-    <select id="findUser" resultType="com.milen.entity.User">
-        select * from user where username=#{username} and password=#{password}
+    <select id="getUserByUsername" resultType="com.milen.entity.User">
+        select * from gm_user where username = #{username}
     </select>
 </mapper>

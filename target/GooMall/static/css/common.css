@@ -18,6 +18,77 @@ body {
     margin: 0 auto;
 }
 
+/*用户资料*/
+.nav-menu-bd-panel {
+    width: 248px;
+    padding: 8px;
+}
+
+.nav-user-wrapper {
+    margin-right: 10px;
+    margin-left: 9px;
+    width: 62px;
+    height: 62px;
+    padding: 9px;
+    float: left;
+}
+
+.nav-user-wrapper img {
+    border: 3px solid #fff;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+}
+
+.nav-user-info {
+    height: 80px;
+    overflow: hidden;
+}
+
+.nav-user-info .nav-user-operate {
+    text-align: right;
+}
+
+.nav-user-info .nav-user-operate a {
+    display: inline-block;
+    padding: 0;
+}
+
+.nav-user-info p {
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+}
+
+.nav-user-operate a:hover {
+    color: #f40 !important;
+    background-color: #fff !important;
+}
+
+.nav-menu-bd-panel>a:hover {
+    color: #f40 !important;
+    background-color: #FFE8DE !important;
+}
+
+.site-nav-pipe {
+    padding: 0 5px;
+    font-style: normal;
+    color: #ddd;
+}
+
+.gm-score {
+    margin-top: 5px;
+}
+
+.site-nav-user-privilege {
+    display: block;
+    text-align: center;
+    border: 1px solid #FFE8DE;
+    background: #FFF0E8;
+    padding: 4px 0;
+    line-height: normal;
+}
+
 /*浮动*/
 .f-left {
     float: left;
