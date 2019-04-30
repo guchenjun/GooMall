@@ -1,6 +1,6 @@
 package com.milen.service;
 
-import com.milen.entity.User;
+import com.milen.pojo.po.User;
 
 public interface UserService {
 

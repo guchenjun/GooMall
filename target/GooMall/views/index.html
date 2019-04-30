@@ -39,7 +39,7 @@
             <li class="layui-nav-item f-right">
                 <a href="">卖家中心</a>
                 <dl class="layui-nav-child">
-                    <dd><a th:href="@{/openshop}">免费开店</a></dd>
+                    <dd><a th:href="@{/seller/open-shop}">免费开店</a></dd>
                     <dd><a href="">发布商品</a></dd>
                     <dd><a href="">管理发布商品</a></dd>
                     <dd><a href="">商品成交订单</a></dd>
@@ -417,6 +417,14 @@
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
 <script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function() {
+        let loginTip = [[${loginTip}]];
+        if (loginTip != null) {
+            layer.msg(loginTip, {icon: 7});
+        }
+    });
+</script>
 <script type="text/javascript" th:inline="javascript">
     // Layui的组件初始化
     $(function () {

@@ -1,4 +1,4 @@
-package com.milen.entity;
+package com.milen.pojo.po;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class User implements Serializable {
 
-    private BigInteger id;
+    private Long id;
 
     private String username;
 
@@ -38,11 +38,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

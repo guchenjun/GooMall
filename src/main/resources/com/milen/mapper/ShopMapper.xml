@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.milen.pojo.Shop">
+<mapper namespace="com.milen.mapper.ShopMapper">
+
+    <insert id="saveShop" useGeneratedKeys="true" keyProperty="id" parameterType="com.milen.pojo.po.Shop">
+        INSERT INTO gm_shop
+        (user_id, shop_image, shop_name, shop_address, shop_description, shop_score,
+        shop_deposit, shop_account, shop_status, gmt_create, gmt_modified)
+        VALUES
+        (#{userId}, #{shopImage}, #{shopName}, #{shopAddress}, #{shopDescription},
+        #{shopScore}, #{shopDeposit}, #{shopAccount}, #{shopStatus}, #{gmtCreate}, #{gmtModified})
+    </insert>
+
+    <select id="getShopCountByUserId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM gm_shop WHERE user_id = #{userId}
+    </select>
 </mapper>

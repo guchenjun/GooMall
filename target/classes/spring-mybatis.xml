@@ -29,9 +29,10 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
-    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
-
-    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-    <!--</bean>-->
+    <!--    配置Spring事物管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--    启动Spring事物注解-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

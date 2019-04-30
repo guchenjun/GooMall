@@ -1,6 +1,6 @@
 package com.milen.service.impl;
 
-import com.milen.entity.User;
+import com.milen.pojo.po.User;
 import com.milen.mapper.UserMapper;
 import com.milen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

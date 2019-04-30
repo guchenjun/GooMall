@@ -1,4 +1,9 @@
 package com.milen.mapper;
 
-public class ApplyShopRecordMapper {
+import com.milen.pojo.po.ApplyShopRecord;
+
+public interface ApplyShopRecordMapper {
+
+
+    Long saveApplyShopRecord(ApplyShopRecord applyShopRecord);
 }

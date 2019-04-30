@@ -1,4 +1,8 @@
 package com.milen.service;
 
-public class UploadService {
+import org.springframework.web.multipart.MultipartFile;
+
+public interface UploadService {
+
+    String uploadHead(MultipartFile file);
 }

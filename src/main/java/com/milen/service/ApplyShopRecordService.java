@@ -1,4 +1,6 @@
 package com.milen.service;
 
-public class ApplyShopRecordService {
+public interface ApplyShopRecordService {
+
+    boolean saveApplyShopRecord(Long userId, Long shopId);
 }

@@ -1,14 +1,13 @@
-package com.milen.entity;
+package com.milen.pojo.po;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 public class Shop {
 
-    private BigInteger id;
+    private Long id;
 
-    private BigInteger userId;
+    private Long userId;
 
     private String shopImage;
 
@@ -24,6 +23,8 @@ public class Shop {
 
     private BigDecimal shopAccount;
 
+    private Boolean shopStatus;
+
     private Date gmtCreate;
 
     private Date gmtModified;
@@ -31,19 +32,19 @@ public class Shop {
     public Shop() {
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -101,6 +102,14 @@ public class Shop {
 
     public void setShopAccount(BigDecimal shopAccount) {
         this.shopAccount = shopAccount;
+    }
+
+    public Boolean getShopStatus() {
+        return shopStatus;
+    }
+
+    public void setShopStatus(Boolean shopStatus) {
+        this.shopStatus = shopStatus;
     }
 
     public Date getGmtCreate() {

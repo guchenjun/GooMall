@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.milen.mapper.UserMapper">
-    <insert id="saveUser" keyProperty="id" useGeneratedKeys="true" parameterType="com.milen.entity.User">
+    <insert id="saveUser" keyProperty="id" useGeneratedKeys="true" parameterType="com.milen.pojo.po.User">
         insert into gm_user
         (username, real_name, password, e_mail,phone_number, gmt_create, gmt_modified)
         values
@@ -16,7 +16,7 @@
         select password from gm_user where username = #{username}
     </select>
 
-    <select id="getUserByUsername" resultType="com.milen.entity.User">
+    <select id="getUserByUsername" resultType="com.milen.pojo.po.User">
         select * from gm_user where username = #{username}
     </select>
 </mapper>

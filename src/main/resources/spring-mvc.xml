@@ -31,14 +31,22 @@
         <property name="characterEncoding" value="UTF-8"/>
     </bean>
 
+    <!-- 上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 最大内存大小 -->
+        <property name="maxInMemorySize" value="10240"/>
+        <!-- 最大文件大小，设置为10M，如果-1则不限制 -->
+        <property name="maxUploadSize" value="10485760"/>
+    </bean>
+
 
     <!-- 配置拦截器 -->
-    <!--<mvc:interceptors>-->
-    <!--<mvc:interceptor>-->
-    <!--<mvc:mapping path="/**"/>-->
-    <!--<mvc:exclude-mapping path="/"/>-->
-    <!--<mvc:exclude-mapping path="/login"/>-->
-    <!--<bean class="com.milen.interceptor.LoginInterceptor"></bean>-->
-    <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/seller/**"/>
+<!--            <mvc:exclude-mapping path="/"/>-->
+            <bean class="com.milen.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

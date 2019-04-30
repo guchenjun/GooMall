@@ -167,7 +167,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺名</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="shopName" lay-verify="required" lay-verify="shopName" placeholder="如：小李店铺" class="layui-input">
+                            <input type="text" name="shopName" required lay-verify="shopName" placeholder="如：小李店铺" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -183,26 +183,26 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺押金</label>
                         <div class="layui-input-inline">
-                            <input type="number" name="shopDeposit" lay-verify="required" lay-verify="shopDeposit" placeholder="如：1000（单位元）" class="layui-input">
+                            <input type="number" name="shopDeposit" required lay-verify="shopDeposit" placeholder="如：1000（单位元）" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺地址</label>
                         <div class="layui-input-block">
-                            <input type="text" name="shopAddress" lay-verify="required" lay-verify="shopAddress" placeholder="如：浙江省杭州市余杭区仓前街道101号" class="layui-input">
+                            <input type="text" name="shopAddress" required lay-verify="shopAddress" placeholder="如：浙江省杭州市余杭区仓前街道101号" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺描述</label>
                         <div class="layui-input-block">
-                            <input type="text" name="shopDescription" lay-verify="required" lay-verify="shopDescription" placeholder="如：华为手机专卖店" class="layui-input">
+                            <input type="text" name="shopDescription" required lay-verify="shopDescription" placeholder="如：华为手机专卖店" class="layui-input">
                         </div>
                     </div>
+                    <div class="apply-open-shop-actions">
+                        <a class="next-btn next-btn-normal next-btn-large ice-link goback2-btn" type="normal">上一步</a>
+                        <a type="primary" class="next-btn next-btn-primary next-btn-large ice-link confirm-btn" lay-submit lay-filter="apply-shop">确认开店</a>
+                    </div>
                 </form>
-            </div>
-            <div class="apply-open-shop-actions">
-                <a class="next-btn next-btn-normal next-btn-large ice-link goback2-btn" type="normal">上一步</a>
-                <a type="primary" class="next-btn next-btn-primary next-btn-large ice-link confirm-btn" lay-submit lay-filter="apply-shop">确认开店</a>
             </div>
         </div>
     </div>
@@ -229,7 +229,7 @@
                 ,done: function(res){
                     //上传完毕回调
                     imageName = res['data'];
-                    $(".head-path").attr("value", imageName);
+                    $(".head-path").val(imageName);
                     $(".shop-head").attr("src", "../image/head/" + imageName);
                 }
                 ,error: function(err){
@@ -247,7 +247,7 @@
                     }
                 },
                shopDeposit: function (value) {
-                   if (typeof(value) != 'Number') {
+                   if (value < 100) {
                        return "店铺押金必须为大于100的整数";
                    }
                },
@@ -260,7 +260,6 @@
                     if (value.length < 10) {
                         return "请详细描述店铺经营范围，不得少于10个字符";
                     }
-
                }
            });
 
@@ -274,11 +273,19 @@
                    error: function (error) {
                        layer.msg("未知错误，申请店铺失败!", {icon: 7});
                    },
-                   success: function () {
-                       // suc retn
+                   success: function (res) {
+                       code = res['code'];
+                       msg = res['msg'];
+                       if (code === 230) {
+                           layer.msg(msg, {icon: 1});
+                       }
+                       if (code == 430) {
+                           layer.msg(msg, {icon: 7});
+                       }
                    }
                });
-           })
+               return false;
+           });
         });
     });
 
