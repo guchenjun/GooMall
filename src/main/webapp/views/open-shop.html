@@ -167,14 +167,15 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺名</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="shop-name" lay-verify="required" placeholder="如：小李店铺" autocomplete="off" class="layui-input">
+                            <input type="text" name="shopName" lay-verify="required" lay-verify="shopName" placeholder="如：小李店铺" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺头像</label>
                         <div class="layui-input-inline">
-                            <img src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg" width="50" height="50">
-                            <button type="button" class="layui-btn" id="test1">
+                            <input class="shopImage" type="hidden" name="shopImage" value="default">
+                            <img class="shop-head" src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg" width="50" height="50">
+                            <button type="button" class="layui-btn" id="uploadBtn">
                                 <i class="layui-icon">&#xe67c;</i>上传图片
                             </button>
                         </div>
@@ -182,26 +183,26 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺押金</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="shop-deposit" lay-verify="required" placeholder="如：1000（单位元）" autocomplete="off" class="layui-input">
+                            <input type="number" name="shopDeposit" lay-verify="required" lay-verify="shopDeposit" placeholder="如：1000（单位元）" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺地址</label>
                         <div class="layui-input-block">
-                            <input type="text" name="shop-address" lay-verify="required" placeholder="如：浙江省杭州市余杭区仓前街道101号" autocomplete="off" class="layui-input">
+                            <input type="text" name="shopAddress" lay-verify="required" lay-verify="shopAddress" placeholder="如：浙江省杭州市余杭区仓前街道101号" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺描述</label>
                         <div class="layui-input-block">
-                            <input type="text" name="shop-description" lay-verify="required" placeholder="如：华为手机专卖店" autocomplete="off" class="layui-input">
+                            <input type="text" name="shopDescription" lay-verify="required" lay-verify="shopDescription" placeholder="如：华为手机专卖店" class="layui-input">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="apply-open-shop-actions">
                 <a class="next-btn next-btn-normal next-btn-large ice-link goback2-btn" type="normal">上一步</a>
-                <a type="primary" class="next-btn next-btn-primary next-btn-large ice-link confirm-btn">确认开店</a>
+                <a type="primary" class="next-btn next-btn-primary next-btn-large ice-link confirm-btn" lay-submit lay-filter="apply-shop">确认开店</a>
             </div>
         </div>
     </div>
@@ -209,21 +210,75 @@
 </body>
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function() {
+        let loginTip = [[${loginTip}]];
+        if (loginTip != null) {
+            layer.msg(loginTip, {icon: 7});
+        }
+    });
+</script>
 <script type="text/javascript">
     $(function() {
         layui.use('upload', function(){
             var upload = layui.upload;
             //执行实例
             var uploadInst = upload.render({
-                elem: '#test1' //绑定元素
-                ,url: '/upload/' //上传接口
+                elem: '#uploadBtn'
+                ,url: '../upload/head'
                 ,done: function(res){
                     //上传完毕回调
+                    imageName = res['data'];
+                    $(".head-path").attr("value", imageName);
+                    $(".shop-head").attr("src", "../image/head/" + imageName);
                 }
-                ,error: function(){
-                    //请求异常回调
+                ,error: function(err){
+                    layer.msg("头像上传失败!", {icon: 7});
                 }
             });
+        });
+
+        layui.use("form", function () {
+           var form = layui.form;
+           form.verify({
+                shopName: function (value) {
+                    if (value.length < 3) {
+                        return '店铺名不得小于3个字符';
+                    }
+                },
+               shopDeposit: function (value) {
+                   if (typeof(value) != 'Number') {
+                       return "店铺押金必须为大于100的整数";
+                   }
+               },
+               shopAddress: function (value) {
+                   if (value.length < 5) {
+                       return "请输入具体店铺地址，不得少于5个字符";
+                   }
+               },
+               shopDescription: function (value) {
+                    if (value.length < 10) {
+                        return "请详细描述店铺经营范围，不得少于10个字符";
+                    }
+
+               }
+           });
+
+           form.on('submit(apply-shop)', function (data) {
+               $.ajax({
+                   type: 'POST',
+                   url: './apply-shop',
+                   data: JSON.stringify(data.field),
+                   dataType: 'json',
+                   contentType : "application/json;charset=UTF-8",
+                   error: function (error) {
+                       layer.msg("未知错误，申请店铺失败!", {icon: 7});
+                   },
+                   success: function () {
+                       // suc retn
+                   }
+               });
+           })
         });
     });
 
