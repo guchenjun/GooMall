@@ -1,0 +1,32 @@
+.admin-header {
+    line-height: 60px;
+    background-image: linear-gradient(120deg, #66a6ff 0%,#89f7fe 116%);
+}
+
+.layui-logo, .layui-nav-item > a {
+    color: #fff !important;
+}
+
+.layui-layout-right > .layui-nav-item > a {
+    color: #666 !important;
+}
+
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+    background-color: #c0ff00fa !important;
+}
+
+.admin-side-scroll {
+    background-image: linear-gradient(120deg, #66a6ff 0,#89f7fe 116%);
+}
+
+.admin-nav-tree {
+    background-color: transparent;
+}
+
+.admin-nav-tree .layui-nav-item a:hover {
+    background-color: #00CCFF !important;
+}
+
+.admin-nav-tree .layui-nav-child {
+    background-color: rgba(0,0,0,.2)!important;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milen.mapper.AdminShopMapper">
+
+
+    <select id="listApplyShopRecord" resultType="com.milen.pojo.dto.ApplyShopRecordDTO">
+        SELECT  u.real_name, u.credit, s.shop_name, s.shop_description, a.gmt_create, a.gmt_modified, a.admin_id, a.review_status
+        FROM gm_apply_shop_record a, gm_shop s, gm_user u
+        WHERE
+        a.shop_id = s.id AND a.user_id = u.id
+    </select>
+</mapper>
