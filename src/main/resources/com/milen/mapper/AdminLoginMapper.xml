@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milen.mapper.AdminLoginMapper">
+
+
+    <select id="getUsername" resultType="java.lang.Integer">
+        SELECT COUNT(0) FROM gm_admin WHERE username = #{username}
+    </select>
+
+    <select id="getPasswordByUsername" resultType="java.lang.String">
+        SELECT password FROM gm_admin WHERE username = #{username}
+    </select>
+
+    <select id="getAdminByUsername" resultType="com.milen.pojo.po.Admin">
+        SELECT id, username, real_name, password, e_mail, phone_number, privilege, gmt_create, gmt_modified
+        FROM gm_admin WHERE username = #{username}
+    </select>
+</mapper>

@@ -30,3 +30,13 @@
 .admin-nav-tree .layui-nav-child {
     background-color: rgba(0,0,0,.2)!important;
 }
+
+.record-agree-btn {
+    height: 28px;
+    line-height: 28px;
+}
+
+.record-agreed {
+    background-color: transparent;
+    color: #666;
+}

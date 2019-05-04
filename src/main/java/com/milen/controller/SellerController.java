@@ -3,7 +3,7 @@ package com.milen.controller;
 import com.milen.constant.ResultConstant;
 import com.milen.pojo.po.Shop;
 import com.milen.pojo.po.User;
-import com.milen.pojo.vo.ResultVO;
+import com.milen.pojo.vo.R;
 import com.milen.service.ApplyShopRecordService;
 import com.milen.service.ShopService;
 import com.milen.service.UserService;
@@ -39,7 +39,7 @@ public class SellerController {
     @RequestMapping(value = "/apply-shop", method = RequestMethod.POST)
     @ResponseBody
     @Transactional
-    public ResultVO applyShop(@RequestBody Shop shop, HttpSession session) {
+    public R applyShop(@RequestBody Shop shop, HttpSession session) {
         User currentUser = (User) session.getAttribute("loginUser");
 ///        userService.updateUserRoleById(loginUser.getId()); // 后台管理审核通过才更改角色
         Long userId = currentUser.getId();
@@ -47,7 +47,7 @@ public class SellerController {
         try {
             boolean shopExisted = shopService.getShopByUserId(userId);
             if (shopExisted) {
-                return ResultVO.error(ResultConstant.APPLY_SHOP_EXIST, ResultConstant.APPLY_SHOP_EXIST_MSG);
+                return R.error(ResultConstant.APPLY_SHOP_EXIST, ResultConstant.APPLY_SHOP_EXIST_MSG);
             }
             // 储存店铺信息
             Long shopId = shopService.saveShop(shop);
@@ -55,14 +55,14 @@ public class SellerController {
                 // 储存申请店铺记录，供管理员审核
                 boolean isSaved = applyShopRecordService.saveApplyShopRecord(userId, shopId);
                 if (isSaved) {
-                    return ResultVO.ok(ResultConstant.APPLY_SHOP_SUCCESS, ResultConstant.APPLY_SHOP_SUCCESS_MSG);
+                    return R.ok(ResultConstant.APPLY_SHOP_SUCCESS, ResultConstant.APPLY_SHOP_SUCCESS_MSG);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
-        return ResultVO.error(ResultConstant.APPLY_SHOP_FAILURE, ResultConstant.APPLY_SHOP_FAILURE_MSG);
+        return R.error(ResultConstant.APPLY_SHOP_FAILURE, ResultConstant.APPLY_SHOP_FAILURE_MSG);
     }
 }
 

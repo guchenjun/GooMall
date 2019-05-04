@@ -9,23 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 
 @Service("adminShopService")
 public class AdminShopServiceImpl implements AdminShopService {
 
     @Autowired
-    private AdminShopMapper adminShopMapper;
+    private AdminMapper adminMapper;
 
     @Autowired
-    private AdminMapper adminMapper;
+    private AdminShopMapper adminShopMapper;
 
     @Override
     public List<ApplyShopRecordVO> listApplyShopRecord() {
         List<ApplyShopRecordDTO> recordListDTO = adminShopMapper.listApplyShopRecord();
         List<ApplyShopRecordVO> recordListVO = new ArrayList<>();
-        String admin = "无", status = "未审核";
         for (ApplyShopRecordDTO recordDTO : recordListDTO) {
+            String admin = "无", status = "未审核";
             Integer adminId = recordDTO.getAdminId();
             Boolean reviewStatus = recordDTO.getReviewStatus();
             if (adminId != null) {
@@ -37,5 +39,12 @@ public class AdminShopServiceImpl implements AdminShopService {
             recordListVO.add(new ApplyShopRecordVO(recordDTO, admin, status));
         }
         return recordListVO;
+    }
+
+    @Override
+    public boolean updateAgreeShopRecord(int recordId, int adminId) {
+        Date gmtModified = new Date();
+        int row = adminShopMapper.updateAgreeShopRecord(recordId, adminId, gmtModified);
+        return row > 0;
     }
 }

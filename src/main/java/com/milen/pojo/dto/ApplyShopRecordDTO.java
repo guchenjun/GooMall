@@ -1,8 +1,11 @@
 package com.milen.pojo.dto;
 
+
 import java.util.Date;
 
 public class ApplyShopRecordDTO {
+
+    private Long id;
 
     private String realName;
 
@@ -19,6 +22,14 @@ public class ApplyShopRecordDTO {
     private Integer adminId;
 
     private Boolean reviewStatus;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getRealName() {
         return realName;
@@ -87,7 +98,8 @@ public class ApplyShopRecordDTO {
     @Override
     public String toString() {
         return "ApplyShopRecordDTO{" +
-                "realName='" + realName + '\'' +
+                "id=" + id +
+                ", realName='" + realName + '\'' +
                 ", credit=" + credit +
                 ", shopName='" + shopName + '\'' +
                 ", shopDescription='" + shopDescription + '\'' +

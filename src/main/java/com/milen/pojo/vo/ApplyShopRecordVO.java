@@ -1,10 +1,14 @@
 package com.milen.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.milen.pojo.dto.ApplyShopRecordDTO;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 public class ApplyShopRecordVO {
+
+    private Long id;
 
     private String realName;
 
@@ -26,6 +30,7 @@ public class ApplyShopRecordVO {
     }
 
     public ApplyShopRecordVO(ApplyShopRecordDTO recordDTO, String admin, String status) {
+        this.id = recordDTO.getId();
         this.realName = recordDTO.getRealName();
         this.credit = recordDTO.getCredit();
         this.shopName = recordDTO.getShopName();
@@ -34,6 +39,14 @@ public class ApplyShopRecordVO {
         this.gmtModified = recordDTO.getGmtModified();
         this.reviewAdmin = admin;
         this.reviewStatus = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRealName() {
@@ -103,7 +116,8 @@ public class ApplyShopRecordVO {
     @Override
     public String toString() {
         return "ApplyShopRecordVO{" +
-                "realName='" + realName + '\'' +
+                "id=" + id +
+                ", realName='" + realName + '\'' +
                 ", credit=" + credit +
                 ", shopName='" + shopName + '\'' +
                 ", shopDescription='" + shopDescription + '\'' +

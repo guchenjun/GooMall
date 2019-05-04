@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin-login.css}">
+</head>
+<body>
+    <img class="admin-bg" th:src="@{/static/image/admin-background.jpg}">
+    <img class="admin-logo" th:src="@{/static/image/admin-logo.png}">
+    <form class="table" th:action="@{/admin/login}" method="POST">
+        <div class="title-cn">GooMall后台管理中心</div>
+        <div class="title-en">GooMall Background Management Center</div>
+        <div class="username-wrapper">
+            <div><img th:src="@{/static/image/username.png}"></div>
+            <input type="text" name="username" placeholder="用户名">
+        </div>
+        <div class="password-wrapper">
+            <div><img th:src="@{/static/image/password.png}"></div>
+            <input type="password" name="password" placeholder="●●●●●●">
+        </div>
+        <input class="login-btn" type="submit" value="登录">
+    </form>
+</body>
+<script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        let loginMsg = [[${loginMsg}]];
+        if (loginMsg != null) {
+            layer.msg(loginMsg, {icon: 7});
+        }
+    });
+</script>
+</html>

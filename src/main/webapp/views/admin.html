@@ -13,7 +13,7 @@
         <div class="layui-logo">GooMall后台管理中心</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a th:href="@{/admin}">控制台</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">管理团队</a>
                 <dl class="layui-nav-child">
@@ -25,15 +25,14 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    <span th:text="'管理员: ' + ${session?.loginAdmin?.realName}"></span>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a th:href="@{/admin/logout}">退出</a></li>
         </ul>
     </div>
 
@@ -42,11 +41,11 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree admin-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">商铺管理</a>
+                    <a href="javascript:;">商铺管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">商铺审核</a></dd>
-                        <dd><a href="javascript:;">商铺信息</a></dd>
-                        <dd><a href="javascript:;">卖家管理</a></dd>
+                        <dd><a class="shop-review-link" th:href="@{/admin/shop/review}">商铺审核</a></dd>
+                        <dd><a th:href="@{/admin/shop/info}">商铺信息</a></dd>
+                        <dd><a th:href="@{/admin/shop/seller}">卖家管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -68,11 +67,15 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <div class="shop-m">
-                <div class="shop-review">
+            <div th:if="${locationMode?.location eq 'index'}" class="admin-index">
+                后台首页
+            </div>
+            <div th:if="${locationMode?.location eq 'shop'}" class="shop-m">
+                <div th:if="${locationMode?.mode eq 'review'}" class="shop-review">
                     <table class="layui-table">
                         <thead>
                         <tr>
+                            <th>序号</th>
                             <th>姓名</th>
                             <th>信用度</th>
                             <th>店铺名</th>
@@ -81,25 +84,37 @@
                             <th>修改时间</th>
                             <th>审核管理员</th>
                             <th>申请状态</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="record : ${recordList}">
+                            <td th:text="${record.id}" style="text-align: center"></td>
                             <td th:text="${record.realName}"></td>
-                            <th th:text="${record.credit}"></th>
+                            <td th:text="${record.credit}"></td>
                             <td th:text="${record.shopName}"></td>
                             <td th:text="${record.shopDescription}"></td>
-                            <td th:text="${record.gmtCreate}"></td>
-                            <td th:text="${record.gmtModified}"></td>
+                            <td th:text="${#dates.format(record.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${#dates.format(record.gmtModified, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${record.reviewAdmin}"></td>
                             <td th:text="${record.reviewStatus}"></td>
+                            <td>
+                                <div class="agree-wrapper" th:if="${record.reviewAdmin eq '无'}">
+                                    <a class="layui-btn layui-btn-normal record-agree-btn" th:href="@{'/admin/shop/review/agree/' + ${record.id}}">同意</a>
+                                </div>
+                                <div class="agree-wrapper" th:if="${record.reviewAdmin != '无'}">
+                                    <a class="layui-btn layui-btn-normal record-agreed" th:href="@{#}">已通过</a>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
+                    <div id="shop-review-page-info" style="float: right"></div>
                 </div>
-                <div class="shop-info"></div>
-                <div class="seller-manage"></div>
+                <div th:if="${locationMode?.mode eq 'info'}" class="shop-info"></div>
+                <div th:if="${locationMode?.mode eq 'seller'}" class="seller-manage"></div>
             </div>
+
         </div>
     </div>
 
@@ -109,13 +124,50 @@
     </div>
 </div>
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
-<script>
-    //JavaScript代码区域
-    layui.use('element', function () {
-        var element = layui.element;
-
+<script type="text/javascript" th:src="@{/static/layui/layui.all.js}" th:inline="javascript"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        // 后台响应的提示信息
+        let errMsg = [[${errMsg}]];
+        let sucMsg = [[${sucMsg}]];
+        if (errMsg != null) {
+            layer.msg(errMsg, {icon: 7});
+        }
+        if (sucMsg != null) {
+            layer.msg(sucMsg, {icon: 1});
+        }
     });
+</script>
+<script>
+    $(function () {
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+        layui.use('laypage', function(){
+            var laypage = layui.laypage;
+
+            laypage.render({
+                elem: 'shop-review-page-info',
+                count: [[${page?.total}]], // 数据总数
+                limit: [[${page?.pageSize}]], // 每页最多显示条数
+                curr: [[${page?.pageNum}]],
+                jump: function (obj, first) {
+                    console.log(obj);
+                    if (!first) {
+                        position =  window.location.href;
+                        end = position.lastIndexOf("review/");
+                        if (end === -1) {
+                            window.location.href = position + "/" + obj.curr;
+                        }  else {
+                            window.location.href = position.substring(0, end) + "review/" + obj.curr;
+                        }
+                    }
+                }
+            });
+        });
+    });
+
 </script>
 </body>
 </html>

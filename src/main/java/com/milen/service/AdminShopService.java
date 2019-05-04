@@ -7,4 +7,6 @@ import java.util.List;
 public interface AdminShopService {
 
     List<ApplyShopRecordVO> listApplyShopRecord();
+
+    boolean updateAgreeShopRecord(int recordId, int adminId);
 }
