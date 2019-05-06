@@ -17,8 +17,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">管理团队</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">管理员信息</a></dd>
-                    <dd><a href="">操作日志</a></dd>
+                    <dd><a th:href="@{/admin/admin-member}">管理员信息</a></dd>
+                    <dd><a th:href="@{/admin/log}">操作日志</a></dd>
                 </dl>
             </li>
         </ul>
@@ -43,17 +43,23 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">商铺管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a class="shop-review-link" th:href="@{/admin/shop/review}">商铺审核</a></dd>
-                        <dd><a th:href="@{/admin/shop/info}">商铺信息</a></dd>
-                        <dd><a th:href="@{/admin/shop/seller}">卖家管理</a></dd>
+                        <dd><a class="shop-review-link" th:href="@{/admin/shop/review}"
+                               th:classappend="${locationMode?.mode eq 'review'}? 'admin-nav-on'">商铺审核</a></dd>
+                        <dd><a th:href="@{/admin/shop/info}"
+                               th:classappend="${locationMode?.mode eq 'info'}? 'admin-nav-on'">商铺信息</a></dd>
+                        <dd><a th:href="@{/admin/shop/seller}"
+                               th:classappend="${locationMode?.mode eq 'seller'}? 'admin-nav-on'">卖家管理</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item" th:classappend="${locationMode?.location eq 'goods'} ? 'layui-nav-itemed'">
                     <a href="javascript:;">商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">商品分类</a></dd>
-                        <dd><a href="javascript:;">商品信息</a></dd>
-                        <dd><a href="javascript:;">库存信息</a></dd>
+                        <dd><a th:href="@{/admin/goods/category}"
+                               th:classappend="${locationMode?.mode eq 'spu-category'}? 'admin-nav-on'">商品分类</a></dd>
+                        <dd><a th:href="@{/admin/goods/spu}"
+                               th:classappend="${locationMode?.mode eq 'spu-info'}? 'admin-nav-on'">商品信息</a></dd>
+                        <dd><a th:href="@{/admin/goods/sku}"
+                               th:classappend="${locationMode?.mode eq 'sku-info'}? 'admin-nav-on'">库存信息</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="">订单管理</a></li>
@@ -89,7 +95,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="record : ${recordList}">
-                            <td th:text="${record.id}" style="text-align: center"></td>
+                            <td th:text="${record.id}"></td>
                             <td th:text="${record.realName}"></td>
                             <td th:text="${record.credit}"></td>
                             <td th:text="${record.shopName}"></td>
@@ -100,7 +106,8 @@
                             <td th:text="${record.reviewStatus}"></td>
                             <td>
                                 <div class="agree-wrapper" th:if="${record.reviewAdmin eq '无'}">
-                                    <a class="layui-btn layui-btn-normal record-agree-btn" th:href="@{'/admin/shop/review/agree/' + ${record.id}}">同意</a>
+                                    <a class="layui-btn layui-btn-normal record-agree-btn"
+                                       th:href="@{'/admin/shop/review/agree/' + ${record.id}}">同意</a>
                                 </div>
                                 <div class="agree-wrapper" th:if="${record.reviewAdmin != '无'}">
                                     <a class="layui-btn layui-btn-normal record-agreed" th:href="@{#}">已通过</a>
@@ -111,16 +118,108 @@
                     </table>
                     <div id="shop-review-page-info" style="float: right"></div>
                 </div>
-                <div th:if="${locationMode?.mode eq 'info'}" class="shop-info"></div>
+                <div th:if="${locationMode?.mode eq 'info'}" class="shop-info">
+                    <table class="layui-table">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>商铺头像</th>
+                            <th>商铺名称</th>
+                            <th>商铺评分</th>
+                            <th>商铺押金</th>
+                            <th>商铺收益</th>
+                            <th>商铺状态</th>
+                            <th>经营时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="shop : ${shopList}">
+                            <td th:text="${shop.id}"></td>
+                            <td><img th:src="@{'/image/head/' + ${shop.shopImage}}" width="50px" height="50px"></td>
+                            <td th:text="${shop.shopName}"></td>
+                            <td th:text="${shop.shopScore}"></td>
+                            <td th:text="${shop.shopDeposit}"></td>
+                            <td th:text="${shop.shopAccount}"></td>
+                            <td th:text="${shop.shopStatus}"></td>
+                            <td th:text="${shop.openTime}"></td>
+                            <td>
+                                <div class="shop-info-wrapper">
+                                    <a class="layui-btn layui-btn-normal shop-info-more-btn"
+                                       href="javascript:void(0);" th:shop-id="${shop.id}">更多信息</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="shop-info-page-info" style="float: right"></div>
+                </div>
                 <div th:if="${locationMode?.mode eq 'seller'}" class="seller-manage"></div>
             </div>
+            <div th:if="${locationMode?.location eq 'goods'}" class="spu-m">
+                <div th:if="${locationMode?.mode eq 'spu-category'}" class="spu-category">
+                    <!-- 商品一级分类查看，二级分类、品牌的添加-->
+                    分类页面
+                    <form class="layui-form category-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">一级分类</label>
+                            <div class="layui-input-inline">
+                                <select class="category1" lay-filter="category1">
+                                    <option value="">请选择一级分类</option>
+                                    <option value="浙江" selected="">浙江省</option>
+                                    <option value="你的工号">江西省</option>
+                                    <option value="你最喜欢的老师">福建省</option>
+                                </select>
+                            </div>
+                            <label class="layui-form-label">二级分类</label>
+                            <div class="layui-input-inline">
+                                <select class="category2" lay-filter="category2">
+                                    <option value="">请选择二级分类</option>
+                                </select>
+                            </div>
+                            <button type="button" class="layui-btn layui-btn-primary add-cat2-btn">新增二级</button>
+                            <label class="layui-form-label">品牌分类</label>
+                            <div class="layui-input-inline">
+                                <select class="brand" lay-filter="brand">
+                                    <option value="">请选择品牌</option>
+                                </select>
+                            </div>
+                            <button type="button" class="layui-btn layui-btn-primary add-brand-btn">新增品牌</button>
+                        </div>
+                    </form>
+                    <div th:if="${locationMode?.mode eq 'spu-info'}" class="spu-info">
+                        <!-- 商家上传的商品SPU信息，设置上架和下架，查看详情显示更多信息，以及展示SKU库存信息-->
+                    </div>
+                    <div th:if="${locationMode?.mode eq 'sku-info'}" class="sku-info">
+                        <!-- 所有商品SKU表格，可以根据SPU名称查找-->
+                    </div>
+                </div>
+                <div th:if="${locationMode?.location eq 'order'}" class="order-m"></div>
+                <div th:if="${locationMode?.location eq 'user'}" class="user-m">
+                    <!-- 用户基本信息表格，根据用户名或id查询指定用户，删除违规头像-->
+                </div>
+                <div th:if="${locationMode?.location eq 'ad'}" class="ad-m">
+                    <!-- 首页顶部、边缘；商品页边缘；-->
+                </div>
+                <div th:if="${locationMode?.location eq 'report'}" class="report-m">
+                    <!-- 用户举报信息，建议信息-->
+                </div>
+            </div>
+            <div class="templates" style="display: none;">
+                <div class="shop-more-info-template">
+                    <div class="layui-card">
+                        <div class="layui-card-header shop-info-card-hd"></div>
+                        <div class="layui-card-body shop-info-card-bd"></div>
+                    </div>
+                </div>
 
+            </div>
         </div>
-    </div>
 
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © layui.com - 底部固定区域
+        </div>
     </div>
 </div>
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
@@ -138,13 +237,14 @@
         }
     });
 </script>
-<script>
+<script type="text/javascript" th:inline="javascript">
+    // layui绑定事件
     $(function () {
         layui.use('element', function () {
             var element = layui.element;
 
         });
-        layui.use('laypage', function(){
+        layui.use('laypage', function () {
             var laypage = layui.laypage;
 
             laypage.render({
@@ -155,17 +255,215 @@
                 jump: function (obj, first) {
                     console.log(obj);
                     if (!first) {
-                        position =  window.location.href;
+                        position = window.location.href;
                         end = position.lastIndexOf("review/");
                         if (end === -1) {
                             window.location.href = position + "/" + obj.curr;
-                        }  else {
+                        } else {
                             window.location.href = position.substring(0, end) + "review/" + obj.curr;
                         }
                     }
                 }
             });
         });
+
+        layui.use('form', function () {
+            var form = layui.form;
+        });
+    });
+
+    // JQ入口
+    $(function () {
+        /*<![CDATA[*/
+        ctxPath = /*[[@{/}]]*/ '';
+        /*]]>*/
+        // 声明类别选择以及品牌id变量
+        category1Id = 0, category2Id = 0, brandId = 0;
+        function transformTime(timestamp = +new Date()) {
+            if (timestamp) {
+                var time = new Date(timestamp);
+                var y = time.getFullYear(); //getFullYear方法以四位数字返回年份
+                var M = time.getMonth() + 1; // getMonth方法从 Date 对象返回月份 (0 ~ 11)，返回结果需要手动加一
+                var d = time.getDate(); // getDate方法从 Date 对象返回一个月中的某一天 (1 ~ 31)
+                var h = time.getHours(); // getHours方法返回 Date 对象的小时 (0 ~ 23)
+                var m = time.getMinutes(); // getMinutes方法返回 Date 对象的分钟 (0 ~ 59)
+                var s = time.getSeconds(); // getSeconds方法返回 Date 对象的秒数 (0 ~ 59)
+                return y + '-' + M + '-' + d + ' ' + h + ':' + m + ':' + s;
+            } else {
+                return '';
+            }
+        }
+
+        function renderForm() {
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render();
+            });
+        }
+
+        $(".shop-info-more-btn").bind("click", function (e) {
+            shopId = $(e.target).attr("shop-id");
+            // @{'/admin/shop/info/more/' + ${shop.id}}
+            $.ajax({
+                type: 'GET',
+                url: './info/more/' + shopId,
+                error: function (error) {
+                    layer.msg("未知错误，获取详细信息失败!", {icon: 7});
+                },
+                success: function (res) {
+                    code = res['code'];
+                    msg = res['msg'];
+                    data = res['data'];
+                    console.log(res);
+                    if (code == 240) {
+
+                        let shopCardInfoText = $(".shop-more-info-template").prop("outerHTML");
+                        let shopCardInfoElement = $(shopCardInfoText);
+                        let shopCardBody = shopCardInfoElement.find(".shop-info-card-bd");
+                        let shopCardHead = shopCardInfoElement.find(".shop-info-card-hd");
+                        shopCardHead.append(data['shopName']);
+                        shopCardBody.append("<p>商铺头像：" + "<img src='" + ctxPath + "/image/head" + data['shopImage'] + "' width='50px' height='50px' />" + "</p>");
+                        shopCardBody.append("<p>商铺商家：" + data['sellerName'] + "</p>");
+                        shopCardBody.append("<p>商铺押金：" + data['shopDeposit'] + "</p>");
+                        shopCardBody.append("<p>商铺评分：" + data['shopScore'] + "</p>");
+                        shopCardBody.append("<p>商铺收益：" + data['shopAccount'] + "</p>");
+                        shopCardBody.append("<p>商铺状态：" + data['shopStatus'] + "</p>");
+                        shopCardBody.append("<p>商铺地址：" + data['shopAddress'] + "</p>");
+                        shopCardBody.append("<p>商铺描述：" + data['shopDescription'] + "</p>");
+                        shopCardBody.append("<p>商铺创建：" + transformTime(data['gmtCreate']) + "</p>");
+                        shopCardBody.append("<p>商铺修改：" + transformTime(data['gmtModified']) + "</p>");
+                        layer.open({
+                            type: 1,
+                            skin: 'layer-ext-moon', //加上边框
+                            area: ['420px', '600px'], //宽高
+                            content: shopCardInfoElement.prop("outerHTML")
+                        });
+                    }
+                    if (code == 440) {
+                        layer.msg(msg, {icon: 7});
+                    }
+                }
+            });
+        });
+
+        // 根据一级分类添加二级分类
+        $(".add-cat2-btn").bind("click", function () {
+            if (category1Id != 0) {
+                layer.prompt({title: '请输入二级分类名称', formType: 1}, function(text, index){
+                    layer.close(index);
+                    // $.ajax({
+                    //
+                    // })
+                });
+                let category1Name;
+                for (let i = 0; i < category1List.length; i++) {
+                    if (category1Id == category1List[i]['id']) {
+                        category1Name = category1List[i]['category1Name'];
+                    }
+                }
+                $(".layui-layer-content").prepend("<p style='display: inline-block'>二级分类：</p>");
+                $(".layui-layer-content").prepend("<p style='margin-bottom: 10px'>一级分类：" + category1Name  +"</p>");
+                $(".layui-layer-input").attr("type","text");    // 将layer默认密码输入改成文本输入
+                $(".layui-layer-input").css({"display": "inline-block", "width": "150px"});
+            } else {
+                layer.msg("请先选择一级分类", function() {});
+            }
+        });
+
+        // 根据一二级分类添加旗下品牌
+        $(".add-brand-btn").bind("click", function () {
+            if (category1Id != 0 && category2Id != 0) {
+                layer.prompt({title: '请输入品牌分类名称', formType: 1}, function(text, index){
+                    layer.close(index);
+                    // $.ajax({
+                    //
+                    // })
+                });
+                let category1Name, category2Name;
+                for (let i = 0; i < category1List.length; i++) {
+                    if (category1Id == category1List[i]['id']) {
+                        category1Name = category1List[i]['category1Name'];
+                        break;
+                    }
+                }
+                for (let i = 0; i < category2List.length; i++) {
+                    if (category2Id == category2List[i]['id']) {
+                        category2Name = category2List[i]['category2Name'];
+                        break;
+                    }
+                }
+                $(".layui-layer-content").prepend("<p style='display: inline-block'>品牌分类：</p>");
+                $(".layui-layer-content").prepend("<p style='margin-bottom: 10px'>二级分类：" + category2Name  +"</p>");
+                $(".layui-layer-content").prepend("<p style='margin-bottom: 10px'>一级分类：" + category1Name  +"</p>");
+                $(".layui-layer-input").attr("type","text");    // 将layer默认密码输入改成文本输入
+                $(".layui-layer-input").css({"display": "inline-block", "width": "150px"});
+            }
+            if (category1Id == 0) {
+                layer.msg("请先选择一级分类", function() {});
+                return;
+            }
+            if (category2Id == 0) {
+                layer.msg("请先选择二级分类", function() {});
+            }
+        });
+
+        $(".category-form").show(function () {
+            goodsCategory = [[${goodsCategory}]];
+            if (goodsCategory) {
+                category1List = goodsCategory['category1List'];
+                category2List = goodsCategory['category2List'];
+                brandList = goodsCategory['brandList'];
+                brandCategoryList = goodsCategory['brandCategoryList'];
+                $(".category1").html("");
+                for (let i = 0; i < category1List.length; i++) {
+                    $(".category1").append("<option value='" + category1List[i]['id'] + "'>" + category1List[i]['category1Name'] + "</option>");
+                }
+                renderForm();
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.on('select(category1)', function (data) {
+                        category1Id = data.value;
+                        $(".category2").html("");
+                        let first = true;
+                        for (let i = 0; i < category2List.length; i++) {
+                            if (data.value == category2List[i]['category1Id']) {
+                                if (first) {
+                                    category2Id = category2List[i]['id'];
+                                    first = false;
+                                }
+                                $(".category2").append("<option value='" + category2List[i]['id'] + "'>" + category2List[i]['category2Name'] + "</option>");
+                            }
+                        }
+                        renderForm();
+                    });
+                    form.on('select(category2)', function (data) {
+                        category2Id = data.value;
+                        $(".brand").html("");
+                        let first = true;
+                        for (let i = 0; i < brandCategoryList.length; i++) {
+                            if (data.value == brandCategoryList[i]['category2Id']) {
+                                for (let j = 0; j < brandList.length; j++) {
+                                    if (brandList[j]['id'] == brandCategoryList[i]['brandId']) {
+                                        if (first) {
+                                            brandId = brandList[j]['id'];
+                                            first = false;
+                                        }
+                                        $(".brand").append("<option value='" + brandList[j]['id'] + "'>" + brandList[j]['brandName'] + "</option>");
+                                    }
+                                }
+                            }
+                        }
+                        renderForm();
+                    });
+                    form.on('select(brand)', function (data) {
+                       brandId = data.value;
+                    });
+                });
+
+            }
+        });
+
+
     });
 
 </script>

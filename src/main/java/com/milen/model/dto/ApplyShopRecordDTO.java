@@ -1,4 +1,4 @@
-package com.milen.pojo.dto;
+package com.milen.model.dto;
 
 
 import java.util.Date;

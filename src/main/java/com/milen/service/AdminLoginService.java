@@ -1,6 +1,6 @@
 package com.milen.service;
 
-import com.milen.pojo.po.Admin;
+import com.milen.model.po.Admin;
 
 public interface AdminLoginService {
 

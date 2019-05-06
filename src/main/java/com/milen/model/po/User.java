@@ -1,4 +1,4 @@
-package com.milen.pojo.po;
+package com.milen.model.po;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

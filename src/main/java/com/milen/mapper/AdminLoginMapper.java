@@ -1,6 +1,6 @@
 package com.milen.mapper;
 
-import com.milen.pojo.po.Admin;
+import com.milen.model.po.Admin;
 import org.apache.ibatis.annotations.Param;
 
 public interface AdminLoginMapper {

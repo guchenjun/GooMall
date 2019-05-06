@@ -1,6 +1,6 @@
 package com.milen.service;
 
-public class SellerService {
+public interface SellerService {
 
-
+    String getSellerNameById(Long userId);
 }

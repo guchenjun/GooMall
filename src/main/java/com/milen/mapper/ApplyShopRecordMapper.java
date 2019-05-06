@@ -1,6 +1,6 @@
 package com.milen.mapper;
 
-import com.milen.pojo.po.ApplyShopRecord;
+import com.milen.model.po.ApplyShopRecord;
 
 public interface ApplyShopRecordMapper {
 

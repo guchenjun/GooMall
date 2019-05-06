@@ -41,4 +41,13 @@ public class ResultConstant {
     public static final int APPLY_SHOP_FAILURE = 431;
     public static final String APPLY_SHOP_FAILURE_MSG = "店铺申请失败, 请稍后再试!";
 
+
+    /**
+     *  后台商铺信息常量
+     */
+    public static final int MORE_SHOP_INFO_SUCCESS = 240;
+
+    public static final int MORE_SHOP_INFO_FAILURE = 440;
+    public static final String MORE_SHOP_INFO_FAILURE_MSG = "店铺信息获取失败，请稍后再试!";
+
 }

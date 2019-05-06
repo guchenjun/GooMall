@@ -1,4 +1,4 @@
-package com.milen.pojo.vo;
+package com.milen.model.vo;
 
 
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class R extends HashMap<String, Object>{
         return r;
     }
 
-    public static R error(int code, String msg, String data) {
+    public static R error(int code, String msg, Object data) {
         R r = new R();
         r.put("code", code);
         r.put("msg", msg);
@@ -27,7 +27,7 @@ public class R extends HashMap<String, Object>{
         return r;
     }
 
-    public static R ok(int code, String msg, String data) {
+    public static R ok(int code, String msg, Object data) {
         R r = new R();
         r.put("code", code);
         r.put("msg", msg);

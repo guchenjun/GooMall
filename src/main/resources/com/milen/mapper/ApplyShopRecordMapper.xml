@@ -3,7 +3,7 @@
 <mapper namespace="com.milen.mapper.ApplyShopRecordMapper">
 
 
-    <insert id="saveApplyShopRecord" useGeneratedKeys="true" keyProperty="id" parameterType="com.milen.pojo.po.ApplyShopRecord">
+    <insert id="saveApplyShopRecord" useGeneratedKeys="true" keyProperty="id" parameterType="com.milen.model.po.ApplyShopRecord">
         INSERT INTO gm_apply_shop_record
         (shop_id, user_id, admin_id, review_status, gmt_create, gmt_modified)
         VALUES

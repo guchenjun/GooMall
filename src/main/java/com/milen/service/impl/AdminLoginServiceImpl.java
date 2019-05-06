@@ -1,7 +1,7 @@
 package com.milen.service.impl;
 
 import com.milen.mapper.AdminLoginMapper;
-import com.milen.pojo.po.Admin;
+import com.milen.model.po.Admin;
 import com.milen.service.AdminLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

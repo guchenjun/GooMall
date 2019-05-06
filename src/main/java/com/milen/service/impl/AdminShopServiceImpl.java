@@ -2,8 +2,10 @@ package com.milen.service.impl;
 
 import com.milen.mapper.AdminMapper;
 import com.milen.mapper.AdminShopMapper;
-import com.milen.pojo.dto.ApplyShopRecordDTO;
-import com.milen.pojo.vo.ApplyShopRecordVO;
+import com.milen.model.dto.ApplyShopRecordDTO;
+import com.milen.model.po.Shop;
+import com.milen.model.vo.ApplyShopRecordVO;
+import com.milen.model.vo.ShopVO;
 import com.milen.service.AdminShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +48,41 @@ public class AdminShopServiceImpl implements AdminShopService {
         Date gmtModified = new Date();
         int row = adminShopMapper.updateAgreeShopRecord(recordId, adminId, gmtModified);
         return row > 0;
+    }
+
+    @Override
+    public List<ShopVO> listShopInfo() {
+        List<Shop> shops = adminShopMapper.listShopInfo();
+        List<ShopVO> shopListVO = new ArrayList<>();
+        for (Shop shop : shops) {
+            String shopStatus = "正常经营";
+            Date nowDate = new Date();
+            if (!shop.getShopStatus()) {
+                shopStatus = "暂停经营";
+            }
+            Long openSeconds = nowDate.getTime() - shop.getGmtCreate().getTime();
+            Date openTime = new Date(openSeconds);
+            ShopVO shopVO = new ShopVO(shop, shopStatus, openTime);
+            shopListVO.add(shopVO);
+        }
+        return shopListVO;
+    }
+
+    @Override
+    public Shop getShopById(int shopId) {
+        Shop shop = null;
+//        String shopStatus = null;
+        try {
+            shop = adminShopMapper.getShopById(shopId);
+//            shopStatus = "正常经营";
+//            if (!shop.getShopStatus()) {
+//                shopStatus = "暂停经营";
+//            }
+
+            return shop;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.milen.pojo.vo;
+package com.milen.model.vo;
 
 public class LocationModeVO {
 
@@ -7,6 +7,10 @@ public class LocationModeVO {
     private String mode;
 
     public LocationModeVO() {
+    }
+
+    public LocationModeVO(String location) {
+        this.location = location;
     }
 
     public LocationModeVO(String location, String mode) {

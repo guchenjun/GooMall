@@ -11,7 +11,7 @@
         SELECT password FROM gm_admin WHERE username = #{username}
     </select>
 
-    <select id="getAdminByUsername" resultType="com.milen.pojo.po.Admin">
+    <select id="getAdminByUsername" resultType="com.milen.model.po.Admin">
         SELECT id, username, real_name, password, e_mail, phone_number, privilege, gmt_create, gmt_modified
         FROM gm_admin WHERE username = #{username}
     </select>

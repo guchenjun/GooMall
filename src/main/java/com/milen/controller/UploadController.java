@@ -2,7 +2,7 @@ package com.milen.controller;
 
 
 import com.milen.constant.ResultConstant;
-import com.milen.pojo.vo.R;
+import com.milen.model.vo.R;
 import com.milen.util.UploadUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

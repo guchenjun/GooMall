@@ -1,6 +1,6 @@
 package com.milen.service;
 
-import com.milen.pojo.po.Shop;
+import com.milen.model.po.Shop;
 
 public interface ShopService {
 

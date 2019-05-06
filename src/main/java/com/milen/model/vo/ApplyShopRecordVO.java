@@ -1,8 +1,6 @@
-package com.milen.pojo.vo;
+package com.milen.model.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.milen.pojo.dto.ApplyShopRecordDTO;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.milen.model.dto.ApplyShopRecordDTO;
 
 import java.util.Date;
 

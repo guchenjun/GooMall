@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.milen.mapper.ShopMapper">
 
-    <insert id="saveShop" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.milen.pojo.po.Shop">
+    <insert id="saveShop" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.milen.model.po.Shop">
         INSERT INTO gm_shop
         (user_id, shop_image, shop_name, shop_address, shop_description, shop_score,
         shop_deposit, shop_account, shop_status, gmt_create, gmt_modified)

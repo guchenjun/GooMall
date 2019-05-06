@@ -8,10 +8,23 @@
     </update>
 
 
-    <select id="listApplyShopRecord" resultType="com.milen.pojo.dto.ApplyShopRecordDTO">
+    <select id="listApplyShopRecord" resultType="com.milen.model.dto.ApplyShopRecordDTO">
         SELECT  a.id, u.real_name, u.credit, s.shop_name, s.shop_description, a.gmt_create, a.gmt_modified, a.admin_id, a.review_status
         FROM gm_apply_shop_record a, gm_shop s, gm_user u
         WHERE
         a.shop_id = s.id AND a.user_id = u.id
+    </select>
+
+    <select id="listShopInfo" resultType="com.milen.model.po.Shop">
+        SELECT id, user_id, shop_image, shop_name, shop_address, shop_description, shop_score,
+        shop_deposit, shop_account, shop_status, gmt_create, gmt_modified
+        FROM gm_shop
+    </select>
+
+    <select id="getShopById" resultType="com.milen.model.po.Shop">
+        SELECT id, user_id, shop_image, shop_name, shop_address, shop_description, shop_score,
+        shop_deposit, shop_account, shop_status, gmt_create, gmt_modified
+        FROM gm_shop
+        WHERE id = #{shopId}
     </select>
 </mapper>

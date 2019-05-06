@@ -24,7 +24,11 @@
 }
 
 .admin-nav-tree .layui-nav-item a:hover {
-    background-color: #00CCFF !important;
+    background-color: #26cc9e94 !important;
+}
+
+.admin-nav-on {
+    background-color: #26cc9e94;
 }
 
 .admin-nav-tree .layui-nav-child {
@@ -39,4 +43,23 @@
 .record-agreed {
     background-color: transparent;
     color: #666;
+}
+
+.layui-table, .layui-table th {
+    text-align: center;
+}
+
+.shop-info-card-bd > p{
+    padding: 10px 0px;
+    font-size: 15px;
+}
+
+.shop-info-card-hd {
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.add-cat2-btn, .add-brand-btn {
+    float: left;
 }

@@ -1,6 +1,6 @@
 package com.milen.mapper;
 
-import com.milen.pojo.po.User;
+import com.milen.model.po.User;
 
 public interface UserMapper {
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milen.mapper.GoodsMapper">
+
+    <select id="listCategory1" resultType="com.milen.model.po.Category1">
+        SELECT id, category1_name FROM gm_category1
+    </select>
+
+    <select id="listCategory2" resultType="com.milen.model.po.Category2">
+        SELECT id, category2_name, category1_id FROM gm_category2
+    </select>
+
+    <select id="listBrandAndCategory2" resultType="com.milen.model.po.BrandCategory">
+        SELECT id, brand_id, category2_id FROM gm_brand_category
+    </select>
+
+    <select id="listBrand" resultType="com.milen.model.po.Brand">
+        SELECT id, brand_name FROM gm_brand
+    </select>
+
+
+</mapper>

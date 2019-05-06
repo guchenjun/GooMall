@@ -1,9 +1,9 @@
 package com.milen.controller;
 
 
-import com.milen.pojo.po.User;
+import com.milen.model.po.User;
 import com.milen.service.UserService;
-import com.milen.pojo.vo.R;
+import com.milen.model.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;

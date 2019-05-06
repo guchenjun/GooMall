@@ -2,7 +2,7 @@ package com.milen.service.impl;
 
 
 import com.milen.mapper.ShopMapper;
-import com.milen.pojo.po.Shop;
+import com.milen.model.po.Shop;
 import com.milen.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

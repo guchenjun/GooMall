@@ -1,9 +1,9 @@
 package com.milen.controller;
 
 import com.milen.constant.ResultConstant;
-import com.milen.pojo.po.Shop;
-import com.milen.pojo.po.User;
-import com.milen.pojo.vo.R;
+import com.milen.model.po.Shop;
+import com.milen.model.po.User;
+import com.milen.model.vo.R;
 import com.milen.service.ApplyShopRecordService;
 import com.milen.service.ShopService;
 import com.milen.service.UserService;
@@ -41,7 +41,6 @@ public class SellerController {
     @Transactional
     public R applyShop(@RequestBody Shop shop, HttpSession session) {
         User currentUser = (User) session.getAttribute("loginUser");
-///        userService.updateUserRoleById(loginUser.getId()); // 后台管理审核通过才更改角色
         Long userId = currentUser.getId();
         shop.setUserId(userId);
         try {

@@ -1,7 +1,7 @@
 package com.milen.service.impl;
 
 import com.milen.mapper.ApplyShopRecordMapper;
-import com.milen.pojo.po.ApplyShopRecord;
+import com.milen.model.po.ApplyShopRecord;
 import com.milen.service.ApplyShopRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

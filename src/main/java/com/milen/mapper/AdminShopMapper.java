@@ -1,6 +1,8 @@
 package com.milen.mapper;
 
-import com.milen.pojo.dto.ApplyShopRecordDTO;
+import com.milen.model.dto.ApplyShopRecordDTO;
+import com.milen.model.po.Shop;
+import com.milen.model.vo.ShopVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -11,4 +13,8 @@ public interface AdminShopMapper {
     List<ApplyShopRecordDTO> listApplyShopRecord();
 
     int updateAgreeShopRecord(@Param("recordId") int recordId, @Param("adminId") int adminId, @Param("gmtModified") Date gmtModified);
+
+    List<Shop> listShopInfo();
+
+    Shop getShopById(@Param("shopId") int shopId);
 }
