@@ -40,9 +40,9 @@
                 <a href="">卖家中心</a>
                 <dl class="layui-nav-child">
                     <dd><a th:href="@{/seller/open-shop}">免费开店</a></dd>
-                    <dd><a href="">发布商品</a></dd>
-                    <dd><a href="">管理发布商品</a></dd>
-                    <dd><a href="">商品成交订单</a></dd>
+                    <dd><a th:href="@{/seller/release}" th:if="${session.loginUser?.role eq 1}">发布商品</a></dd>
+                    <dd><a th:href="@{/seller/goods}" th:if="${session.loginUser?.role eq 1}">管理发布商品</a></dd>
+                    <dd><a th:href="@{/seller/order}" th:if="${session.loginUser?.role eq 1}">商品订单管理</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item site-nav-pipe f-right">|</li>
@@ -419,9 +419,9 @@
 <script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
 <script type="text/javascript" th:inline="javascript">
     $(function() {
-        let loginTip = [[${loginTip}]];
-        if (loginTip != null) {
-            layer.msg(loginTip, {icon: 7});
+        let msg = [[${msg}]];
+        if (msg != null) {
+            layer.msg(msg, {icon: 7});
         }
     });
 </script>

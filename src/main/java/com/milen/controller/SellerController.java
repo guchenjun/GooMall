@@ -3,14 +3,17 @@ package com.milen.controller;
 import com.milen.constant.ResultConstant;
 import com.milen.model.po.Shop;
 import com.milen.model.po.User;
+import com.milen.model.vo.GoodsCategoryVO;
 import com.milen.model.vo.R;
 import com.milen.service.ApplyShopRecordService;
+import com.milen.service.GoodsService;
 import com.milen.service.ShopService;
 import com.milen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +30,9 @@ public class SellerController {
 
     @Autowired
     ShopService shopService;
+
+    @Autowired
+    GoodsService goodsService;
 
     @Autowired
     ApplyShopRecordService applyShopRecordService;
@@ -63,5 +69,26 @@ public class SellerController {
         }
         return R.error(ResultConstant.APPLY_SHOP_FAILURE, ResultConstant.APPLY_SHOP_FAILURE_MSG);
     }
+
+    @RequestMapping(value = "/release", method = RequestMethod.GET)
+    public String release(Model model) {
+        GoodsCategoryVO goodsCategoryVO = goodsService.listCategoryAndBrand();
+        model.addAttribute("goodsCategory", goodsCategoryVO);
+        return "seller-space";
+    }
+
+    @RequestMapping(value = "/manage", method = RequestMethod.GET)
+    public String goods() {
+
+        return "seller-space";
+    }
+
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    public String order() {
+
+        return "seller-space";
+    }
+
+
 }
 

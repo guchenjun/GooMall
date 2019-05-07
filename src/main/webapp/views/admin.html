@@ -160,15 +160,12 @@
                 <div th:if="${locationMode?.mode eq 'spu-category'}" class="spu-category">
                     <!-- 商品一级分类查看，二级分类、品牌的添加-->
                     分类页面
-                    <form class="layui-form category-form" action="">
+                    <form class="layui-form category-form" action="" lay-filter="category-form">
                         <div class="layui-form-item">
                             <label class="layui-form-label">一级分类</label>
                             <div class="layui-input-inline">
                                 <select class="category1" lay-filter="category1">
                                     <option value="">请选择一级分类</option>
-                                    <option value="浙江" selected="">浙江省</option>
-                                    <option value="你的工号">江西省</option>
-                                    <option value="你最喜欢的老师">福建省</option>
                                 </select>
                             </div>
                             <label class="layui-form-label">二级分类</label>
@@ -185,6 +182,13 @@
                                 </select>
                             </div>
                             <button type="button" class="layui-btn layui-btn-primary add-brand-btn">新增品牌</button>
+                        </div>
+                        <div class="layui-form-item" pane="">
+                            <label class="layui-form-label">二级分类属性：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked>
+                                <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
+                            </div>
                         </div>
                     </form>
                     <div th:if="${locationMode?.mode eq 'spu-info'}" class="spu-info">
@@ -269,6 +273,9 @@
 
         layui.use('form', function () {
             var form = layui.form;
+            form.on('checkbox', function (obj) {
+               console.log(obj);
+            });
         });
     });
 
@@ -301,6 +308,24 @@
             });
         }
 
+        function showAttributes() {
+            $.ajax({
+                type: 'GET',
+                url: ctxPath + '/admin/goods/attribute/' + category2Id,
+                error: function (error) {
+                    layer.msg("未知错误，获取二级分类对应属性失败!", {icon: 7});
+                },
+                success: function (res) {
+                    console.log(res);
+                    for (let i = 0; i < res.length; i++) {
+                        // 把二级分类对应属性显示出来
+                        let attr = '<input type="checkbox" name="like1[read]" lay-skin="primary" title="'+ res[i]['name'] + '">';
+                        // 上面要加gm_attr表的id字段，2019年5月7日 23:49:26记录
+                    }
+                }
+            })
+        }
+
         $(".shop-info-more-btn").bind("click", function (e) {
             shopId = $(e.target).attr("shop-id");
             // @{'/admin/shop/info/more/' + ${shop.id}}
@@ -316,7 +341,6 @@
                     data = res['data'];
                     console.log(res);
                     if (code == 240) {
-
                         let shopCardInfoText = $(".shop-more-info-template").prop("outerHTML");
                         let shopCardInfoElement = $(shopCardInfoText);
                         let shopCardBody = shopCardInfoElement.find(".shop-info-card-bd");
@@ -454,6 +478,7 @@
                             }
                         }
                         renderForm();
+                        showAttributes();
                     });
                     form.on('select(brand)', function (data) {
                        brandId = data.value;

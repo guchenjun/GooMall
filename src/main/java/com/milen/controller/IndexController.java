@@ -18,10 +18,10 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(HttpSession session, Model model) {
-        Object loginTip = session.getAttribute("loginTip");
-        if (loginTip != null && (Boolean) loginTip == true) {
-            model.addAttribute("loginTip", "请先登录!");
-            session.removeAttribute("loginTip");
+        String msg = (String) session.getAttribute("msg");
+        if (msg != null) {
+            model.addAttribute("msg", msg);
+            session.removeAttribute("msg");
         }
         return "index";
     }

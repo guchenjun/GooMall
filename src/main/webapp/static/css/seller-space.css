@@ -1,0 +1,46 @@
+/*头部标题*/
+.header {
+    background-image: linear-gradient(90deg,#4574f1 0,#00abf3);
+}
+
+.indexroot {
+    width: 1190px;
+    margin: 0 auto;
+    height: 60px;
+    line-height: 60px;
+}
+
+.indexroot span {
+    font-size: 18px;
+    color: #FFF;
+}
+
+/*主体部分*/
+.main-container {
+    width: 1190px;
+    margin: 20px auto;
+}
+
+.left-seller-menu {
+    float: left;
+    width: 130px;
+}
+
+.main-seller-bd {
+    float: left;
+    width: 1060px;
+}
+
+.left-seller-menu > div {
+    margin-bottom: 10px;
+}
+
+.main-container::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.menu-on {
+    color: #F40;
+}
