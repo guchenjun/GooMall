@@ -63,3 +63,49 @@
 .add-cat2-btn, .add-brand-btn {
     float: left;
 }
+
+.cat2-attribute-value-wrapper {
+    display: flex;
+    float: left;
+}
+
+.av-item-wrapper {
+    border-right: 1px solid #ddd;
+    font-size: 15px;
+    padding: 0px 30px;
+}
+
+.av-item-wrapper:last-child {
+    border-right: none;
+}
+
+.av-item-wrapper > label {
+    font-size: 18px;
+}
+
+.av-item-value {
+    margin: 10px auto;
+}
+
+.av-item-value input {
+    padding-left: 10px;
+    border-color: #e6e6e6;
+    height: 38px;
+    line-height: 1.3;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.av-item .layui-btn {
+    width: 100%;
+}
+
+.av-item-wrapper > label {
+    padding-top: 10px;
+}
+
+.av-item-value > label {
+    margin-right: 8px;
+}

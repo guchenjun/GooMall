@@ -1,14 +1,13 @@
 package com.milen.controller.admin;
 
 import com.milen.model.vo.GoodsCategoryVO;
+import com.milen.model.vo.R;
 import com.milen.service.AttributeService;
 import com.milen.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -33,9 +32,21 @@ public class AdminGoodsController {
     @RequestMapping("/attribute/{id}")
     @ResponseBody
     public List<Map<String, Object>> attribute(@PathVariable("id") Long id) {
-        List<Map<String, Object>> mapList = attributeService.getAttributeIdsByCategory2(id);
+        List<Map<String, Object>> mapList = attributeService.getAttributesListByCategory2(id);
         System.out.println(mapList);
         return mapList;
+    }
+
+    @RequestMapping(value = "/attribute/add", method = RequestMethod.POST)
+    @ResponseBody
+    public R addAttribute(@RequestParam("attrId") Long attrId, @RequestParam("attrValue") String attrValue) {
+        String attrName = attributeService.getAttrNameByAttrId(attrId);
+        boolean isSaved = attributeService.saveAttrValueAndAttrNameByAttrId(attrName, attrValue, attrId);
+        if (isSaved) {
+            return R.ok(200, "添加属性成功!");
+        } else {
+            return R.error(400, "添加属性失败!");
+        }
     }
 
     @RequestMapping("/spu")

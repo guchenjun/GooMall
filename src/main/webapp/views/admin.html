@@ -184,10 +184,16 @@
                             <button type="button" class="layui-btn layui-btn-primary add-brand-btn">新增品牌</button>
                         </div>
                         <div class="layui-form-item" pane="">
-                            <label class="layui-form-label">二级分类属性：</label>
-                            <div class="layui-input-block">
-                                <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked>
-                                <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
+                            <label class="layui-form-label">二级分类属性名：</label>
+                            <div class="layui-input-block cat2-attribute-wrapper">
+<!--                                <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked>-->
+<!--                                <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">-->
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane="">
+                            <label class="layui-form-label">二级分类属性值：</label>
+                            <div class="cat2-attribute-value-wrapper">
+
                             </div>
                         </div>
                     </form>
@@ -216,7 +222,11 @@
                         <div class="layui-card-body shop-info-card-bd"></div>
                     </div>
                 </div>
-
+                <div class="av-item-wrapper">
+                    <label>item1</label>
+                    <div class="av-item">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -242,6 +252,40 @@
     });
 </script>
 <script type="text/javascript" th:inline="javascript">
+    function addMoreAttr(e) {
+        console.log(e);
+        let attrId = $(e).parent().parent().children("label").attr("attr-id");
+        layer.prompt({title: '请输入属性值', formType: 1}, function(text, index){
+            layer.close(index);
+            $.ajax({
+                type: 'POST',
+                url: ctxPath + 'admin/goods/attribute/add',
+                data: {
+                  'attrId': attrId,
+                  'attrValue': text
+                },
+                error: function (error) {
+                    layer.msg("未知错误，添加属性!", {icon: 7});
+                },
+                success: function (res) {
+                    let code = res['code'];
+                    let msg = res['msg'];
+                    if (code == 200) {
+                        layer.msg(msg, {icon: 1});
+                        return;
+                    }
+                    if (code == 400) {
+                        layer.msg(msg, {icon: 7});
+                    }
+                }
+            })
+        });
+        let attrName = $(e).parent().parent().children("label").text();
+        $(".layui-layer-content").prepend("<p style='display: inline-block'>属性值：</p>");
+        $(".layui-layer-content").prepend("<p style='margin-bottom: 10px'>属性名：" + attrName +"</p>");
+        $(".layui-layer-input").attr("type","text");    // 将layer默认密码输入改成文本输入
+        $(".layui-layer-input").css({"display": "inline-block", "width": "150px"});
+    }
     // layui绑定事件
     $(function () {
         layui.use('element', function () {
@@ -274,9 +318,34 @@
         layui.use('form', function () {
             var form = layui.form;
             form.on('checkbox', function (obj) {
+                let checkItem = $(".av-item-wrapper>label:contains("+obj.othis.text()+")");
+                if (obj.elem.checked == false && checkItem != null) {
+                    checkItem.parent().remove();
+                    return;
+                }
+                for (let i = 0; i < cat2Attribute.length; i++) {
+                    if (cat2Attribute[i]['name'] == obj.othis.text()) {
+                        // 获取属性结点
+                        let avItemWrapperText = $(".templates .av-item-wrapper").prop("outerHTML");
+                        let avItemWrapper = $(avItemWrapperText);
+                        let label = avItemWrapper.children("label");
+                        let avItem = avItemWrapper.children(".av-item");
+                        // 设置属性值
+                        label.attr("attr-id",cat2Attribute[i]["attrId"]);
+                        label.text(cat2Attribute[i]['name']);
+                        for (let j = 0; j < cat2Attribute[i]['values'].length; j++) {
+                            avItem.append('<div class="av-item-value"><label>值'+(j+1)+'</label><input type="text" value="'+cat2Attribute[i]["values"][j]+'"/></div>');
+                        }
+                        avItem.append('<button type="button" class="layui-btn layui-btn-primary" onclick="addMoreAttr(this);">添加属性值</button>');
+                        $(".cat2-attribute-value-wrapper").append(avItemWrapper);
+                    }
+                }
                console.log(obj);
             });
         });
+
+
+
     });
 
     // JQ入口
@@ -286,6 +355,8 @@
         /*]]>*/
         // 声明类别选择以及品牌id变量
         category1Id = 0, category2Id = 0, brandId = 0;
+        // 商品管理=》商品分类=》二级分类属性，全局变量
+        cat2Attribute = null;
         function transformTime(timestamp = +new Date()) {
             if (timestamp) {
                 var time = new Date(timestamp);
@@ -308,6 +379,8 @@
             });
         }
 
+
+
         function showAttributes() {
             $.ajax({
                 type: 'GET',
@@ -317,11 +390,15 @@
                 },
                 success: function (res) {
                     console.log(res);
+                    cat2Attribute = res;
+                    $(".cat2-attribute-wrapper").html("");
                     for (let i = 0; i < res.length; i++) {
                         // 把二级分类对应属性显示出来
                         let attr = '<input type="checkbox" name="like1[read]" lay-skin="primary" title="'+ res[i]['name'] + '">';
                         // 上面要加gm_attr表的id字段，2019年5月7日 23:49:26记录
+                        $(".cat2-attribute-wrapper").append(attr);
                     }
+                    renderForm();
                 }
             })
         }

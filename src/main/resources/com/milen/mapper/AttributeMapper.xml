@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.milen.mapper.AttributeMapper">
+    <insert id="insertAttrValueAndAttrNameByAttrId">
+        INSERT INTO gm_attr_value
+        (attr_id, attr_name, attr_value, gmt_create, gmt_modified)
+        VALUES
+        (#{attrId}, #{attrName}, #{attrValue}, #{gmtModified}, #{gmtModified})
+    </insert>
 
     <select id="getAttributeIdsByCategory2" resultType="java.lang.Long">
         SELECT id FROM gm_attr WHERE category2_id = #{id}
     </select>
 
     <select id="getAttributeNameAndValueByIds" resultType="com.milen.model.po.AttributeValue">
-        SELECT attr_name, attr_value FROM gm_attr_value
+        SELECT attr_id, attr_name, attr_value FROM gm_attr_value
         WHERE attr_id IN
         <foreach collection="idList" item="id" separator="," close=")" open="(">
             #{id}
         </foreach>
+    </select>
+
+    <select id="getAttrNameByAttrId" resultType="java.lang.String">
+        SELECT attr_name FROM gm_attr_value
+        WHERE attr_id = #{attrId}
+        LIMIT 1,1
     </select>
 </mapper>

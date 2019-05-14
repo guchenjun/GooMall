@@ -50,4 +50,9 @@ public class ResultConstant {
     public static final int MORE_SHOP_INFO_FAILURE = 440;
     public static final String MORE_SHOP_INFO_FAILURE_MSG = "店铺信息获取失败，请稍后再试!";
 
+    /**
+     *  添加商品属性
+     */
+
+
 }

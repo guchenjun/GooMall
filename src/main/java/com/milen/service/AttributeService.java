@@ -5,5 +5,9 @@ import java.util.Map;
 
 public interface AttributeService {
 
-    List<Map<String, Object>> getAttributeIdsByCategory2(Long id);
+    List<Map<String, Object>> getAttributesListByCategory2(Long id);
+
+    String getAttrNameByAttrId(Long attrId);
+
+    boolean saveAttrValueAndAttrNameByAttrId(String attrName, String attrValue, Long attrId);
 }
