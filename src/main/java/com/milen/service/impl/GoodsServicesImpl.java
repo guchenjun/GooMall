@@ -7,6 +7,7 @@ import com.milen.model.po.Category1;
 import com.milen.model.po.Category2;
 import com.milen.model.vo.BrandCategoryVO;
 import com.milen.model.vo.GoodsCategoryVO;
+import com.milen.model.vo.ReleaseGoodsVO;
 import com.milen.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,11 @@ public class GoodsServicesImpl implements GoodsService {
         List<BrandCategory> brandCategoryList = goodsMapper.listBrandAndCategory2();
         GoodsCategoryVO goodsCategoryVO = new GoodsCategoryVO(category1List, category2List, brandList, brandCategoryList);
         return goodsCategoryVO;
+    }
+
+    @Override
+    public boolean saveSPU(ReleaseGoodsVO releaseGoodsVO) {
+        int row = goodsMapper.insertSPU(releaseGoodsVO);
+        return row > 0;
     }
 }

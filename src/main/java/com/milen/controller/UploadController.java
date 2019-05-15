@@ -21,4 +21,12 @@ public class UploadController {
         }
         return R.error(ResultConstant.UPLOAD_ERROR, ResultConstant.UPLOAD_ERROR_MSG, "");
     }
+    @RequestMapping(value = "/goods", method = RequestMethod.POST)
+    public R uploadCover(MultipartFile file) {
+        String imagePath = UploadUtil.uploadCover(file);
+        if (imagePath != null && !"".equals(imagePath)) {
+            return R.ok(ResultConstant.UPLOAD_SUCCESS, ResultConstant.UPLOAD_SUCCESS_MSG, imagePath);
+        }
+        return R.error(ResultConstant.UPLOAD_ERROR, ResultConstant.UPLOAD_ERROR_MSG, "");
+    }
 }

@@ -7,4 +7,6 @@ public interface ShopMapper {
     Long saveShop(Shop shop);
 
     int getShopCountByUserId(@Param("userId") Long userId);
+
+    Long getShopIdByUserId(@Param("userId") Long id);
 }

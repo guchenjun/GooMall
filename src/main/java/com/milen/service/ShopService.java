@@ -7,4 +7,6 @@ public interface ShopService {
     Long saveShop(Shop shop);
 
     boolean getShopByUserId(Long userId);
+
+    Long getShopIdByUserId(Long id);
 }

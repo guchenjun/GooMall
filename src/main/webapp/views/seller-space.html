@@ -12,7 +12,8 @@
     <div class="gm-cover">
         <ul class="layui-nav" style="padding: 0">
             <li class="layui-nav-item"><a th:href="@{/}" style="padding: 0">首页</a></li>
-            <li class="layui-nav-item" style="margin: 0px 10px 0px 20px;"><a th:href="@{/}" style="padding: 0;">gcj顾晨俊</a></li>
+            <li class="layui-nav-item" style="margin: 0px 10px 0px 20px;"><a th:href="@{/}"
+                                                                             style="padding: 0;">gcj顾晨俊</a></li>
             <li class="layui-nav-item"><a th:href="@{/logout}" style="padding: 0">退出</a></li>
             <li class="layui-nav-item f-right"><a href="#">收藏夹</a></li>
             <li class="layui-nav-item layui-this f-right">
@@ -77,13 +78,16 @@
 <div class="main">
     <div class="main-container">
         <div class="left-seller-menu">
-            <div><a th:href="@{/seller/release}" th:classappend="${locationMode?.location eq 'release'} ? 'menu-on'">发布商品</a></div>
-            <div><a th:href="@{/seller/manage}" th:classappend="${locationMode?.location eq 'manage'} ? 'menu-on'">管理发布商品</a></div>
-            <div><a th:href="@{/seller/order}" th:classappend="${locationMode?.location eq 'order'} ? 'menu-on'">商品订单管理</a></div>
+            <div><a th:href="@{/seller/release}" th:classappend="${locationMode?.location eq 'release'} ? 'menu-on'">发布商品</a>
+            </div>
+            <div><a th:href="@{/seller/manage}" th:classappend="${locationMode?.location eq 'manage'} ? 'menu-on'">管理发布商品</a>
+            </div>
+            <div><a th:href="@{/seller/order}"
+                    th:classappend="${locationMode?.location eq 'order'} ? 'menu-on'">商品订单管理</a></div>
         </div>
         <div class="main-seller-bd">
             <div class="main-release-bd" th:if="${locationMode?.location eq 'release'}">
-<!--                发布商品主体-->
+                <!--                发布商品主体-->
                 <div class="release-goods-wrapper">
                     <!-- 商品一级分类查看，二级分类、品牌的添加-->
                     <form class="layui-form category-form">
@@ -110,42 +114,36 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">商品名称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="shopName" required="" lay-verify="shopName" placeholder="如：Huawei/华为 P30全面屏超感光徕卡三摄变焦双景录像980芯片智能手机p30" class="layui-input">
+                                <input type="text" name="spuName" required lay-verify="spuName"
+                                       placeholder="如：Huawei/华为 P30全面屏超感光徕卡三摄变焦双景录像980芯片智能手机p30" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">商品封面</label>
                             <div class="layui-input-inline">
-                                <input class="shopImage" type="hidden" name="shopImage" value="default">
-                                <img class="shop-head" src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg" width="50" height="50">
-                                <button type="button" class="layui-btn" id="uploadBtn">
+                                <input class="shopImage" type="hidden" name="shopImage" lay-verify="shopImage" required>
+                                <img class="cover-img"
+                                     src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg"
+                                     width="50" height="50">
+                                <button type="button" class="layui-btn" id="uploadCoverBtn">
                                     <i class="layui-icon"></i>上传图片
-                                </button><input class="layui-upload-file" type="file" accept="undefined" name="file">
+                                </button>
+                                <input class="layui-upload-file" type="file" accept="undefined">
                             </div>
                         </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">商品图片展示</label>
-                            <div class="layui-input-inline">
-                                <input class="shopImage" type="hidden" name="shopImage" value="default">
-                                <img class="shop-head" src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg" width="50" height="50">
-                                <button type="button" class="layui-btn" id="uploadBtn">
-                                    <i class="layui-icon"></i>上传图片
-                                </button><input class="layui-upload-file" type="file" accept="undefined" name="file">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">产品概述</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="请输入内容" class="layui-textarea" name="description"></textarea>
                             </div>
                         </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">产品概览</label>
-                            <div class="layui-input-inline">
-                                <input class="shopImage" type="hidden" name="shopImage" value="default">
-                                <img class="shop-head" src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg" width="50" height="50">
-                                <button type="button" class="layui-btn" id="uploadBtn">
-                                    <i class="layui-icon"></i>上传图片
-                                </button><input class="layui-upload-file" type="file" accept="undefined" name="file">
-                            </div>
+                        <div style="width: 216px; margin: 0 auto;">
+                            <button type="button" class="layui-btn layui-btn-fluid release-goods-btn" lay-submit
+                                    lay-filter="release-goods-btn">发布商品
+                            </button>
                         </div>
-
                     </form>
-<!--                    <button type="button" class="layui-btn layui-btn-primary"> </button>-->
+                    <!--                    <button type="button" class="layui-btn layui-btn-primary"> </button>-->
 
                 </div>
             </div>
@@ -165,6 +163,87 @@
     $(function () {
         // 声明类别选择以及品牌id变量
         category1Id = 0, category2Id = 0, brandId = 0;
+
+        layui.use('upload', function () {
+            var upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '#uploadCoverBtn'
+                , url: '../upload/goods'
+                , done: function (res) {
+                    imageName = res['data'];
+                    $(".shopImage").val(imageName);
+                    $(".cover-img").attr("src", "../image/goods/" + imageName);
+                }
+                , error: function (err) {
+                    layer.msg("封面上传失败!", {icon: 7});
+                }
+            });
+        });
+
+        layui.use("form", function () {
+            let form = layui.form;
+            form.verify({
+                spuName: function (value) {
+                    if (value.length < 3) {
+                        return "商品名称不得小于3个字符";
+                    }
+                },
+                shopImage: function (value) {
+                    if (value.length <= 0) {
+                        return "请先上传商品封面";
+                    }
+                }
+            });
+
+            form.on("submit(release-goods-btn)", function (data) {
+                if (category1Id == 0) {
+                    layer.msg("请选择一级分类",);
+                    return;
+                }
+                if (category2Id == 0) {
+                    layer.msg("请选择二级分类",);
+                    return;
+                }
+                if (brandId == 0) {
+                    layer.msg("请选择品牌分类",);
+                    return;
+                }
+
+                let shopImage = data['field']['shopImage'];
+                let spuName = data['field']['spuName'];
+                let description = data['field']['description'];
+                let jdata = {
+                    spuName: spuName,
+                    spuImage: shopImage,
+                    category1Id: category1Id,
+                    category2Id: category2Id,
+                    brandId: brandId,
+                    description: description
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: './release-goods',
+                    data: JSON.stringify(jdata),
+                    dataType: 'json',
+                    contentType: "application/json;charset=UTF-8",
+                    error: function (error) {
+                        layer.msg("未知错误，上传商品失败!", {icon: 7});
+                    },
+                    success: function (res) {
+                        code = res['code'];
+                        msg = res['msg'];
+                        if (code === 200) {
+                            layer.msg(msg, {icon: 1});
+                        }
+                        if (code == 400) {
+                            layer.msg(msg, {icon: 7});
+                        }
+                    }
+                });
+                return false;
+            });
+        });
 
         function renderForm() {
             layui.use('form', function () {

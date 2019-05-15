@@ -33,4 +33,9 @@ public class ShopServiceImpl implements ShopService {
         int row = shopMapper.getShopCountByUserId(userId);
         return row > 0;
     }
+
+    @Override
+    public Long getShopIdByUserId(Long id) {
+        return shopMapper.getShopIdByUserId(id);
+    }
 }

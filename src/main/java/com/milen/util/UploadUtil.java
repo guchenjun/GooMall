@@ -25,4 +25,21 @@ public class UploadUtil {
         }
         return null;
     }
+
+    public static String uploadCover(MultipartFile file) {
+        if (file != null) {
+            String originalFilename = file.getOriginalFilename();
+            String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String fileName = UUID.randomUUID().toString() + suffix;
+            String filePath = UploadConstant.COVER_PATH + fileName;
+            File saveFile = new File(filePath);
+            try {
+                file.transferTo(saveFile);
+                return fileName;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

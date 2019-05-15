@@ -5,6 +5,7 @@ import com.milen.model.po.Shop;
 import com.milen.model.po.User;
 import com.milen.model.vo.GoodsCategoryVO;
 import com.milen.model.vo.R;
+import com.milen.model.vo.ReleaseGoodsVO;
 import com.milen.service.ApplyShopRecordService;
 import com.milen.service.GoodsService;
 import com.milen.service.ShopService;
@@ -75,6 +76,19 @@ public class SellerController {
         GoodsCategoryVO goodsCategoryVO = goodsService.listCategoryAndBrand();
         model.addAttribute("goodsCategory", goodsCategoryVO);
         return "seller-space";
+    }
+
+    @RequestMapping(value = "/release-goods", method = RequestMethod.POST)
+    @ResponseBody
+    public R releaseGoods(@RequestBody ReleaseGoodsVO releaseGoodsVO, HttpSession session) {
+        User user = (User) session.getAttribute("loginUser");
+        Long shopId = shopService.getShopIdByUserId(user.getId());
+        releaseGoodsVO.setShopId(shopId);
+        boolean isSaved = goodsService.saveSPU(releaseGoodsVO);
+        if (isSaved) {
+            return R.ok(200, "添加商品成功!");
+        }
+        return R.error(400, "添加商品失败!");
     }
 
     @RequestMapping(value = "/manage", method = RequestMethod.GET)
