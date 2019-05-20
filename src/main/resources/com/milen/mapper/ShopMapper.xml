@@ -18,4 +18,15 @@
     <select id="getShopIdByUserId" resultType="java.lang.Long">
         SELECT id FROM gm_shop WHERE user_id = #{userId}
     </select>
+
+    <select id="listSPU" resultType="com.milen.model.po.SPU">
+        SELECT * FROM gm_spu WHERE shop_id = #{shopId}
+    </select>
+
+    <select id="getCategoryDescription" resultType="com.milen.model.dto.CategoryDescriptionDTO">
+        SELECT c1.category1_name, c2.category2_name, b1.brand_name
+        FROM gm_category1 c1, gm_category2 c2, gm_brand b1
+        WHERE
+        c1.id = #{category1Id} AND c2.id = #{category2Id} AND b1.id = #{brandId}
+    </select>
 </mapper>

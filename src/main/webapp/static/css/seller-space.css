@@ -44,3 +44,82 @@
 .menu-on {
     color: #F40;
 }
+
+.m-goods-tbl, .m-sku-tbl {
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+}
+
+.m-goods-tbl th, .m-sku-tbl th{
+    background-color: #f5f5f5;
+    padding: 5px 0;
+    font-weight: normal;
+}
+
+.m-goods-tbl tbody td, .m-sku-tbl tbody td{
+    border: 1px solid #ddd;
+}
+
+.m-goods-tbl thead th , .m-sku-tbl thead th{
+    border: 1px solid #ddd;
+}
+
+.goods-on {
+    background-color: #33CC33;
+    padding: 3px 6px;
+    border-radius: 3px;
+}
+
+.goods-off {
+    background-color: #FF6666;
+    padding: 3px 6px;
+    border-radius: 3px;
+}
+
+.goods-status {
+    color: #fff;
+}
+
+.m-title {
+    margin-bottom: 10px;
+}
+
+.manage-sku-wrapper > h2 {
+    margin: 10px 0;
+    color: #0099CC;
+}
+
+.m-attr-wrapper {
+    display: flex;
+}
+
+.m-attr-item {
+    font-size: 16px;
+}
+
+.m-attr-item input {
+    vertical-align: bottom;
+    zoom: 133%;
+}
+
+.sku-form-wrapper table tr > td:first-child {
+    padding: 5px 5px 10px 0px;
+}
+
+.sku-name, .sku-stock, .sku-price {
+    padding-left: 5px;
+    font-size: 16px;
+    width: 200px;
+    height: 27px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.goods-img-wrapper img {
+    margin-right: 13px;
+}
+
+.upload-sku-btn {
+    width: 200px;
+}

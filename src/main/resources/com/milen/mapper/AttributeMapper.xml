@@ -25,4 +25,25 @@
         WHERE attr_id = #{attrId}
         LIMIT 1,1
     </select>
+
+    <select id="listAttrIdListByCategory2Id" resultType="java.lang.Long">
+        SELECT id FROM gm_attr WHERE category2_id = #{category2Id}
+    </select>
+
+    <select id="listAttrValueDTOByAttrIdList" resultType="com.milen.model.dto.AttributeValueDTO">
+        SELECT id, attr_id, attr_name, attr_value FROM gm_attr_value
+        WHERE attr_id IN
+        <foreach collection="attrIdList" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="listAttrAndAttrValue" resultType="com.milen.model.dto.AttrAndAttrValueDTO">
+        SELECT id attrValueId, attr_id attrId
+        FROM gm_attr_value
+        WHERE id IN
+        <foreach collection="attributes" item="attributeValueId" open="(" close=")" separator=",">
+            #{attributeValueId}
+        </foreach>
+    </select>
 </mapper>

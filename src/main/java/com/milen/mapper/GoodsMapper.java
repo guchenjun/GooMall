@@ -1,11 +1,13 @@
 package com.milen.mapper;
 
-import com.milen.model.po.Brand;
-import com.milen.model.po.BrandCategory;
-import com.milen.model.po.Category1;
-import com.milen.model.po.Category2;
+import com.milen.model.dto.AttrAndAttrValueDTO;
+import com.milen.model.dto.SKUDTO;
+import com.milen.model.po.*;
 import com.milen.model.vo.ReleaseGoodsVO;
+import com.milen.model.vo.SPUVO;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface GoodsMapper {
@@ -18,4 +20,14 @@ public interface GoodsMapper {
     List<Brand> listBrand();
 
     int insertSPU(ReleaseGoodsVO releaseGoodsVO);
+
+    SPU getSPUById(@Param("spuId") Long spuId);
+
+    Long getCategory2IdBySPUId(@Param("spuId") Long spuId);
+
+    long insertSKU(@Param("spuId") Long spuId, @Param("skuDTO") SKUDTO skuDTO, @Param("date") Date date);
+
+    void insertSKUImage(@Param("skuId") Long skuId, @Param("skuImages") List<String> skuImages, @Param("date") Date date);
+
+    void insertSKUAttrValue(@Param("spuId") Long spuId, @Param("skuId") Long skuId,@Param("attrAndAttrValueDTOList") List<AttrAndAttrValueDTO> attrAndAttrValueDTOList, @Param("date") Date date);
 }

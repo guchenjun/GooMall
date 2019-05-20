@@ -17,6 +17,31 @@
         </trim>
     </insert>
 
+    <insert id="insertSKU" useGeneratedKeys="true" keyProperty="id" parameterType="com.milen.model.dto.SKUDTO">
+        INSERT INTO gm_sku
+        (spu_id, sku_name, stock, sales, price, gmt_create, gmt_modified)
+        VALUES
+        (#{spuId}, #{skuDTO.skuName}, #{skuDTO.skuStock}, 0, #{skuDTO.skuPrice}, #{date}, #{date})
+    </insert>
+
+    <insert id="insertSKUImage">
+        INSERT INTO gm_sku_image
+        (image, sku_id, gmt_create, gmt_modified)
+        VALUES
+        <foreach collection="skuImages" item="image" open="(" close=")" separator=",">
+            #{image}, #{skuId}, #{date}, #{date}
+        </foreach>
+    </insert>
+
+    <insert id="insertSKUAttrValue">
+        INSERT INTO gm_sku_attr_value
+        (spu_id, sku_id, attr_id, attr_value_id, gmt_create, gmt_modified)
+        VALUES
+        <foreach collection="attrAndAttrValueDTOList" item="attrAndAttrValueDTO" open="(" close=")" separator=",">
+            #{spuId}, #{skuId}, #{attrAndAttrValueDTOList.attrValueId}, #{attrAndAttrValueDTOList.attrId}, #{date}, #{date}
+        </foreach>
+    </insert>
+
     <select id="listCategory1" resultType="com.milen.model.po.Category1">
         SELECT id, category1_name FROM gm_category1
     </select>
@@ -31,6 +56,14 @@
 
     <select id="listBrand" resultType="com.milen.model.po.Brand">
         SELECT id, brand_name FROM gm_brand
+    </select>
+
+    <select id="getSPUById" resultType="com.milen.model.po.SPU">
+        SELECT * FROM gm_spu WHERE id = #{spuId}
+    </select>
+
+    <select id="getCategory2IdBySPUId" resultType="java.lang.Long">
+        SELECT category2_id FROM gm_spu WHERE id = #{spuId}
     </select>
 
 

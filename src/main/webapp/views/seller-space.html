@@ -143,12 +143,140 @@
                             </button>
                         </div>
                     </form>
-                    <!--                    <button type="button" class="layui-btn layui-btn-primary"> </button>-->
-
                 </div>
             </div>
             <div class="main-manage-bd" th:if="${locationMode?.location eq 'manage'}">
-                管理发布商品
+                <div class="manage-spu-wrapper" th:if="${locationMode?.mode eq 'spu'}">
+                    <div class="m-title"><a href="#">管理发布商品</a></div>
+                    <table class="m-goods-tbl">
+                        <thead>
+                        <tr>
+                            <th>商品id</th>
+                            <th th:width="250px">商品名称</th>
+                            <th>商品封面</th>
+                            <th th:width="150px">商品分类</th>
+                            <th>上架时间</th>
+                            <th>修改时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="SPU : ${SPUList}">
+                            <td th:text="${SPU.id}"></td>
+                            <td th:text="${SPU.spuName}"></td>
+                            <td><img th:src="@{'/image/goods/'+ ${SPU.spuImage}} " style="width: 100px;height: 100px;padding: 2px 0;"></td>
+                            <td th:text="${SPU.category}"></td>
+                            <td th:text="${#dates.format(SPU.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${#dates.format(SPU.gmtModified, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td><span th:classappend="${SPU.isOn eq '已上架'}?'goods-on':'goods-off'"><a class="goods-status" href="javascript:void(0);" th:text="${SPU.isOn}"></a></span></td>
+                            <td>
+                                <span><a th:href="@{'/seller/manage/spu/' + ${SPU.id} + '/sku'}">库存信息</a></span>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="manage-sku-wrapper" th:if="${locationMode?.mode eq 'sku'}">
+                    <div class="m-title"><a th:href="@{/seller/manage}">管理发布商品</a> &gt; <a href="#">库存管理</a></div>
+                    <h2>商品信息</h2>
+                    <table class="m-goods-tbl">
+                        <thead>
+                        <tr>
+                            <th>商品id</th>
+                            <th width="250px">商品名称</th>
+                            <th>商品封面</th>
+                            <th width="150px">商品分类</th>
+                            <th>上架时间</th>
+                            <th>修改时间</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:text="${SPU.id}"></td>
+                            <td th:text="${SPU.spuName}"></td>
+                            <td><img th:src="@{'/image/goods/'+ ${SPU.spuImage}} " style="width: 100px;height: 100px;padding: 2px 0;"></td>
+                            <td th:text="${SPU.category}"></td>
+                            <td th:text="${#dates.format(SPU.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${#dates.format(SPU.gmtModified, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td><span th:classappend="${SPU.isOn eq '已上架'}?'goods-on':'goods-off'"><a class="goods-status" href="javascript:void(0);" th:text="${SPU.isOn}"></a></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>添加库存</h2>
+                    <div class="sku-form-wrapper">
+                        <form class="m-attribute-form" action="POST">
+                            <table>
+                                <tr>
+                                    <td>商品单元名称</td>
+                                    <td><input class="sku-name" name="skuName" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>商品库存</td>
+                                    <td><input class="sku-stock" name="skuStock" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>价格</td>
+                                    <td><input class="sku-price" name="skuPrice" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>参数规格分类</td>
+                                    <td>
+                                        <div class="m-attr-wrapper m-attr-value-wrapper">
+                                            <div class="m-attr-item" th:each="attribute: ${attributeList}">
+                                                <label th:text="${attribute.name}">颜色</label>
+                                                <select name="attributes" th:attrId="${attribute.values[0].attrId}" >
+                                                    <option th:each="value : ${attribute.values}" th:text="${value.attrValue}" th:value="${value.attrValueId}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>商品单元图片</td>
+                                    <td>
+                                        <div class="goods-img-wrapper">
+                                            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="uploadGoodsBtn">
+                                                <i class="layui-icon"></i>上传图片
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>提交</td>
+                                    <td><button type="button" class="layui-btn layui-btn-primary upload-sku-btn" style="margin-top: 8px">上传商品库存单元</button></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+
+                    <h2>库存信息</h2>
+                    <table class="m-sku-tbl">
+                        <thead>
+                        <tr>
+                            <th>库存id</th>
+                            <th>商品名称</th>
+                            <th>商品图片</th>
+                            <th>库存量</th>
+                            <th>价格（单位元）</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>修改</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="main-order-bd" th:if="${locationMode?.location eq 'order'}">
                 订单管理
@@ -161,12 +289,16 @@
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
 <script type="text/javascript" th:inline="javascript">
     $(function () {
+        // 全局路径
+        var ctxPath = /*[[@{/}]]*/'';
         // 声明类别选择以及品牌id变量
         category1Id = 0, category2Id = 0, brandId = 0;
+        // 库存属性
+        attributeList = [[${attributeList}]];
 
         layui.use('upload', function () {
             var upload = layui.upload;
-            var uploadInst = upload.render({
+            upload.render({
                 elem: '#uploadCoverBtn'
                 , url: '../upload/goods'
                 , done: function (res) {
@@ -176,6 +308,18 @@
                 }
                 , error: function (err) {
                     layer.msg("封面上传失败!", {icon: 7});
+                }
+            });
+            upload.render({
+                elem: '#uploadGoodsBtn'
+                , url: ctxPath + 'upload/goods'
+                , done: function (res) {
+                    imageName = res['data'];
+                    $(".goods-img-wrapper").prepend("<img src='"+ ctxPath + "image/goods/" + imageName + "' width='50px' height='50px' />")
+                    $(".goods-img-wrapper").prepend("<input name='skuImages' type='text' style='display: none' value='"+ imageName +"' />")
+                }
+                , error: function (err) {
+                    layer.msg("商品图片上传失败!", {icon: 7});
                 }
             });
         });
@@ -245,6 +389,24 @@
             });
         });
 
+        $.fn.serializeJson=function(){
+            var serializeObj={};
+            var array=this.serializeArray();
+            var str=this.serialize();
+            $(array).each(function(){
+                if(serializeObj[this.name]){
+                    if($.isArray(serializeObj[this.name])){
+                        serializeObj[this.name].push(this.value);
+                    }else{
+                        serializeObj[this.name]=[serializeObj[this.name],this.value];
+                    }
+                }else{
+                    serializeObj[this.name]=this.value;
+                }
+            });
+            return serializeObj;
+        };
+
         function renderForm() {
             layui.use('form', function () {
                 var form = layui.form;
@@ -306,6 +468,39 @@
                 });
             }
         });
+
+
+
+        // 商品SKU上传事件
+        $(".upload-sku-btn").bind("click", function () {
+            let formData = $(".m-attribute-form").serializeJson();
+            if (typeof(formData['skuImages']) == "string") {
+                let tmp = formData['skuImages'];
+                delete formData['skuImages'];
+                formData['skuImages'] = [tmp];
+            }
+            // JSON.stringify($(".m-attribute-form").serializeJson())
+            $.ajax({
+                type: 'POST',
+                url: "./sku/add",
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                contentType: "application/json;charset=UTF-8",
+                error: function (error) {
+                    layer.msg("未知错误，上传商品单元失败!", {icon: 7});
+                },
+                success: function (res) {
+                    code = res['code'];
+                    msg = res['msg'];
+                    if (code === 200) {
+                        layer.msg(msg, {icon: 1});
+                    }
+                    if (code == 400) {
+                        layer.msg(msg, {icon: 7});
+                    }
+                }
+            });
+        })
     });
 
 </script>

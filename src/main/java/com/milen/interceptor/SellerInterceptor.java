@@ -22,7 +22,11 @@ public class SellerInterceptor implements HandlerInterceptor {
                 return true;
             }
             if (requestURI.contains("manage")) {
-                request.setAttribute("locationMode", new LocationModeVO("manage"));
+                if (!requestURI.contains("sku")) {
+                    request.setAttribute("locationMode", new LocationModeVO("manage", "spu"));
+                } else {
+                    request.setAttribute("locationMode", new LocationModeVO("manage", "sku"));
+                }
                 return true;
             }
             if (requestURI.contains("order")) {

@@ -1,26 +1,25 @@
 package com.milen.controller;
 
 import com.milen.constant.ResultConstant;
+import com.milen.model.dto.SKUDTO;
+import com.milen.model.po.SPU;
 import com.milen.model.po.Shop;
 import com.milen.model.po.User;
 import com.milen.model.vo.GoodsCategoryVO;
 import com.milen.model.vo.R;
 import com.milen.model.vo.ReleaseGoodsVO;
-import com.milen.service.ApplyShopRecordService;
-import com.milen.service.GoodsService;
-import com.milen.service.ShopService;
-import com.milen.service.UserService;
+import com.milen.model.vo.SPUVO;
+import com.milen.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/seller")
@@ -34,6 +33,9 @@ public class SellerController {
 
     @Autowired
     GoodsService goodsService;
+
+    @Autowired
+    AttributeService attributeService;
 
     @Autowired
     ApplyShopRecordService applyShopRecordService;
@@ -92,9 +94,41 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/manage", method = RequestMethod.GET)
-    public String goods() {
-
+    public String goods(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loginUser");
+        Long shopId = shopService.getShopIdByUserId(user.getId());
+        List<SPUVO> SPUList =  shopService.listSPU(shopId);
+        model.addAttribute("SPUList", SPUList);
+        System.out.println(SPUList);
         return "seller-space";
+    }
+
+    @RequestMapping(value = "/manage/spu/{spuId}/sku", method = RequestMethod.GET)
+    public String sku(@PathVariable("spuId") Long spuId, Model model) {
+        SPUVO spuVO= goodsService.getSPUById(spuId);
+        // [{name: '颜色', values: [{attrId: 1, attrValueId: 2, attrName: '白色'}, {attrId: 1, attrValueId: 3, attrName: '黑色'}]}]
+        List<Map<String, Object>> attributeList = attributeService.getAttributeListBySPUId(spuId);
+        model.addAttribute("SPU", spuVO);
+        model.addAttribute("attributeList", attributeList);
+        return "seller-space";
+    }
+
+    @RequestMapping(value = "/manage/spu/{spuId}/sku/add", method = RequestMethod.POST)
+    @ResponseBody
+    public R addSKU(@RequestBody SKUDTO skuDTO, @PathVariable("spuId") Long spuId) {
+        try {
+            Long skuId = goodsService.saveSKU(spuId, skuDTO);
+            if (skuId != 0) {
+                goodsService.saveSKUImage(skuId, skuDTO.getSkuImages());
+                // 下面这个报错，2019年5月20日 21:42:07
+                goodsService.saveSKUAttrValue(spuId, skuId, skuDTO.getAttributes());
+                return R.ok(200, "商品库存单元上传成功!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            R.ok(400,"商品库存单元上传失败!");
+        }
+        return R.ok(400,"商品库存单元上传失败!");
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.GET)

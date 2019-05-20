@@ -10,4 +10,6 @@ public interface AttributeService {
     String getAttrNameByAttrId(Long attrId);
 
     boolean saveAttrValueAndAttrNameByAttrId(String attrName, String attrValue, Long attrId);
+
+    List<Map<String, Object>> getAttributeListBySPUId(Long spuId);
 }

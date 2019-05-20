@@ -1,5 +1,7 @@
 package com.milen.mapper;
 
+import com.milen.model.dto.AttrAndAttrValueDTO;
+import com.milen.model.dto.AttributeValueDTO;
 import com.milen.model.po.AttributeValue;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,4 +17,10 @@ public interface AttributeMapper {
     String getAttrNameByAttrId(@Param("attrId") Long attrId);
 
     int insertAttrValueAndAttrNameByAttrId(@Param("attrName") String attrName, @Param("attrValue") String attrValue, @Param("attrId") Long attrId, @Param("gmtModified") Date gmtModified);
+
+    List<Long> listAttrIdListByCategory2Id(@Param("category2Id") Long category2Id);
+
+    List<AttributeValueDTO> listAttrValueDTOByAttrIdList(@Param("attrIdList") List<Long> attrIdList);
+
+    List<AttrAndAttrValueDTO> listAttrAndAttrValue(@Param("attributes") List<Long> attributes);
 }
