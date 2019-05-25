@@ -29,4 +29,9 @@
         WHERE
         c1.id = #{category1Id} AND c2.id = #{category2Id} AND b1.id = #{brandId}
     </select>
+
+    <select id="getShopNameById" resultType="java.lang.String">
+        SELECT shop_name FROM gm_shop
+        WHERE id = #{id}
+    </select>
 </mapper>

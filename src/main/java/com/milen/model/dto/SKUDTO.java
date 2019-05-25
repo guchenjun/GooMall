@@ -5,6 +5,8 @@ import java.util.List;
 
 public class SKUDTO {
 
+    private Long id;
+
     private String skuName;
 
     private Long skuStock;
@@ -16,6 +18,14 @@ public class SKUDTO {
     private List<String> skuImages;
 
     public SKUDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSkuName() {
@@ -61,7 +71,8 @@ public class SKUDTO {
     @Override
     public String toString() {
         return "SKUDTO{" +
-                "skuName='" + skuName + '\'' +
+                "id=" + id +
+                ", skuName='" + skuName + '\'' +
                 ", skuStock=" + skuStock +
                 ", skuPrice=" + skuPrice +
                 ", attributes=" + attributes +

@@ -1,8 +1,11 @@
-package com.milen.model.po;
+package com.milen.model.vo;
 
+import com.milen.model.po.SPU;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class SPU {
+public class GoodsVO {
 
     private Long id;
 
@@ -18,7 +21,11 @@ public class SPU {
 
     private Long shopId;
 
+    private String shopName;
+
     private Boolean isOn;
+
+    private BigDecimal price;
 
     private String description;
 
@@ -26,7 +33,21 @@ public class SPU {
 
     private Date gmtModified;
 
-    public SPU() {
+    public GoodsVO() {
+    }
+
+    public GoodsVO(SPU spu) {
+        this.id = spu.getId();
+        this.spuName = spu.getSpuName();
+        this.spuImage = spu.getSpuImage();
+        this.category1Id = spu.getCategory1Id();
+        this.category2Id = spu.getCategory2Id();
+        this.brandId = spu.getBrandId();
+        this.shopId = spu.getShopId();
+        this.isOn = spu.getOn();
+        this.description = spu.getDescription();
+        this.gmtCreate = spu.getGmtCreate();
+        this.gmtModified = spu.getGmtModified();
     }
 
     public Long getId() {
@@ -85,6 +106,14 @@ public class SPU {
         this.shopId = shopId;
     }
 
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
     public Boolean getOn() {
         return isOn;
     }
@@ -99,6 +128,14 @@ public class SPU {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Date getGmtCreate() {
@@ -119,7 +156,7 @@ public class SPU {
 
     @Override
     public String toString() {
-        return "SPU{" +
+        return "GoodsVO{" +
                 "id=" + id +
                 ", spuName='" + spuName + '\'' +
                 ", spuImage='" + spuImage + '\'' +
@@ -127,7 +164,9 @@ public class SPU {
                 ", category2Id=" + category2Id +
                 ", brandId=" + brandId +
                 ", shopId=" + shopId +
+                ", shopName='" + shopName + '\'' +
                 ", isOn=" + isOn +
+                ", price=" + price +
                 ", description='" + description + '\'' +
                 ", gmtCreate=" + gmtCreate +
                 ", gmtModified=" + gmtModified +

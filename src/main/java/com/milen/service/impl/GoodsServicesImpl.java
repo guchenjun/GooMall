@@ -7,14 +7,13 @@ import com.milen.model.dto.AttrAndAttrValueDTO;
 import com.milen.model.dto.CategoryDescriptionDTO;
 import com.milen.model.dto.SKUDTO;
 import com.milen.model.po.*;
-import com.milen.model.vo.BrandCategoryVO;
-import com.milen.model.vo.GoodsCategoryVO;
-import com.milen.model.vo.ReleaseGoodsVO;
-import com.milen.model.vo.SPUVO;
+import com.milen.model.vo.*;
 import com.milen.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -77,4 +76,70 @@ public class GoodsServicesImpl implements GoodsService {
         List<AttrAndAttrValueDTO> attrAndAttrValueDTOList = attributeMapper.listAttrAndAttrValue(attributes);
         goodsMapper.insertSKUAttrValue(spuId, skuId, attrAndAttrValueDTOList, date);
     }
+
+    @Override
+    public List<GoodsVO> listSPUByGoodsName(String goodsName) {
+        List<SPU> spuList = goodsMapper.listSPUByGoodsName(goodsName);
+        List<GoodsVO> goodsVOList = new ArrayList<>();
+        for (SPU spu : spuList) {
+            String shopName = shopMapper.getShopNameById(spu.getId());
+            BigDecimal price = goodsMapper.getFirstSKUBySPUId(spu.getId());
+            GoodsVO goodsVO = new GoodsVO(spu);
+            goodsVO.setShopName(shopName);
+            goodsVO.setPrice(price);
+            goodsVOList.add(goodsVO);
+        }
+        return goodsVOList;
+    }
+
+    @Override
+    public List<GoodsVO> listSPUByCategory1Id(Long id) {
+        List<SPU> spuList = goodsMapper.listSPUByCategory1Id(id);
+        List<GoodsVO> goodsVOList = new ArrayList<>();
+        for (SPU spu : spuList) {
+            String shopName = shopMapper.getShopNameById(spu.getId());
+            BigDecimal price = goodsMapper.getFirstSKUBySPUId(spu.getId());
+            GoodsVO goodsVO = new GoodsVO(spu);
+            goodsVO.setShopName(shopName);
+            goodsVO.setPrice(price);
+            goodsVOList.add(goodsVO);
+        }
+        return goodsVOList;
+    }
+
+    @Override
+    public List<GoodsVO> listSPUByCategory2Id(Long id) {
+        List<SPU> spuList = goodsMapper.listSPUByCategory2Id(id);
+        List<GoodsVO> goodsVOList = new ArrayList<>();
+        for (SPU spu : spuList) {
+            String shopName = shopMapper.getShopNameById(spu.getId());
+            GoodsVO goodsVO = new GoodsVO(spu);
+            goodsVO.setShopName(shopName);
+            goodsVOList.add(goodsVO);
+        }
+        return goodsVOList;
+    }
+
+    @Override
+    public List<GoodsInfoVO> getGoodsInfoBySPUId(Long spuId) {
+//        List<SKU> skuList = goodsMapper.listSKUBySPUId(spuId);
+        // 查询spu所有属性名称
+//        List<Long> attrIdList = attributeMapper.listAttrIdBySPUId(spuId);
+        // 查询
+        return null;
+    }
+
+    @Override
+    public List<SKUVO> listSKUBySPUId(Long spuId) {
+        List<SKU> skuList = goodsMapper.listSKUBySPUId(spuId);
+        List<SKUVO> skuvoList = new ArrayList<>();
+        for (int i = 0; i < skuList.size(); i++) {
+            SKU sku = skuList.get(i);
+            List<String> images = goodsMapper.listSKUImagesBySKUId(sku.getId());
+            SKUVO skuvo = new SKUVO(sku, images);
+            skuvoList.add(skuvo);
+        }
+        return skuvoList;
+    }
+
 }

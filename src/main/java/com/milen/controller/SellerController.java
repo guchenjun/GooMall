@@ -2,13 +2,11 @@ package com.milen.controller;
 
 import com.milen.constant.ResultConstant;
 import com.milen.model.dto.SKUDTO;
+import com.milen.model.po.SKU;
 import com.milen.model.po.SPU;
 import com.milen.model.po.Shop;
 import com.milen.model.po.User;
-import com.milen.model.vo.GoodsCategoryVO;
-import com.milen.model.vo.R;
-import com.milen.model.vo.ReleaseGoodsVO;
-import com.milen.model.vo.SPUVO;
+import com.milen.model.vo.*;
 import com.milen.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -108,8 +106,10 @@ public class SellerController {
         SPUVO spuVO= goodsService.getSPUById(spuId);
         // [{name: '颜色', values: [{attrId: 1, attrValueId: 2, attrName: '白色'}, {attrId: 1, attrValueId: 3, attrName: '黑色'}]}]
         List<Map<String, Object>> attributeList = attributeService.getAttributeListBySPUId(spuId);
+        List<SKUVO> SKUVOList = goodsService.listSKUBySPUId(spuId);
         model.addAttribute("SPU", spuVO);
         model.addAttribute("attributeList", attributeList);
+        model.addAttribute("SKUList", SKUVOList);
         return "seller-space";
     }
 
@@ -117,7 +117,8 @@ public class SellerController {
     @ResponseBody
     public R addSKU(@RequestBody SKUDTO skuDTO, @PathVariable("spuId") Long spuId) {
         try {
-            Long skuId = goodsService.saveSKU(spuId, skuDTO);
+            goodsService.saveSKU(spuId, skuDTO);
+            Long skuId = skuDTO.getId();
             if (skuId != 0) {
                 goodsService.saveSKUImage(skuId, skuDTO.getSkuImages());
                 // 下面这个报错，2019年5月20日 21:42:07

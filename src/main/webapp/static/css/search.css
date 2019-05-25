@@ -1,0 +1,125 @@
+.gm-cover {
+    width: 1350px;
+}
+
+.gm-goods-wrap {
+    width: 1070px;
+}
+
+.goods-title-bar {
+    border-bottom: 3px solid #F40;
+}
+
+.title-bar-content {
+    background-color: #f40;
+    color: #FFF;
+    font-size: 18px;
+    padding: 5px 10px;
+    width: 80px;
+}
+
+.gm-grid-total {
+    width: 1350px;
+}
+
+.goods-item {
+    width: 250px;
+    height: 350px;
+    border: 1px solid #ededed;;
+    float: left;
+    margin-top: 22px;
+    margin-right: 20px;
+}
+
+.goods-item:first-child {
+    border-color: #f40;
+}
+
+.goods-item:hover {
+    border-color: #f40;
+}
+
+.g-clearfix {
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.grid {
+    margin-right: -20px;
+}
+
+.gm-grid-total {
+    margin: 0 auto;
+}
+
+.gm-head {
+    margin: 0 !important;
+}
+
+.goods-item-list::after {
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.goods-price-wrap {
+    color: #F40;
+    font-size: 18px;
+    margin-top: 11px;
+    padding-left: 10px;
+}
+
+.goods-price-wrap > strong {
+    font-family: arial;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+}
+
+.goods-name-wrap {
+    margin-top: 6px;
+    height: 36px;
+    padding: 0 10px;
+    font-weight: 400;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.goods-name-wrap > a:hover {
+    text-decoration: underline;
+    color: #f40;
+}
+
+.dsrs {
+    margin-top: 1px;
+    width: 13px;
+    float: left;
+}
+
+.dsr {
+    float: left;
+    margin-top: 2px;
+    height: 2px;
+    width: 8px;
+    overflow: hidden;
+}
+
+.morethan {
+    background: #f40;
+}
+
+.goods-shop-name-wrap {
+    padding: 0 10px;
+}
+
+.shop-name {
+    font-size: 12px;
+    color: #888;
+}
+
+.none-goods-tips {
+    margin-top: 100px;
+    font-size: 24px;
+    color: #bbb;
+    text-align: center;
+}

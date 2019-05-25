@@ -1,9 +1,9 @@
 package com.milen.service;
 
 import com.milen.model.dto.SKUDTO;
-import com.milen.model.vo.GoodsCategoryVO;
-import com.milen.model.vo.ReleaseGoodsVO;
-import com.milen.model.vo.SPUVO;
+import com.milen.model.po.SKU;
+import com.milen.model.po.SPU;
+import com.milen.model.vo.*;
 
 import java.util.List;
 
@@ -20,4 +20,14 @@ public interface GoodsService {
     void saveSKUImage(Long skuId, List<String> skuImages);
 
     void saveSKUAttrValue(Long spuId, Long skuId, List<Long> attributes);
+
+    List<GoodsVO> listSPUByGoodsName(String goodsName);
+
+    List<GoodsVO> listSPUByCategory1Id(Long id);
+
+    List<GoodsVO> listSPUByCategory2Id(Long id);
+
+    List<GoodsInfoVO> getGoodsInfoBySPUId(Long spuId);
+
+    List<SKUVO> listSKUBySPUId(Long spuId);
 }
