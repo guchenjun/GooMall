@@ -23,4 +23,10 @@ public interface AttributeMapper {
     List<AttributeValueDTO> listAttrValueDTOByAttrIdList(@Param("attrIdList") List<Long> attrIdList);
 
     List<AttrAndAttrValueDTO> listAttrAndAttrValue(@Param("attributes") List<Long> attributes);
+
+    List<Long> listAttrIdBySpuId(@Param("spuId") Long spuId);
+
+    List<Long> listAttrValueIdBySkuId(@Param("skuId") Long skuId);
+
+    List<AttributeValue> listAttrValueByAttrId(@Param("attrId") Long attrId);
 }

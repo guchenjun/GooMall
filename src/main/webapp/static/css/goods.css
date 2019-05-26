@@ -1,0 +1,233 @@
+.gm-header {
+    min-height: 70px;
+}
+
+.header-content {
+    width: 1140px;
+    margin: 0 auto;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.gm-head-search {
+    margin: 0;
+    position: absolute;
+    right: 0;
+}
+
+.header-logo {
+    display: inline-block;
+    float: left;
+    position: relative;
+    top: 10px;
+}
+
+.header-logo > img {
+    width: 95px;
+    height: 38px;
+}
+
+.gm-head-search {
+    position: absolute;
+    right: 0px;
+}
+
+.search-ipt {
+    width: 285px;
+    height: 26px;
+    padding: 3px 7px;
+}
+
+.search-btn-wrap {
+    height: 32px;
+    border: none;
+}
+
+.search-btn {
+    line-height: 32px;
+    height: 35px;
+}
+
+.header-content::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+.goods-price {
+    background-image: url(data:image/png;base64,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);
+}
+
+.gm-yen {
+    color: #FF0036;
+    font-size: 18px;
+}
+
+.gm-price {
+    color: #FF0036;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.goods-bd-wrap {
+    width: 1140px;
+}
+
+.goods-bd-wrap {
+    margin: 0 auto;
+}
+
+.goods-bd-wrap::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.images-wrap {
+    width: 460px;
+    float: left;
+}
+
+.goods-detail {
+    width: 530px;
+    float: left;
+}
+
+.goods-title {
+    line-height: 1;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+    padding-top: 20px;
+    padding-bottom: 12px;
+}
+
+.price-title {
+    line-height: 37px;
+    color: #999;
+    font-size: 12px;
+    text-align: left;
+    float: left;
+    width: 69px;
+    margin: 0 0 0 8px;
+    display: inline-block;
+}
+
+.price-wrap {
+    padding: 5px;
+}
+
+.shop-info-wrap {
+    width: 190px;
+    height: 150px;
+    border: 1px solid #e5e5e5;
+}
+
+.goods-more-wrap {
+    width: 1140px;
+    margin: 0 auto;
+}
+
+.shop-info-wrap, .goods-comment-wrap {
+    float: left;
+}
+
+.goods-comment-wrap {
+    width: 790px;
+    margin-left: 20px;
+}
+
+.comment-tbl tr td:first-child {
+    width: 494px;
+    padding-right: 30px;
+    padding: 16px 7px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.comment-tbl tr td:nth-child(2) {
+    padding: 16px 7px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.col-author {
+    padding: 16px 7px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.goods-more-wrap::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.comment-title > div{
+    color: red;
+    display: inline-block;
+    padding: 7px 15px;
+    font-size: 18px;
+    border-right: 1px solid #dfdfdf;
+    border-bottom: 1px solid red;
+}
+
+.comment-title {
+    border: 1px solid #dfdfdf;
+}
+
+.comment-tbl {
+    width: 100%;
+}
+
+.shop-name-bar {
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.shop-score {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.shop-score > div:first-child {
+    color: #999;
+}
+
+.shop-score > div:nth-child(2) {
+    font-size: 18px;
+    color: #ff0036;
+    font-weight: bold;
+}
+
+.rate-date {
+    color: rgb(204, 204, 204);
+    position: relative;
+    top: 10px;
+}
+
+.attr-item {
+    margin: 15px 0;
+    height: 34px;
+    line-height: 34px;
+}
+
+.attr-name {
+    color: #838383;
+    margin-right: 15px;
+}
+
+.attr-value {
+    display: inline-block;
+    border: 1px solid #b8b7bd;
+    padding: 0 15px;
+}
+
+.attr-selected {
+    border: 2px solid red;
+}
+
+.attr-value:hover {
+    border: 2px solid red;
+}

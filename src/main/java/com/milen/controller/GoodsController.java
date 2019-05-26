@@ -1,15 +1,14 @@
 package com.milen.controller;
 
 
-import com.milen.model.vo.GoodsInfoVO;
-import com.milen.model.vo.SKUVO;
 import com.milen.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -19,9 +18,9 @@ public class GoodsController {
     GoodsService goodsService;
 
     @RequestMapping("/goods/{spuId}")
-    public String goods(@PathVariable("spuId") Long spuId) {
-        List<GoodsInfoVO> goodsInfoVOList = goodsService.getGoodsInfoBySPUId(spuId);
-//        List<SKUVO> SKUVOList = goodsService.listSKUBySPUId(spuId);
-        return null;
+    public String goods(@PathVariable(value = "spuId",required = false) Long spuId, Model model) {
+        Map<String, Object> goodsInfoVOList = goodsService.getGoodsInfoBySPUId(spuId);
+        model.addAttribute("goodsInfoList", goodsInfoVOList);
+        return "goods";
     }
 }

@@ -46,4 +46,16 @@
             #{attributeValueId}
         </foreach>
     </select>
+
+    <select id="listAttrIdBySpuId" resultType="java.lang.Long">
+        SELECT DISTINCT(attr_id) FROM gm_sku_attr_value WHERE spu_id = #{spuId}
+    </select>
+
+    <select id="listAttrValueIdBySkuId" resultType="java.lang.Long">
+        SELECT DISTINCT(attr_value_id) FROM gm_sku_attr_value WHERE sku_id = #{skuId}
+    </select>
+
+    <select id="listAttrValueByAttrId" resultType="com.milen.model.po.AttributeValue">
+        SELECT id, attr_id, attr_value FROM gm_attr_value WHERE attr_id = #{attrId}
+    </select>
 </mapper>

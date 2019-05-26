@@ -6,6 +6,7 @@ import com.milen.model.po.SPU;
 import com.milen.model.vo.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface GoodsService {
 
@@ -27,7 +28,7 @@ public interface GoodsService {
 
     List<GoodsVO> listSPUByCategory2Id(Long id);
 
-    List<GoodsInfoVO> getGoodsInfoBySPUId(Long spuId);
+    Map<String, Object> getGoodsInfoBySPUId(Long spuId);
 
     List<SKUVO> listSKUBySPUId(Long spuId);
 }

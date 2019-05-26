@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Service("goodsService")
@@ -121,12 +119,53 @@ public class GoodsServicesImpl implements GoodsService {
     }
 
     @Override
-    public List<GoodsInfoVO> getGoodsInfoBySPUId(Long spuId) {
-//        List<SKU> skuList = goodsMapper.listSKUBySPUId(spuId);
-        // 查询spu所有属性名称
-//        List<Long> attrIdList = attributeMapper.listAttrIdBySPUId(spuId);
-        // 查询
-        return null;
+    public Map<String, Object> getGoodsInfoBySPUId(Long spuId) {
+        // 结果声明
+        Map<String, Object> resultMap = new HashMap<>();
+        // 属性字段
+        List<Long> attrIdList = attributeMapper.listAttrIdBySpuId(spuId);
+        Map<String, Object> attrField = new HashMap<>();
+        attrField.put("num", attrIdList.size());
+        List<Map<String, Object>> attrNameIdList = new ArrayList<>();
+        List<Map<String, Object>> attrValueIdList = new ArrayList<>();
+        for (int i = 0; i < attrIdList.size(); i++) {
+            Long attrId = attrIdList.get(i);
+            String attrName = attributeMapper.getAttrNameByAttrId(attrId);
+            Map<String, Object> innerAttrNameMap = new HashMap<>();
+            innerAttrNameMap.put("id", attrId);
+            innerAttrNameMap.put("name", attrName);
+            attrNameIdList.add(innerAttrNameMap);
+
+            List<AttributeValue> attributeValueList = attributeMapper.listAttrValueByAttrId(attrId);
+            for (int j = 0; j < attributeValueList.size(); j++) {
+                Map<String, Object> innerAttrValueMap = new HashMap<>();
+                AttributeValue attributeValue = attributeValueList.get(j);
+                innerAttrValueMap.put("valueId", attributeValue.getId());
+                innerAttrValueMap.put("attrId", attributeValue.getAttrId());
+                innerAttrValueMap.put("value", attributeValue.getAttrValue());
+                attrValueIdList.add(innerAttrValueMap);
+            }
+        }
+        attrField.put("attrNames", attrNameIdList);
+        attrField.put("attrValues", attrValueIdList);
+        resultMap.put("attr", attrField);
+
+        // 库存信息
+        List<Map<String, Object>> skuDataField = new ArrayList<>();
+        List<SKU> skuList = goodsMapper.listSKUBySPUId(spuId);
+        for (int i = 0; i < skuList.size(); i++) {
+            SKU sku = skuList.get(i);
+            List<String> imageList = goodsMapper.listSKUImagesBySKUId(sku.getId());
+            SKUVO skuvo = new SKUVO(sku, imageList);
+            List<Long> attrValueList = attributeMapper.listAttrValueIdBySkuId(sku.getId());
+            Map<String, Object> innerMap = new HashMap<>();
+            innerMap.put("sku", skuvo);
+            innerMap.put("attrValueId", attrValueList);
+            skuDataField.add(innerMap);
+        }
+        resultMap.put("skuData", skuDataField);
+        System.out.println(resultMap);
+        return resultMap;
     }
 
     @Override
