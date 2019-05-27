@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/member.css}">
+</head>
+<body>
+<div class="gm-cover-wrap">
+    <div class="gm-cover">
+        <ul class="layui-nav" style="padding: 0">
+            <li class="layui-nav-item"><a th:href="@{/}" style="padding: 0">首页</a></li>
+            <li class="layui-nav-item" style="margin: 0px 10px 0px 20px;"><a th:href="@{/}"
+                                                                             style="padding: 0;">gcj顾晨俊</a></li>
+            <li class="layui-nav-item"><a th:href="@{/logout}" style="padding: 0">退出</a></li>
+            <li class="layui-nav-item f-right"><a href="#">收藏夹</a></li>
+            <li class="layui-nav-item layui-this f-right">
+                <a href="">购物车</a>
+                <dl class="layui-nav-child mini-cart">
+                    <dd style="margin-left: 7px;">最近加入的宝贝：</dd>
+                    <dd>
+                        <div class="mini-cart-img f-left">
+                            <a href="#" style="margin: 0 7px;">
+                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
+                            </a>
+                        </div>
+                        <div class="mini-cart-count f-right" style="font-family: Arial;">
+                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
+                        </div>
+                        <div class="mini-cart-title">
+                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
+                        </div>
+                        <div class="mini-cart-del f-right">
+                            <a href="" style="font-size: 13px;">删除</a>
+                        </div>
+                        <div class="mini-cart-info">
+                            <span>口味:圆形奶油夹心125g*1包 </span>
+                        </div>
+                    </dd>
+                    <dd>
+                        <div class="mini-cart-img f-left">
+                            <a href="#" style="margin: 0 7px;">
+                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
+                            </a>
+                        </div>
+                        <div class="mini-cart-count f-right" style="font-family: Arial;">
+                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
+                        </div>
+                        <div class="mini-cart-title">
+                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
+                        </div>
+                        <div class="mini-cart-del f-right">
+                            <a href="" style="font-size: 13px;">删除</a>
+                        </div>
+                        <div class="mini-cart-info">
+                            <span>口味:圆形奶油夹心125g*1包 </span>
+                        </div>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item layui-this f-right">
+                <a href="">我的逛购</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">我的订单</a></dd>
+                    <dd><a href="">浏览足迹</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="header">
+    <div class="indexroot">
+        <span>用户个人中心</span>
+    </div>
+</div>
+<div class="main">
+    <div class="main-container">
+        <div class="left-member-menu">
+            <div><a th:href="@{/member/info}" th:classappend="${locationMode?.location eq 'info'} ? 'menu-on'">个人信息</a></div>
+            <div><a th:href="@{/member/order}" th:classappend="${locationMode?.location eq 'order'} ? 'menu-on'">我的订单</a></div>
+            <div><a th:href="@{/member/cart}" th:classappend="${locationMode?.location eq 'cart'} ? 'menu-on'">我的购物车</a></div>
+            <div><a th:href="@{/member/favorites}" th:classappend="${locationMode?.location eq 'favorites'} ? 'menu-on'">我的收藏夹</a></div>
+        </div>
+        <div class="main-member-bd">
+            <div class="main-member-info-bd" th:if="${locationMode?.location eq 'info'}">
+                <p>个人中心</p>
+                <div class="member-info-wrapper">
+                    <h2>基本资料</h2>
+                    <div class="member-info-item">
+                        <span>用户名:</span>
+                        <span th:text="${session?.loginUser?.username}"></span>
+                    </div>
+                    <div class="member-info-item">
+                        <span>真实姓名:</span>
+                        <span th:text="${session?.loginUser?.realName}"></span>
+                    </div>
+                    <div class="member-info-item">
+                        <span>头像:</span>
+                        <img class="member-head-img" th:src="@{'/image/head/'+${session?.loginUser?.headImage}}">
+                    </div>
+                    <div class="member-info-item">
+                        <span>邮箱:</span>
+                        <span th:text="${session?.loginUser?.eMail}"></span>
+                    </div>
+                    <div class="member-info-item">
+                        <span>手机号:</span>
+                        <span th:text="${session?.loginUser?.phoneNumber}"></span>
+                    </div>
+                    <h2 class="change-pwd-title">修改密码</h2>
+                    <div class="change-pwd">
+                        <div class="old-pwd-wrap">
+                            <span>原密码</span>
+                            <input type="text">
+                        </div>
+                        <div class="new-pwd-wrap">
+                            <span>新密码</span>
+                            <input class="new-pwd1" type="text">
+                        </div>
+                        <div class="new-pwd-wrap">
+                            <span>新密码</span>
+                            <input class="new-pwd2" type="text">
+                        </div>
+                        <div class="change-pwd-btn-wrap">
+                            <button class="layui-btn layui-btn-primary change-pwd-btn">修改密码</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-member-order-bd" th:if="${locationMode?.location eq 'order'}">
+                <h2>我的订单</h2>
+                <table class="member-order-tbl">
+                    <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th class="order-sku-th">商品(名称、图片、规格)</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th>实付款</th>
+                            <th>交易状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="tradeOrder : ${tradeOrderList}">
+                            <td th:text="${tradeOrder.id}"></td>
+                            <td class="order-sku-td">
+                                <div class="sku-image"><img th:src="@{'/image/goods/' + ${tradeOrder.image}}" width="80px" height="80px"></div>
+                                <div class="sku-more-info">
+                                    <a class="order-sku-name" th:text="${tradeOrder.skuName}" th:href="@{'/goods/' + ${tradeOrder.spuId}}" target="_blank"></a>
+                                    <p class="order-sku-attr-desc" th:text="${tradeOrder.attrDescription}"></p>
+                                </div>
+                            </td>
+                            <td th:text="${tradeOrder.price}"></td>
+                            <td th:text="${tradeOrder.amount}"></td>
+                            <td th:text="${tradeOrder.totalPrice}"></td>
+                            <td><span class="trade-finish">交易完成</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="main-member-cart-bd" th:if="${locationMode?.location eq 'cart'}">
+                <h2>我的购物车</h2>
+                <table class="member-cart-tbl">
+                    <thead>
+                    <tr>
+                        <th>库存id</th>
+                        <th class="cart-sku-th">商品(名称、图片、规格)</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>需付款</th>
+                        <th>交易状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="shopCart : ${shopCartList}">
+                        <td th:text="${shopCart.id}"></td>
+                        <td class="cart-sku-td">
+                            <div class="sku-image"><img th:src="@{'/image/goods/' + ${shopCart.image}}" width="80px" height="80px"></div>
+                            <div class="sku-more-info">
+                                <a class="cart-sku-name" th:text="${shopCart.skuName}" th:href="@{'/goods/' + ${shopCart.spuId}}" target="_blank"></a>
+                                <p class="cart-sku-attr-desc" th:text="${shopCart.attrDescription}"></p>
+                            </div>
+                        </td>
+                        <td th:text="${shopCart.price}"></td>
+                        <td th:text="${shopCart.amount}"></td>
+                        <td th:text="${shopCart.totalPrice}"></td>
+                        <td><span class="to-buy">去付款</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+<!--            收藏模块-->
+            <div class="main-member-favorities-bd" th:if="${locationMode?.location eq 'favorites'}">
+                我的收藏夹
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
+<script type="text/javascript">
+    $(function () {
+       $(".member-head-img").bind("click", function () {
+
+       }) ;
+    });
+</script>
+</html>

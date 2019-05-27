@@ -231,3 +231,71 @@
 .attr-value:hover {
     border: 2px solid red;
 }
+
+.amount-ipt {
+    width: 43px;
+    height: 31px;
+}
+
+.goods-amount {
+    color: #838383;
+}
+
+.amount-wrap {
+    float: left;
+}
+
+.amount-label {
+    margin-right: 15px;
+    display: inline-block;
+    width: 56px;
+    height: 16px;
+}
+
+.stock-wrap {
+    line-height: 35px;
+    float: left;
+    margin-left: 20px;
+}
+
+.buy-btn {
+    margin-right: 0;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+    width: 178px;
+    background-color: #ffeded;
+    border: 1px solid #FF0036;
+    color: #FF0036;
+    font-family: 'Microsoft Yahei';
+}
+
+.shop-cart-btn {
+    background-color: #ff0036;
+    border: 1px solid #ff0036;
+    color: #fff;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+    margin-right: 0;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    width: 178px;
+    font-family: 'Microsoft Yahei';
+}
+
+.goods-amount::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+.goods-buy {
+    margin-top: 30px;
+}

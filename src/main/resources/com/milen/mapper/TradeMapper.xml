@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milen.mapper.TradeMapper">
+
+    <insert id="insertTradeOrder">
+        INSERT INTO gm_trade_order
+        (user_id,spu_id,sku_id,sku_name,image,price,amount,attr_description,gmt_create,gmt_modified)
+        VALUES
+        (#{userId},#{tradeOrderDTO.spuId}, #{tradeOrderDTO.skuId}, #{tradeOrderDTO.skuName}, #{tradeOrderDTO.image},
+        #{tradeOrderDTO.price}, #{tradeOrderDTO.amount}, #{tradeOrderDTO.attrDescription}, #{date}, #{date})
+    </insert>
+
+    <select id="listTradeOrderByUserId" resultType="com.milen.model.dto.TradeOrderDTO">
+        SELECT * FROM gm_trade_order WHERE user_id = #{userId}
+    </select>
+</mapper>

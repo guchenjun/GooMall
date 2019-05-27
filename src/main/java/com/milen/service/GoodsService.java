@@ -31,4 +31,6 @@ public interface GoodsService {
     Map<String, Object> getGoodsInfoBySPUId(Long spuId);
 
     List<SKUVO> listSKUBySPUId(Long spuId);
+
+    Long getSkuStockBySkuId(Long skuId);
 }

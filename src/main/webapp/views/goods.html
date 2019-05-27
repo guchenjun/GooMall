@@ -129,12 +129,12 @@
             <div class="image-group"></div>
         </div>
         <div class="goods-detail">
-            <div class="goods-title">【旗舰新品 稀缺货源】Huawei/华为P30 Pro曲面屏超感光徕卡四摄变焦双景录像980芯片智能手机p30pro</div>
+            <div class="goods-title" th:text="${goodsInfoList['skuData'][0]['sku']['skuName']}">【旗舰新品 稀缺货源】Huawei/华为P30 Pro曲面屏超感光徕卡四摄变焦双景录像980芯片智能手机p30pro</div>
             <div class="goods-price">
                 <div class="price-title">价格</div>
                 <div class="price-wrap">
                     <em class="gm-yen">¥</em>
-                    <span class="gm-price">5988.00</span>
+                    <span class="gm-price" th:text="${goodsInfoList['skuData'][0]['sku']['price']}">5988.00</span>
                 </div>
             </div>
             <div class="goods-attrs">
@@ -147,7 +147,20 @@
                     </a>
                 </div>
             </div>
-
+            <div class="goods-amount">
+                <div class="amount-wrap">
+                    <span class="amount-label">数量</span>
+                    <input type="text" class="amount-ipt" value="1">
+                    <span>件</span>
+                </div>
+                <div class="stock-wrap">
+                    库存<span th:text="${goodsInfoList['skuData'][0]['sku']['stock']}">123</span>件
+                </div>
+            </div>
+            <div class="goods-buy">
+                <button class="layui-btn layui-btn-primary layui-btn-lg buy-btn">立即购买</button>
+                <button class="layui-btn layui-btn-primary layui-btn-lg shop-cart-btn">加入购物车</button>
+            </div>
         </div>
     </div>
     <div class="goods-more-wrap">
@@ -206,25 +219,166 @@
 <script type="text/javascript" th:inline="javascript">
     var attrValueIdMap = new Map();
     $(function () {
+        // 变量接收和初始化
         const ctxPath = /*[[@{/}]]*/'';
         const goodsInfoList = /*[[${goodsInfoList}]]*/'';
-        attrValueIdList = new Array(goodsInfoList['attr']['num']);
+        var currentSku = goodsInfoList['skuData'][0];
         console.log(goodsInfoList);
 
+        // 初始化选择属性首值
         for (let i = 0; i < $(".attr-item").length; i++) {
             let $attrItem = $($(".attr-item").get(i));
             let $attrValueElem = $attrItem.find("a:first > span");
             $attrValueElem.addClass("attr-selected");
             attrValueIdMap.set("attrId"+$attrItem.find(".attr-name").attr("attr-id"), $attrValueElem.attr("attr-value-id"));
         }
-        
+
+        // 切换属性更新锁库存单元信息
         $(".attr-value").bind("click", function (e) {
             let attrValueId = $(e.target).attr("attr-value-id");
             let attrId = $(e.target).parent().parent().find(".attr-name").attr("attr-id");
             $(e.target).parent().parent().find(".attr-value").removeClass("attr-selected");
             $(e.target).addClass("attr-selected");
             attrValueIdMap.set("attrId"+attrId, attrValueId);
+
+            for (let i = 0; i < goodsInfoList['skuData'].length; i++) {
+                let sku = goodsInfoList['skuData'][i];
+                let changeFlag = false;
+                for (let j = 0; j < attrValueIdMap.size; j++) {
+                    if (sku['attrValueId'][j].toString() !== attrValueIdMap.get("attrId" + (j+1))) {
+                        break;
+                    }
+                    if ((sku['attrValueId'][j].toString() === attrValueIdMap.get("attrId" + (j+1))) && (j === attrValueIdMap.size - 1)) {
+                        $(".goods-title").text(sku['sku']['skuName']);
+                        $(".gm-price").text(sku['sku']['price']);
+                        $(".stock-wrap > span").text(sku['sku']['stock']);
+                        // console.log(sku);
+                        currentSku = sku;
+                        changeFlag = true;
+                        break;
+                    }
+                }
+                if (changeFlag == true) {
+                    break;
+                }
+            }
         });
+
+        // 购买按钮点击事件
+        $(".buy-btn").bind("click", function () {
+            let attrDescription = getGoodsDescription();
+            let amount = $(".amount-ipt").val();
+            if (!isPositiveInteger(amount)) {
+                layer.msg("购买数量必须为正整数!", {icon: 7});
+                return;
+            }
+            let jdata = {};
+            // jq的深拷贝对象
+            $.extend(true, jdata, currentSku['sku']);
+            // let jdata = currentSku['sku'];
+            jdata.skuId = jdata.id;
+            delete jdata.id;
+            jdata.image = jdata.images[0];
+            delete jdata.images;
+            jdata.amount = amount;
+            jdata.attrDescription = attrDescription;
+            $.ajax({
+                type: 'POST',
+                url: ctxPath + "trade",
+                data: JSON.stringify(jdata),
+                dataType: 'json',
+                contentType: "application/json;charset=UTF-8",
+                error: function (error) {
+                    layer.msg("未知错误，购买商品失败!", {icon: 7});
+                },
+                success: function (res) {
+                    code = res['code'];
+                    msg = res['msg'];
+                    if (code === 200) {
+                        layer.msg(msg, {icon: 1});
+                        setTimeout(function(){
+                            window.location = ctxPath + "member/order";
+                        }, 2000);
+                    }
+                    if (code == 400 || code == 401 || code == 402) {
+                        layer.msg(msg, {icon: 7});
+                    }
+                }
+            });
+            // console.log(currentSku);
+            // console.log(attrDescription);
+        });
+
+        // 添加商品至购物车
+        $(".shop-cart-btn").bind("click", function () {
+            let attrDescription = getGoodsDescription();
+            let amount = $(".amount-ipt").val();
+            if (!isPositiveInteger(amount)) {
+                layer.msg("购买数量必须为正整数!", {icon: 7});
+                return;
+            }
+            let jdata = {};
+            // jq的深拷贝对象
+            $.extend(true, jdata, currentSku['sku']);
+            // let jdata = currentSku['sku'];
+            jdata.skuId = jdata.id;
+            delete jdata.id;
+            jdata.image = jdata.images[0];
+            delete jdata.images;
+            jdata.amount = amount;
+            jdata.attrDescription = attrDescription;
+            $.ajax({
+                type: 'POST',
+                url: ctxPath + "shop-cart/add",
+                data: JSON.stringify(jdata),
+                dataType: 'json',
+                contentType: "application/json;charset=UTF-8",
+                error: function (error) {
+                    layer.msg("未知错误，添加商品至购物车失败!", {icon: 7});
+                },
+                success: function (res) {
+                    code = res['code'];
+                    msg = res['msg'];
+                    if (code === 200) {
+                        layer.msg(msg, {icon: 1});
+                        setTimeout(function(){
+                            window.location = ctxPath + "member/cart";
+                        }, 2000);
+                    }
+                    if (code == 400 || code == 401) {
+                        layer.msg(msg, {icon: 7});
+                    }
+                }
+            });
+        });
+
+        function isPositiveInteger(val) {
+            let r = /^\+?[1-9][0-9]*$/;
+            return r.test(val);
+        }
+
+        function getGoodsDescription() {
+            let attrNum = goodsInfoList['attr']['num'];
+            let attrDescription = '';
+            for (let i = 0; i < attrNum; i++) {
+                let attrName = goodsInfoList['attr']['attrNames'][i];
+                let attrValueId = attrValueIdMap.get("attrId" + attrName['id']);
+                attrDescription += attrName['name'] + ":" + getAttrValueNameById(attrValueId);
+                if (i < attrNum - 1) {
+                    attrDescription += ",";
+                }
+            }
+            return attrDescription;
+        }
+        
+        function getAttrValueNameById(id) {
+            for (let i = 0; i < goodsInfoList['attr']['attrValues'].length; i++) {
+                let attrValues = goodsInfoList['attr']['attrValues'][i];
+                if (attrValues['valueId'].toString() === id) {
+                    return attrValues['value'];
+                }
+            }
+        }
     });
 </script>
 </html>

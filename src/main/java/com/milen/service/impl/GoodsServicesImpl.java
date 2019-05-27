@@ -181,4 +181,10 @@ public class GoodsServicesImpl implements GoodsService {
         return skuvoList;
     }
 
+    @Override
+    public Long getSkuStockBySkuId(Long skuId) {
+        Long skuStock = goodsMapper.getSkuStockBySkuId(skuId);
+        return skuStock;
+    }
+
 }

@@ -135,7 +135,7 @@
                     <span>￥</span><strong th:text="${goods.price}"></strong>
                 </div>
                 <div class="goods-name-wrap">
-                    <a href="#" th:text="${goods.spuName}"></a>
+                    <a th:href="@{'/goods/' + ${goods.id}}" th:text="${goods.spuName}"></a>
                 </div>
                 <div class="goods-shop-name-wrap">
                     <span class="dsrs">

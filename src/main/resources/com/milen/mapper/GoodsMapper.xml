@@ -45,6 +45,10 @@
         </foreach>
     </insert>
 
+    <update id="updateSkuStockBySkuId">
+        UPDATE gm_sku SET stock = stock - #{amount} WHERE id = #{skuId} AND (stock - #{amount}) >= 0
+    </update>
+
     <select id="listCategory1" resultType="com.milen.model.po.Category1">
         SELECT id, category1_name FROM gm_category1
     </select>
@@ -91,6 +95,10 @@
 
     <select id="getFirstSKUBySPUId" resultType="java.math.BigDecimal">
         SELECT price FROM gm_sku WHERE spu_id = #{id} LIMIT 1
+    </select>
+
+    <select id="getSkuStockBySkuId" resultType="java.lang.Long">
+        SELECT stock FROM gm_sku WHERE id = #{skuId}
     </select>
 
 

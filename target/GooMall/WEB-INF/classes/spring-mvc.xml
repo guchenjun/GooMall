@@ -43,20 +43,32 @@
 
     <!-- 配置拦截器 -->
     <mvc:interceptors>
+        <!--        登录拦截器-->
         <mvc:interceptor>
+            <mvc:mapping path="/member/**"/>
             <mvc:mapping path="/seller/**"/>
-            <bean class="com.milen.interceptor.LoginInterceptor"></bean>
+            <bean class="com.milen.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
+        <!--        后台校验-->
         <mvc:interceptor>
             <mvc:mapping path="/admin/**"/>
             <mvc:exclude-mapping path="/admin/login"/>
-            <bean class="com.milen.interceptor.AdminInterceptor"></bean>
+            <bean class="com.milen.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
+        <!--        卖家工作台位置-->
         <mvc:interceptor>
             <mvc:mapping path="/seller/release/**"/>
             <mvc:mapping path="/seller/manage/**"/>
             <mvc:mapping path="/seller/order/**"/>
-            <bean class="com.milen.interceptor.SellerInterceptor"></bean>
+            <bean class="com.milen.interceptor.SellerInterceptor"/>
+        </mvc:interceptor>
+        <!--        用户中心位置-->
+        <mvc:interceptor>
+            <mvc:mapping path="/member/info/**"/>
+            <mvc:mapping path="/member/order/**"/>
+            <mvc:mapping path="/member/cart/**"/>
+            <mvc:mapping path="/member/favorites/**"/>
+            <bean class="com.milen.interceptor.MemberInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

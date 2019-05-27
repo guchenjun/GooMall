@@ -4,7 +4,6 @@ import com.milen.model.dto.AttrAndAttrValueDTO;
 import com.milen.model.dto.SKUDTO;
 import com.milen.model.po.*;
 import com.milen.model.vo.ReleaseGoodsVO;
-import com.milen.model.vo.SPUVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -43,4 +42,8 @@ public interface GoodsMapper {
     List<String> listSKUImagesBySKUId(@Param("id") Long id);
 
     BigDecimal getFirstSKUBySPUId(@Param("id") Long id);
+
+    Long getSkuStockBySkuId(@Param("skuId") Long skuId);
+
+    int updateSkuStockBySkuId(@Param("skuId") Long skuId, @Param("skuStock") Long skuStock, @Param("amount") Long amount);
 }
