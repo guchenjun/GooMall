@@ -1,6 +1,7 @@
 package com.milen.mapper;
 
 import com.milen.model.dto.TradeOrderDTO;
+import com.milen.model.po.ShopCart;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -11,4 +12,6 @@ public interface TradeMapper {
     int insertTradeOrder(@Param("tradeOrderDTO") TradeOrderDTO tradeOrderDTO, @Param("userId") Long id, @Param("date")Date date);
 
     List<TradeOrderDTO> listTradeOrderByUserId(@Param("userId") Long id);
+
+    int insertTradeOrderByShopCart(@Param("shopCart") ShopCart shopCart, @Param("userId") Long userId, @Param("date")Date date);
 }

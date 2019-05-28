@@ -5,14 +5,13 @@ import com.milen.model.dto.TradeOrderDTO;
 import com.milen.model.po.User;
 import com.milen.model.vo.R;
 import com.milen.service.ShopCartService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 
 @RestController
 @RequestMapping("/shop-cart")
@@ -33,5 +32,15 @@ public class ShopCartController {
             return R.ok(200, "添加购物车成功!");
         }
         return R.error(401, "添加购物车失败!");
+    }
+
+    @RequestMapping(value = "/buy",method = RequestMethod.POST)
+    public R buyShopCartGoods(@RequestParam("shopCartId") String shopCartId, HttpSession session) {
+        User loginUser = (User)session.getAttribute("loginUser");
+        boolean isBought = shopCartService.buyShopCartGoods(shopCartId, loginUser.getId());
+        if (isBought) {
+            return R.ok(200, "购买成功!");
+        }
+        return R.error(400, "购买失败!");
     }
 }

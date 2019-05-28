@@ -10,4 +10,6 @@ public interface ShopCartService {
     boolean addShopCart(TradeOrderDTO tradeOrderDTO, Long id);
 
     List<ShopCartVO> listShopCartByUserId(Long id);
+
+    boolean buyShopCartGoods(String shopCartId, Long id);
 }

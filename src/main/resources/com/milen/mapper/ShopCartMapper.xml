@@ -10,7 +10,15 @@
         #{tradeOrderDTO.price}, #{tradeOrderDTO.amount}, #{tradeOrderDTO.attrDescription}, #{date}, #{date})
     </insert>
 
+    <delete id="removeShopCartSkuById">
+        DELETE FROM gm_shop_cart WHERE id = #{id}
+    </delete>
+
     <select id="listShopCartByUserId" resultType="com.milen.model.dto.ShopCartDTO">
         SELECT * FROM gm_shop_cart WHERE user_id = #{userId}
+    </select>
+
+    <select id="getShopCartSkuById" resultType="com.milen.model.po.ShopCart">
+        SELECT * FROM gm_shop_cart WHERE id = #{shopCartId}
     </select>
 </mapper>

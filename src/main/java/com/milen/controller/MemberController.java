@@ -45,7 +45,10 @@ public class MemberController {
         model.addAttribute("shopCartList", shopCartVOList);
         // 2019年5月27日 23:51:42
         // member Line 188，弹出层付款确认；上下架商品接口
+
         return "member";
+
+
     }
 
     @RequestMapping("/favorites")

@@ -28,7 +28,7 @@
                                 <p class="level-info gm-score" th:text="'逛购值: ' + ${session.loginUser.experience}">逛购值:123</p>
                                 <p class="level-info">LV1</p>
                             </div>
-                            <a class="site-nav-user-privilege" href="//vip.taobao.com" target="_top">查看你的专属权益</a>
+                            <a class="site-nav-user-privilege" href="#" target="_top">查看你的专属权益</a>
                         </div>
                     </dd>
                 </dl>
@@ -47,7 +47,6 @@
                 </dl>
             </li>
             <li class="layui-nav-item site-nav-pipe f-right">|</li>
-            <li class="layui-nav-item f-right"><a href="">收藏夹</a></li>
             <li class="layui-nav-item f-right">
                 <a href="">购物车</a>
                 <dl class="layui-nav-child mini-cart">
@@ -95,8 +94,8 @@
             <li class="layui-nav-item f-right">
                 <a href="">我的逛购</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">我的订单</a></dd>
-                    <dd><a href="">浏览足迹</a></dd>
+                    <dd><a th:href="@{/member/order}">我的订单</a></dd>
+                    <dd><a th:href="@{/member/favorites}">我的收藏</a></dd>
                 </dl>
             </li>
         </ul>

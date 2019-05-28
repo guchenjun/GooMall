@@ -10,6 +10,14 @@
         #{tradeOrderDTO.price}, #{tradeOrderDTO.amount}, #{tradeOrderDTO.attrDescription}, #{date}, #{date})
     </insert>
 
+    <insert id="insertTradeOrderByShopCart">
+        INSERT INTO gm_trade_order
+        (user_id,spu_id,sku_id,sku_name,image,price,amount,attr_description,gmt_create,gmt_modified)
+        VALUES
+        (#{userId},#{shopCart.spuId}, #{shopCart.skuId}, #{shopCart.skuName}, #{shopCart.image},
+        #{shopCart.price}, #{shopCart.amount}, #{shopCart.attrDescription}, #{date}, #{date})
+    </insert>
+
     <select id="listTradeOrderByUserId" resultType="com.milen.model.dto.TradeOrderDTO">
         SELECT * FROM gm_trade_order WHERE user_id = #{userId}
     </select>

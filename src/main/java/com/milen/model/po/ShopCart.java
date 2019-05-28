@@ -1,13 +1,13 @@
-package com.milen.model.vo;
-
-import com.milen.model.dto.TradeOrderDTO;
+package com.milen.model.po;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TradeOrderVO {
+public class ShopCart {
 
     private Long id;
+
+    private Long userId;
 
     private Long spuId;
 
@@ -21,25 +21,13 @@ public class TradeOrderVO {
 
     private Long amount;
 
-    private BigDecimal totalPrice;
-
     private String attrDescription;
 
     private Date gmtCreate;
 
-    public TradeOrderVO() {
-    }
+    private Date gmtModified;
 
-    public TradeOrderVO(TradeOrderDTO tradeOrderDTO) {
-        this.id = tradeOrderDTO.getId();
-        this.spuId = tradeOrderDTO.getSpuId();
-        this.skuId = tradeOrderDTO.getSkuId();
-        this.skuName = tradeOrderDTO.getSkuName();
-        this.image = tradeOrderDTO.getImage();
-        this.price = tradeOrderDTO.getPrice();
-        this.amount = tradeOrderDTO.getAmount();
-        this.attrDescription = tradeOrderDTO.getAttrDescription();
-        this.gmtCreate = tradeOrderDTO.getGmtCreate();
+    public ShopCart() {
     }
 
     public Long getId() {
@@ -48,6 +36,14 @@ public class TradeOrderVO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getSpuId() {
@@ -98,14 +94,6 @@ public class TradeOrderVO {
         this.amount = amount;
     }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
     public String getAttrDescription() {
         return attrDescription;
     }
@@ -122,19 +110,28 @@ public class TradeOrderVO {
         this.gmtCreate = gmtCreate;
     }
 
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
+    }
+
     @Override
     public String toString() {
-        return "TradeOrderVO{" +
+        return "ShopCart{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", spuId=" + spuId +
                 ", skuId=" + skuId +
                 ", skuName='" + skuName + '\'' +
                 ", image='" + image + '\'' +
                 ", price=" + price +
                 ", amount=" + amount +
-                ", totalPrice=" + totalPrice +
                 ", attrDescription='" + attrDescription + '\'' +
                 ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
                 '}';
     }
 }

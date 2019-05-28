@@ -158,10 +158,6 @@
     padding-left: 15px;
 }
 
-.order-sku-th {
-    width: 400px;
-}
-
 .trade-finish {
     background-color: #33CC33;
     padding: 3px 6px;
@@ -213,4 +209,20 @@
 
 .cart-sku-th {
     width: 400px;
+}
+
+.to-buy {
+    background-color: #ffbe07;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.to-buy:hover {
+    cursor: pointer;
+    background-color: #ffb307;
+}
+
+.main-member-cart-bd > h2 {
+    margin-bottom: 25px;
 }
