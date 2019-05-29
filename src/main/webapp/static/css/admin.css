@@ -109,3 +109,14 @@
 .av-item-value > label {
     margin-right: 8px;
 }
+
+.agreed-td {
+    background-color: #33CC33;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.record-agreed:hover {
+    color: #666;
+}

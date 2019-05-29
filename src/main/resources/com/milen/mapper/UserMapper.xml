@@ -8,6 +8,14 @@
         (#{username},#{realName},#{password},#{eMail},#{phoneNumber},#{gmtCreate},#{gmtModified})
     </insert>
 
+    <update id="updateHeadImageById">
+        UPDATE gm_user SET head_image = #{imagePath} WHERE id = #{id}
+    </update>
+
+    <update id="updatePasswordById">
+        UPDATE gm_user SET password = #{newPwd} WHERE id = #{id}
+    </update>
+
     <select id="getUsername" resultType="java.lang.Integer">
         select count(*) from gm_user where username = #{username}
     </select>
@@ -18,5 +26,9 @@
 
     <select id="getUserByUsername" resultType="com.milen.model.po.User">
         select * from gm_user where username = #{username}
+    </select>
+
+    <select id="getPasswordById" resultType="java.lang.String">
+        SELECT password FROM gm_user WHERE id = #{id}
     </select>
 </mapper>

@@ -60,9 +60,7 @@ public class AdminShopServiceImpl implements AdminShopService {
             if (!shop.getShopStatus()) {
                 shopStatus = "暂停经营";
             }
-            Long openSeconds = nowDate.getTime() - shop.getGmtCreate().getTime();
-            Date openTime = new Date(openSeconds);
-            ShopVO shopVO = new ShopVO(shop, shopStatus, openTime);
+            ShopVO shopVO = new ShopVO(shop, shopStatus);
             shopListVO.add(shopVO);
         }
         return shopListVO;

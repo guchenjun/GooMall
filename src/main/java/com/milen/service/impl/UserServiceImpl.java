@@ -38,4 +38,22 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.getUserByUsername(username);
         return user;
     }
+
+    @Override
+    public boolean updateHeadImageById(String imagePath, Long id) {
+        int row = userMapper.updateHeadImageById(imagePath, id);
+        return row > 0;
+    }
+
+    @Override
+    public String getPasswordById(Long id) {
+        return userMapper.getPasswordById(id);
+    }
+
+    @Override
+    public boolean updatePasswordById(String newPwd, Long id) {
+        String newPwdMd5 = DigestUtils.md5DigestAsHex(newPwd.getBytes());
+        int row = userMapper.updatePasswordById(newPwdMd5, id);
+        return row > 0;
+    }
 }

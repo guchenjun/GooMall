@@ -3,6 +3,7 @@ package com.milen.service.impl;
 import com.milen.mapper.AttributeMapper;
 import com.milen.mapper.GoodsMapper;
 import com.milen.model.dto.AttributeValueDTO;
+import com.milen.model.dto.CategoryBrandDTO;
 import com.milen.model.po.AttributeValue;
 import com.milen.service.AttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,30 +23,39 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public List<Map<String, Object>> getAttributesListByCategory2(Long id) {
-        List<Long> idList = attributeMapper.getAttributeIdsByCategory2(id);
-        List<AttributeValue> attributeNameAndValueList = attributeMapper.getAttributeNameAndValueByIds(idList);
-        Map<String, List<String>> map = new HashMap<>();
-        for (int i = 0; i < attributeNameAndValueList.size(); i++) {
-            Long attrId = attributeNameAndValueList.get(i).getAttrId();
-            String attrName = attributeNameAndValueList.get(i).getAttrName();
-            String attrValue = attributeNameAndValueList.get(i).getAttrValue();
-            if (!map.containsKey(attrName + "," + attrId)) {
-                List<String> valueList = new ArrayList<>();
-                valueList.add(attrValue);
-                map.put(attrName +"," + attrId, valueList);
-            } else {
-                map.get(attrName +"," + attrId).add(attrValue);
-            }
-        }
         List<Map<String, Object>> mapEntryList = new ArrayList<>();
-        Iterator<Map.Entry<String, List<String>>> iterator = map.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, List<String>> entry = iterator.next();
-            Map<String, Object> mMap = new HashMap();
-            mMap.put("attrId", entry.getKey().split(",")[1]);
-            mMap.put("name", entry.getKey().split(",")[0]);
-            mMap.put("values", entry.getValue());
-            mapEntryList.add(mMap);
+        try {
+            List<Long> idList = attributeMapper.getAttributeIdsByCategory2(id);
+            Map<String, List<String>> map = new HashMap<>();
+            if (idList.size() != 0) {
+                // 无attr_value的为空，重新设计【一次查一个，如果values为空，赋值[]数组】
+                List<AttributeValue> attributeNameAndValueList = attributeMapper.getAttributeNameAndValueByIds(idList);
+                for (int i = 0; i < attributeNameAndValueList.size(); i++) {
+                    Long attrId = attributeNameAndValueList.get(i).getAttrId();
+                    String attrName = attributeNameAndValueList.get(i).getAttrName();
+                    String attrValue = attributeNameAndValueList.get(i).getAttrValue();
+                    if (!map.containsKey(attrName + "," + attrId)) {
+                        List<String> valueList = new ArrayList<>();
+                        valueList.add(attrValue);
+                        map.put(attrName +"," + attrId, valueList);
+                    } else {
+                        map.get(attrName +"," + attrId).add(attrValue);
+                    }
+                }
+
+                Iterator<Map.Entry<String, List<String>>> iterator = map.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry<String, List<String>> entry = iterator.next();
+                    Map<String, Object> mMap = new HashMap();
+                    mMap.put("attrId", entry.getKey().split(",")[1]);
+                    mMap.put("name", entry.getKey().split(",")[0]);
+                    mMap.put("values", entry.getValue());
+                    mapEntryList.add(mMap);
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
         return mapEntryList;
     }
@@ -101,5 +111,25 @@ public class AttributeServiceImpl implements AttributeService {
             }
         }
         return mapList;
+    }
+
+    @Override
+    public boolean saveBrandByCategoryDTO(CategoryBrandDTO categoryBrandDTO) {
+        Date date = new Date();
+        categoryBrandDTO.setDate(date);
+        attributeMapper.insertBrand(categoryBrandDTO);
+        Long brandId = categoryBrandDTO.getId();
+        int row = 0;
+        if (brandId != null && brandId != 0) {
+            row = attributeMapper.insertCatrgory2Brand(brandId, categoryBrandDTO.getCategory2Id(), date);
+        }
+        return row > 0;
+    }
+
+    @Override
+    public boolean saveAttrName(String attrName, Long category2Id) {
+        Date date = new Date();
+        int row = attributeMapper.insertAttrName(attrName, category2Id, date);
+        return row > 0;
     }
 }

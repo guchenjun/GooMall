@@ -2,6 +2,7 @@ package com.milen.mapper;
 
 import com.milen.model.dto.AttrAndAttrValueDTO;
 import com.milen.model.dto.AttributeValueDTO;
+import com.milen.model.dto.CategoryBrandDTO;
 import com.milen.model.po.AttributeValue;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +30,10 @@ public interface AttributeMapper {
     List<Long> listAttrValueIdBySkuId(@Param("skuId") Long skuId);
 
     List<AttributeValue> listAttrValueByAttrId(@Param("attrId") Long attrId);
+
+    Long insertBrand(CategoryBrandDTO categoryBrandDTO);
+
+    int insertCatrgory2Brand(@Param("brandId") Long brandId, @Param("category2Id") Long category2Id,@Param("date") Date date);
+
+    int insertAttrName(@Param("attrName") String attrName, @Param("category2Id") Long category2Id, @Param("date") Date date);
 }

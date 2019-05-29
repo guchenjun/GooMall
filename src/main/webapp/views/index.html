@@ -18,7 +18,7 @@
                 <dl class="layui-nav-child">
                     <dd>
                         <div class="nav-menu-bd-panel">
-                            <div class="nav-user-wrapper"><img src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_80x80.jpg" alt=""></div>
+                            <div class="nav-user-wrapper"><img th:src="@{'/image/head/' + ${session.loginUser.headImage}}"></div>
                             <div class="nav-user-info">
                                 <p class="nav-user-operate" style="text-align: right">
                                     <a th:href="@{/member/info}">帐号管理</a>

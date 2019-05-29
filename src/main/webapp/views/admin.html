@@ -103,14 +103,14 @@
                             <td th:text="${#dates.format(record.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${#dates.format(record.gmtModified, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${record.reviewAdmin}"></td>
-                            <td th:text="${record.reviewStatus}"></td>
+                            <td><span class="agreed-td" th:text="${record.reviewStatus}"></span></td>
                             <td>
                                 <div class="agree-wrapper" th:if="${record.reviewAdmin eq '无'}">
                                     <a class="layui-btn layui-btn-normal record-agree-btn"
                                        th:href="@{'/admin/shop/review/agree/' + ${record.id}}">同意</a>
                                 </div>
                                 <div class="agree-wrapper" th:if="${record.reviewAdmin != '无'}">
-                                    <a class="layui-btn layui-btn-normal record-agreed" th:href="@{#}">已通过</a>
+                                    <a class="layui-btn layui-btn-normal record-agreed" th:href="@{#}">无</a>
                                 </div>
                             </td>
                         </tr>
@@ -129,7 +129,7 @@
                             <th>商铺押金</th>
                             <th>商铺收益</th>
                             <th>商铺状态</th>
-                            <th>经营时间</th>
+                            <th>开店时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -142,7 +142,7 @@
                             <td th:text="${shop.shopDeposit}"></td>
                             <td th:text="${shop.shopAccount}"></td>
                             <td th:text="${shop.shopStatus}"></td>
-                            <td th:text="${shop.openTime}"></td>
+                            <td th:text="${#dates.format(shop.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td>
                                 <div class="shop-info-wrapper">
                                     <a class="layui-btn layui-btn-normal shop-info-more-btn"
@@ -188,6 +188,7 @@
                             <div class="layui-input-block cat2-attribute-wrapper">
 <!--                                <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked>-->
 <!--                                <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">-->
+                                <button type="button" class="layui-btn layui-btn-primary add-attr-btn">新增属性</button>
                             </div>
                         </div>
                         <div class="layui-form-item" pane="">
@@ -237,7 +238,7 @@
     </div>
 </div>
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/layui/layui.all.js}" th:inline="javascript"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
 <script type="text/javascript" th:inline="javascript">
     $(function () {
         // 后台响应的提示信息
@@ -259,7 +260,7 @@
             layer.close(index);
             $.ajax({
                 type: 'POST',
-                url: ctxPath + 'admin/goods/attribute/add',
+                url: ctxPath + 'admin/goods/attribute/value/add',
                 data: {
                   'attrId': attrId,
                   'attrValue': text
@@ -398,6 +399,8 @@
                         // 上面要加gm_attr表的id字段，2019年5月7日 23:49:26记录
                         $(".cat2-attribute-wrapper").append(attr);
                     }
+                    $(".cat2-attribute-wrapper").append('<button type="button" class="layui-btn layui-btn-primary add-attr-btn" style="\n' +
+                        '">新增属性</button>');
                     renderForm();
                 }
             })
@@ -476,9 +479,30 @@
             if (category1Id != 0 && category2Id != 0) {
                 layer.prompt({title: '请输入品牌分类名称', formType: 1}, function(text, index){
                     layer.close(index);
-                    // $.ajax({
-                    //
-                    // })
+                    jdata = {
+                        'category1Id': category1Id,
+                        'category2Id': category2Id,
+                        'brandName': text
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: ctxPath + 'admin/goods/brand/add',
+                        contentType: 'application/json',
+                        data: JSON.stringify(jdata),
+                        error: function (error) {
+                            layer.msg("未知错误，添加品牌失败!", {icon: 7});
+                        },
+                        success: function (res) {
+                            let code = res['code'];
+                            let msg = res['msg'];
+                            if (code === 200) {
+                                layer.msg("添加品牌" + text +"成功!", {icon: 1});
+                                window.location.href = ctxPath + "admin/goods/category";
+                                return;
+                            }
+                            layer.msg("添加品牌" + text +"失败!", {icon: 7});
+                        }
+                    });
                 });
                 let category1Name, category2Name;
                 for (let i = 0; i < category1List.length; i++) {
@@ -507,6 +531,40 @@
                 layer.msg("请先选择二级分类", function() {});
             }
         });
+
+        //给二级分类添加属性名
+        $(".cat2-attribute-wrapper").on("click",".add-attr-btn", function () {
+            if (category1Id != 0 && category2Id != 0) {
+                layer.prompt({title: '请输入预添加的二级分类属性名', formType: 1}, function(text, index){
+                    layer.close(index);
+                    let data = {
+                        'category2Id': category2Id,
+                        'attrName': text
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: ctxPath + 'admin/goods/attribute/name/add',
+                        data: data,
+                        error: function (error) {
+                            layer.msg("未知错误，添加属性名称失败!", {icon: 7});
+                        },
+                        success: function (res) {
+                            let code = res['code'];
+                            let msg = res['msg'];
+                            if (code === 200) {
+                                layer.msg("添加属性名 " + text +" 成功!", {icon: 1});
+                                return;
+                            }
+                            layer.msg("添加属性名" + text +"失败!", {icon: 7});
+                        }
+                    });
+                });
+                $(".layui-layer-content > input").attr("type", "text");
+            } else {
+                layer.msg("请先选择二级分类!", {icon: 7});
+            }
+        });
+
 
         $(".category-form").show(function () {
             goodsCategory = [[${goodsCategory}]];
@@ -564,7 +622,6 @@
 
             }
         });
-
 
     });
 

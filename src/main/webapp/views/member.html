@@ -111,7 +111,7 @@
                     <div class="change-pwd">
                         <div class="old-pwd-wrap">
                             <span>原密码</span>
-                            <input type="text">
+                            <input type="text" class="old-pwd">
                         </div>
                         <div class="new-pwd-wrap">
                             <span>新密码</span>
@@ -207,11 +207,62 @@
         var ctxPath = /*[[@{/}]]*/ '';
 
         // 绑定更换头像事件
-       $(".member-head-img").bind("click", function () {
+        layui.use('upload', function(){
+            var upload = layui.upload;
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '.member-head-img'
+                ,url: ctxPath + 'member/upload-head'
+                ,done: function(res){
+                    let code = res['code'];
+                    let msg = res['msg'];
+                    if (code == 200) {
+                        let imageName = res['data'];
+                        $(".member-head-img").attr("src", ctxPath + "image/head/" + imageName)
+                        layer.msg(msg , {icon: 1});
+                    } else {
+                        layer.msg(msg , {icon: 7});
+                    }
+                }
+                ,error: function(err){
+                    layer.msg("未知错误，头像上传失败!", {icon: 7});
+                }
+            });
+        });
 
-       });
+        // 修改用户密码点击事件
+        $(".change-pwd-btn").bind("click", function () {
+           let oldPwd = $(".old-pwd").val();
+           let newPwd1 = $(".new-pwd1").val();
+           let newPwd2 = $(".new-pwd2").val();
+           if (newPwd1 != newPwd2) {
+               layer.msg("新密码不一致，请重新输入！", {icon: 7});
+               return;
+           }
+           // 密码相同，发送更改密码请求
+            $.ajax({
+                type: 'POST',
+                url: ctxPath + 'member/change-pwd',
+                data: {'oldPwd': oldPwd, 'newPwd': newPwd1},
+                error: function (error) {
+                    layer.msg("未知错误，更改密码失败!", {icon: 7});
+                },
+                success: function (res) {
+                    let code = res['code'];
+                    let msg = res['msg'];
+                    if (code == 200) {
+                        layer.msg(msg, {icon: 1});
+                        window.setTimeout(function () {
+                            window.location = ctxPath + "member/info";
+                        }, 1500);
+                    } else {
+                        layer.msg(msg, {icon: 7});
+                    }
+                }
+            });
+        });
 
-       //
+        // 购物车确定付款点击事件
         $(".to-buy").bind("click", function (e) {
             layer.confirm('是否立即付款？', {
                 btn: ['确定','取消']

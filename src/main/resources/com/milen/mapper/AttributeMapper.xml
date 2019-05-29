@@ -8,16 +8,38 @@
         (#{attrId}, #{attrName}, #{attrValue}, #{gmtModified}, #{gmtModified})
     </insert>
 
+    <insert id="insertBrand" keyProperty="id" useGeneratedKeys="true" parameterType="com.milen.model.dto.CategoryBrandDTO" >
+        INSERT INTO gm_brand
+        (brand_name, gmt_create, gmt_modified)
+        VALUES
+        (#{brandName}, #{date}, #{date})
+    </insert>
+
+    <insert id="insertCatrgory2Brand">
+        INSERT INTO gm_brand_category
+        (brand_id, category2_id, gmt_create, gmt_modified)
+        VALUES
+        (#{brandId}, #{category2Id}, #{date}, #{date})
+    </insert>
+
+    <insert id="insertAttrName">
+        INSERT INTO gm_attr
+        (attr_name, category2_id, gmt_create, gmt_modified)
+        VALUES
+        (#{attrName}, #{category2Id}, #{date}, #{date})
+    </insert>
+
     <select id="getAttributeIdsByCategory2" resultType="java.lang.Long">
         SELECT id FROM gm_attr WHERE category2_id = #{id}
     </select>
 
     <select id="getAttributeNameAndValueByIds" resultType="com.milen.model.po.AttributeValue">
         SELECT attr_id, attr_name, attr_value FROM gm_attr_value
-        WHERE attr_id IN
-        <foreach collection="idList" item="id" separator="," close=")" open="(">
+        WHERE attr_id IN (
+        <foreach collection="idList" item="id" separator=",">
             #{id}
         </foreach>
+        )
     </select>
 
     <select id="getAttrNameByAttrId" resultType="java.lang.String">
