@@ -29,8 +29,9 @@ public class ShopServiceImpl implements ShopService {
         shop.setShopScore(new BigDecimal(5));
         shop.setShopAccount(new BigDecimal(0));
         shop.setShopStatus(false);
-        Long row = shopMapper.saveShop(shop);
-        return row;
+        shopMapper.saveShop(shop);
+        Long shopId = shop.getId();
+        return shopId;
     }
 
     @Override

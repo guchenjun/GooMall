@@ -48,54 +48,10 @@
             </li>
             <li class="layui-nav-item site-nav-pipe f-right">|</li>
             <li class="layui-nav-item f-right">
-                <a href="">购物车</a>
-                <dl class="layui-nav-child mini-cart">
-                    <dd style="margin-left: 7px;">最近加入的宝贝：</dd>
-                    <dd>
-                        <div class="mini-cart-img f-left">
-                            <a href="#" style="margin: 0 7px;">
-                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
-                            </a>
-                        </div>
-                        <div class="mini-cart-count f-right" style="font-family: Arial;">
-                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
-                        </div>
-                        <div class="mini-cart-title">
-                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
-                        </div>
-                        <div class="mini-cart-del f-right">
-                            <a href="" style="font-size: 13px;">删除</a>
-                        </div>
-                        <div class="mini-cart-info">
-                            <span>口味:圆形奶油夹心125g*1包 </span>
-                        </div>
-                    </dd>
-                    <dd>
-                        <div class="mini-cart-img f-left">
-                            <a href="#" style="margin: 0 7px;">
-                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
-                            </a>
-                        </div>
-                        <div class="mini-cart-count f-right" style="font-family: Arial;">
-                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
-                        </div>
-                        <div class="mini-cart-title">
-                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
-                        </div>
-                        <div class="mini-cart-del f-right">
-                            <a href="" style="font-size: 13px;">删除</a>
-                        </div>
-                        <div class="mini-cart-info">
-                            <span>口味:圆形奶油夹心125g*1包 </span>
-                        </div>
-                    </dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item f-right">
                 <a href="">我的逛购</a>
                 <dl class="layui-nav-child">
                     <dd><a th:href="@{/member/order}">我的订单</a></dd>
-                    <dd><a th:href="@{/member/favorites}">我的收藏</a></dd>
+                    <dd><a th:href="@{/member/cart}">购物车</a></dd>
                 </dl>
             </li>
         </ul>
@@ -112,10 +68,10 @@
                     class="search-btn-wrap"><input class="search-btn" type="button" value="搜索"></span>
             </div>
             <div class="search-keys">
-                <a href="https://www.baidu.com">手机</a>
-                <a href="https://www.baidu.com">电脑</a>
-                <a href="https://www.baidu.com">相机</a>
-                <a href="https://www.baidu.com">AJ</a>
+                <a th:href="@{'/search?category2=6'}">手机</a>
+                <a th:href="@{'/search?q=衬衫'}">衬衫</a>
+                <a th:href="@{'/search?q=男鞋'}">男鞋</a>
+                <a th:href="@{'/search?q=电脑'}">电脑</a>
             </div>
         </div>
     </div>
@@ -184,10 +140,165 @@
                 </li>
             </ul>
             <div class="service-float"
-                 style="background-color:#fff; display: none;z-index: 101;width: 702px;position: absolute;left: 188px;top: 0;height: 290px;border: 2px solid #F94A14;">
-                <div class="service-float-item" th:data-index="1" style="display: none;">家电 / 数码 / 手机</div>
-                <div class="service-float-item" th:data-index="2" style="display: none;">女装 / 男装 / 内衣</div>
-                <div class="service-float-item" th:data-index="3" style="display: none;">女鞋 / 男鞋 / 箱包</div>
+                 style="background-color:#fff; display: none;z-index: 101;width: 535px;position: absolute;left: 188px;top: 0;height: 290px;border: 2px solid #F94A14;">
+                <div class="service-float-item" th:data-index="1" style="display: none;">
+                    <h3>家电</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=1'}">电视</a>
+                        <a th:href="@{'/search?category2=2'}">空调</a>
+                        <a th:href="@{'/search?category2=3'}">冰箱</a>
+                        <a th:href="@{'/search?category2=4'}">洗衣机</a>
+                        <a th:href="@{'/search?category2=5'}">煤气灶</a>
+                    </div>
+                    <h3>数码</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=6'}">手机</a>
+                        <a th:href="@{'/search?category2=7'}">单反相机</a>
+                        <a th:href="@{'/search?category2=8'}">数码相机</a>
+                    </div>
+                    <h3>电脑</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=9'}">笔记本</a>
+                        <a th:href="@{'/search?category2=10'}">游戏本</a>
+                        <a th:href="@{'/search?category2=11'}">台式电脑</a>
+                    </div>
+                </div>
+                <div class="service-float-item" th:data-index="2" style="display: none;">
+                    <h3>男装</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=12'}">衬衫</a>
+                        <a th:href="@{'/search?category2=13'}">牛仔裤</a>
+                        <a th:href="@{'/search?category2=14'}">T恤</a>
+                        <a th:href="@{'/search?category2=15'}">短裤</a>
+                    </div>
+                    <h3>女装</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=16'}">连衣裙</a>
+                        <a th:href="@{'/search?category2=17'}">衬衫</a>
+                        <a th:href="@{'/search?category2=18'}">针织衫</a>
+                        <a th:href="@{'/search?category2=19'}">风衣</a>
+                        <a th:href="@{'/search?category2=20'}">半身裙</a>
+                    </div>
+                    <h3>内衣</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=21'}">男士内裤</a>
+                        <a th:href="@{'/search?category2=22'}">女士内裤</a>
+                        <a th:href="@{'/search?category2=23'}">睡衣</a>
+                        <a th:href="@{'/search?category2=24'}">文胸</a>
+                        <a th:href="@{'/search?category2=25'}">打底裤</a>
+                        <a th:href="@{'/search?category2=26'}">丝袜</a>
+                    </div>
+                </div>
+                <div class="service-float-item" th:data-index="3" style="display: none;">
+                    <h3>箱包</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=27'}">单肩包</a>
+                        <a th:href="@{'/search?category2=28'}">双肩包</a>
+                        <a th:href="@{'/search?category2=29'}">钱包</a>
+                        <a th:href="@{'/search?category2=30'}">拉杆箱</a>
+                        <a th:href="@{'/search?category2=31'}">电脑包</a>
+                    </div>
+                    <h3>男鞋</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=32'}">跑步鞋</a>
+                        <a th:href="@{'/search?category2=33'}">休闲鞋</a>
+                        <a th:href="@{'/search?category2=34'}">帆布鞋</a>
+                        <a th:href="@{'/search?category2=35'}">拖鞋</a>
+                    </div>
+                    <h3>女鞋</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=36'}">高跟鞋</a>
+                        <a th:href="@{'/search?category2=37'}">休闲鞋</a>
+                        <a th:href="@{'/search?category2=38'}">内增高</a>
+                        <a th:href="@{'/search?category2=39'}">女靴</a>
+                        <a th:href="@{'/search?category2=40'}">雪地靴</a>
+                    </div>
+                </div>
+                <div class="service-float-item" th:data-index="4" style="display: none;">
+                    <h3>童装</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=41'}">套装</a>
+                        <a th:href="@{'/search?category2=42'}">卫衣</a>
+                        <a th:href="@{'/search?category2=43'}">裤子</a>
+                        <a th:href="@{'/search?category2=44'}">衬衫</a>
+                    </div>
+                    <h3>母婴</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=45'}">奶嘴</a>
+                        <a th:href="@{'/search?category2=46'}">吸奶器</a>
+                        <a th:href="@{'/search?category2=47'}">儿童餐具</a>
+                        <a th:href="@{'/search?category2=48'}">婴儿枕</a>
+                        <a th:href="@{'/search?category2=49'}">孕妈装</a>
+                        <a th:href="@{'/search?category2=50'}">婴儿推车</a>
+                        <a th:href="@{'/search?category2=51'}">婴儿床</a>
+                    </div>
+                    <h3>玩具</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=52'}">益智玩具</a>
+                        <a th:href="@{'/search?category2=53'}">橡皮泥</a>
+                        <a th:href="@{'/search?category2=54'}">积木拼装</a>
+                        <a th:href="@{'/search?category2=55'}">遥控/电动</a>
+                        <a th:href="@{'/search?category2=56'}">毛绒玩具</a>
+                        <a th:href="@{'/search?category2=57'}">娃娃玩具</a>
+                    </div>
+                </div>
+                <div class="service-float-item" th:data-index="5" style="display: none;">
+                    <h3>个护</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=58'}">牙刷</a>
+                        <a th:href="@{'/search?category2=59'}">牙膏</a>
+                        <a th:href="@{'/search?category2=60'}">洗发露</a>
+                        <a th:href="@{'/search?category2=61'}">护发素</a>
+                        <a th:href="@{'/search?category2=62'}">面膜</a>
+                        <a th:href="@{'/search?category2=63'}">洗面奶</a>
+                        <a th:href="@{'/search?category2=64'}">口红</a>
+                    </div>
+                    <h3>骑行</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=65'}">自行车</a>
+                        <a th:href="@{'/search?category2=66'}">山地车</a>
+                        <a th:href="@{'/search?category2=67'}">折叠车</a>
+                        <a th:href="@{'/search?category2=68'}">电动车</a>
+                        <a th:href="@{'/search?category2=69'}">平衡车</a>
+
+                    </div>
+                    <h3>运动</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=70'}">乒乓球</a>
+                        <a th:href="@{'/search?category2=71'}">羽毛球</a>
+                        <a th:href="@{'/search?category2=72'}">篮球</a>
+                        <a th:href="@{'/search?category2=73'}">足球</a>
+                        <a th:href="@{'/search?category2=74'}">网球</a>
+                    </div>
+                </div>
+                <div class="service-float-item" th:data-index="6" style="display: none;">
+                    <h3>健身</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=75'}">跑步机</a>
+                        <a th:href="@{'/search?category2=76'}">动感单车</a>
+                        <a th:href="@{'/search?category2=77'}">收腹机/俯卧板</a>
+                        <a th:href="@{'/search?category2=78'}">拉力器/臂力器</a>
+                        <a th:href="@{'/search?category2=79'}">运动护具</a>
+                    </div>
+                    <h3>家装</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=80'}">茶几</a>
+                        <a th:href="@{'/search?category2=81'}">电脑桌</a>
+                        <a th:href="@{'/search?category2=82'}">电视柜</a>
+                        <a th:href="@{'/search?category2=83'}">沙发</a>
+                        <a th:href="@{'/search?category2=84'}">衣架</a>
+                        <a th:href="@{'/search?category2=85'}">床</a>
+                    </div>
+                    <h3>百货</h3>
+                    <div class="cat2-cnt">
+                        <a th:href="@{'/search?category2=86'}">保温杯</a>
+                        <a th:href="@{'/search?category2=87'}">餐具套装</a>
+                        <a th:href="@{'/search?category2=88'}">茶壶</a>
+                        <a th:href="@{'/search?category2=89'}">垃圾桶</a>
+                        <a th:href="@{'/search?category2=90'}">拖把</a>
+                        <a th:href="@{'/search?category2=91'}">围裙</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="promo-wrap f-left" style="margin-top: 10px;margin-left:10px;">
@@ -297,19 +408,13 @@
                 <a href="#" style="float: left"><img
                         src="http://img.alicdn.com/tfs/TB1UfJnb3oQMeJjy0FpXXcTxpXa-160-44.png" title="逛抢购"
                         style="height: 22px"></a>
-                <p>
-						<span class="sub-title">
-							距结束：
-							<span class="hour">00</span>:<span class="minutes">15</span>:<span class="seconds">41</span>
-						</span>
-                </p>
                 <span class="qiang-switch">
 						<a class="more" href="#">换一换</a>
 					</span>
             </h3>
             <ul class="qiang-list">
                 <li>
-                    <a href="https://qiang.taobao.com/?itemId=559380170352">
+                    <a href="#">
                         <div class="img-wrap">
                             <img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
                         </div>
@@ -325,14 +430,14 @@
                             </div>
                             <div class="extra">
                                 <span class="yan">￥</span>
-                                <span class="cur">1899</span>
-                                <span class="price">￥3700.00</span>
+                                <span class="cur">59</span>
+                                <span class="price">￥119.00</span>
                             </div>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="https://qiang.taobao.com/?itemId=559380170352">
+                    <a href="#">
                         <div class="img-wrap">
                             <img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
                         </div>
@@ -348,14 +453,14 @@
                             </div>
                             <div class="extra">
                                 <span class="yan">￥</span>
-                                <span class="cur">1899</span>
-                                <span class="price">￥3700.00</span>
+                                <span class="cur">59</span>
+                                <span class="price">￥119.00</span>
                             </div>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="https://qiang.taobao.com/?itemId=559380170352">
+                    <a href="#">
                         <div class="img-wrap">
                             <img src="//img.alicdn.com/tps/i1/O1CN01BGEh7G1yKz6Yi8Ke6_!!0-juitemmedia.jpg_180x180q90.jpg_.webp">
                         </div>
@@ -371,8 +476,8 @@
                             </div>
                             <div class="extra">
                                 <span class="yan">￥</span>
-                                <span class="cur">1899</span>
-                                <span class="price">￥3700.00</span>
+                                <span class="cur">59</span>
+                                <span class="price">￥119.00</span>
                             </div>
                         </div>
                     </a>

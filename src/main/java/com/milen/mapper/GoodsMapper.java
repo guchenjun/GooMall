@@ -46,4 +46,18 @@ public interface GoodsMapper {
     Long getSkuStockBySkuId(@Param("skuId") Long skuId);
 
     int updateSkuStockBySkuId(@Param("skuId") Long skuId, @Param("skuStock") Long skuStock, @Param("amount") Long amount);
+
+    Long getGoodsStatusById(@Param("spuId") Long spuId);
+
+    void updateGoodsStatusOnById(@Param("spuId") Long spuId);
+
+    void updateGoodsStatusOffById(@Param("spuId") Long spuId);
+
+    Shop getShopBySpuId(@Param("spuId") Long spuId);
+
+    int insertGoodsComment(@Param("spuId") Long spuId,@Param("content") String content,@Param("userId") Long id,@Param("date") Date date);
+
+    List<Comment> listCommentsBySpuId(@Param("spuId") Long spuId);
+
+    String getSpuImageById(@Param("spuId") Long spuId);
 }

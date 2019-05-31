@@ -4,13 +4,13 @@
     <insert id="insertSPU" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO gm_spu
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            spu_name, spu_image, category1_id, category2_id, brand_id, shop_id,
+            spu_name, spu_image, category1_id, category2_id, brand_id, shop_id,is_on,
             <if test="description != null">
                 description,
             </if>
         </trim>
         <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-            #{spuName}, #{spuImage}, #{category1Id}, #{category2Id}, #{brandId}, #{shopId},
+            #{spuName}, #{spuImage}, #{category1Id}, #{category2Id}, #{brandId}, #{shopId},0,
             <if test="description != null">
                 #{description},
             </if>
@@ -45,8 +45,23 @@
         </foreach>
     </insert>
 
+    <insert id="insertGoodsComment">
+        INSERT INTO gm_comment
+        (user_id, spu_id, content, gmt_create, gmt_modified)
+        VALUES
+        (#{userId}, #{spuId}, #{content}, #{date}, #{date})
+    </insert>
+
     <update id="updateSkuStockBySkuId">
         UPDATE gm_sku SET stock = stock - #{amount} WHERE id = #{skuId} AND (stock - #{amount}) >= 0
+    </update>
+
+    <update id="updateGoodsStatusOnById">
+        UPDATE gm_spu SET is_on = 1 WHERE id = #{spuId}
+    </update>
+
+    <update id="updateGoodsStatusOffById">
+        UPDATE gm_spu SET is_on = 0 WHERE id = #{spuId}
     </update>
 
     <select id="listCategory1" resultType="com.milen.model.po.Category1">
@@ -82,7 +97,7 @@
     </select>
 
     <select id="listSPUByCategory2Id" resultType="com.milen.model.po.SPU">
-        SELECT * FROM gm_spu WHERE category2_id = #{id}
+        SELECT * FROM gm_spu WHERE is_on = 1 AND category2_id = #{id}
     </select>
 
     <select id="listSKUBySPUId" resultType="com.milen.model.po.SKU">
@@ -99,6 +114,22 @@
 
     <select id="getSkuStockBySkuId" resultType="java.lang.Long">
         SELECT stock FROM gm_sku WHERE id = #{skuId}
+    </select>
+    <select id="getGoodsStatusById" resultType="java.lang.Long">
+        SELECT is_on FROM gm_spu WHERE id = #{spuId}
+    </select>
+
+    <select id="getShopBySpuId" resultType="com.milen.model.po.Shop">
+        SELECT shop_name, shop_score FROM gm_shop WHERE id =
+        (SELECT shop_id FROM gm_spu WHERE id = #{spuId})
+    </select>
+
+    <select id="listCommentsBySpuId" resultType="com.milen.model.po.Comment">
+        SELECT * FROM gm_comment WHERE spu_id = #{spuId}
+    </select>
+
+    <select id="getSpuImageById" resultType="java.lang.String">
+        SELECT spu_image FROM gm_spu WHERE id = #{spuId} LIMIT 1
     </select>
 
 

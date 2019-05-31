@@ -17,4 +17,8 @@ public interface AdminShopMapper {
     List<Shop> listShopInfo();
 
     Shop getShopById(@Param("shopId") int shopId);
+
+    Long getShopIdByRecordId(@Param("recordId") int recordId);
+
+    int updateShopStatusByShopId(@Param("shopId") Long shopId);
 }

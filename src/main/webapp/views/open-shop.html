@@ -173,7 +173,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">店铺头像</label>
                         <div class="layui-input-inline">
-                            <input class="shopImage" type="hidden" name="shopImage" value="default">
+                            <input class="shopImage" type="hidden" name="shopImage" value="default-head-shop.jpg">
                             <img class="shop-head" src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_50x50.jpg" width="50" height="50">
                             <button type="button" class="layui-btn" id="uploadBtn">
                                 <i class="layui-icon">&#xe67c;</i>上传图片
@@ -229,7 +229,7 @@
                 ,done: function(res){
                     //上传完毕回调
                     imageName = res['data'];
-                    $(".head-path").val(imageName);
+                    $(".shopImage").val(imageName);
                     $(".shop-head").attr("src", "../image/head/" + imageName);
                 }
                 ,error: function(err){

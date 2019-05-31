@@ -29,19 +29,39 @@ public class AttributeServiceImpl implements AttributeService {
             Map<String, List<String>> map = new HashMap<>();
             if (idList.size() != 0) {
                 // 无attr_value的为空，重新设计【一次查一个，如果values为空，赋值[]数组】
-                List<AttributeValue> attributeNameAndValueList = attributeMapper.getAttributeNameAndValueByIds(idList);
-                for (int i = 0; i < attributeNameAndValueList.size(); i++) {
-                    Long attrId = attributeNameAndValueList.get(i).getAttrId();
-                    String attrName = attributeNameAndValueList.get(i).getAttrName();
-                    String attrValue = attributeNameAndValueList.get(i).getAttrValue();
-                    if (!map.containsKey(attrName + "," + attrId)) {
-                        List<String> valueList = new ArrayList<>();
-                        valueList.add(attrValue);
-                        map.put(attrName +"," + attrId, valueList);
-                    } else {
-                        map.get(attrName +"," + attrId).add(attrValue);
+//                List<AttributeValue> attributeNameAndValueList = attributeMapper.getAttributeNameAndValueByIds(idList);
+                for (int i = 0; i < idList.size(); i++) {
+                    List<AttributeValue> attributeNameAndValueList = attributeMapper.getAttributeNameAndValueById(idList.get(i));
+                    if (attributeNameAndValueList.size() == 0) {
+                        String attrName = attributeMapper.getAttrNameById(idList.get(i));
+                        map.put(attrName + "," + idList.get(i),  new ArrayList<String>());
+                        continue;
+                    }
+                    for (int j = 0; j < attributeNameAndValueList.size(); j++) {
+                        Long attrId = attributeNameAndValueList.get(j).getAttrId();
+                        String attrName = attributeNameAndValueList.get(j).getAttrName();
+                        String attrValue = attributeNameAndValueList.get(j).getAttrValue();
+                        if (!map.containsKey(attrName + "," + attrId)) {
+                            List<String> valueList = new ArrayList<>();
+                            valueList.add(attrValue);
+                            map.put(attrName + "," + attrId, valueList);
+                        } else {
+                            map.get(attrName + "," + attrId).add(attrValue);
+                        }
                     }
                 }
+//                for (int i = 0; i < attributeNameAndValueList.size(); i++) {
+//                    Long attrId = attributeNameAndValueList.get(i).getAttrId();
+//                    String attrName = attributeNameAndValueList.get(i).getAttrName();
+//                    String attrValue = attributeNameAndValueList.get(i).getAttrValue();
+//                    if (!map.containsKey(attrName + "," + attrId)) {
+//                        List<String> valueList = new ArrayList<>();
+//                        valueList.add(attrValue);
+//                        map.put(attrName + "," + attrId, valueList);
+//                    } else {
+//                        map.get(attrName + "," + attrId).add(attrValue);
+//                    }
+//                }
 
                 Iterator<Map.Entry<String, List<String>>> iterator = map.entrySet().iterator();
                 while (iterator.hasNext()) {
@@ -53,7 +73,7 @@ public class AttributeServiceImpl implements AttributeService {
                     mapEntryList.add(mMap);
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -104,7 +124,7 @@ public class AttributeServiceImpl implements AttributeService {
                         innerMap.put("attrId", attributeValueDTO.getAttrId());
                         innerMap.put("attrValueId", attributeValueDTO.getId());
                         innerMap.put("attrValue", attributeValueDTO.getAttrValue());
-                        ((List)(mapList.get(j).get("values"))).add(innerMap);
+                        ((List) (mapList.get(j).get("values"))).add(innerMap);
                         break;
                     }
                 }
@@ -131,5 +151,10 @@ public class AttributeServiceImpl implements AttributeService {
         Date date = new Date();
         int row = attributeMapper.insertAttrName(attrName, category2Id, date);
         return row > 0;
+    }
+
+    @Override
+    public String getAttrNameById(Long attrId) {
+        return attributeMapper.getAttrNameById(attrId);
     }
 }

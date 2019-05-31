@@ -18,4 +18,6 @@ public interface AttributeService {
     boolean saveBrandByCategoryDTO(CategoryBrandDTO categoryBrandDTO);
 
     boolean saveAttrName(String attrName, Long category2Id);
+
+    String getAttrNameById(Long attrId);
 }

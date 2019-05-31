@@ -80,4 +80,12 @@
     <select id="listAttrValueByAttrId" resultType="com.milen.model.po.AttributeValue">
         SELECT id, attr_id, attr_value FROM gm_attr_value WHERE attr_id = #{attrId}
     </select>
+
+    <select id="getAttributeNameAndValueById" resultType="com.milen.model.po.AttributeValue">
+        SELECT * FROM gm_attr_value WHERE attr_id = #{attrId}
+    </select>
+
+    <select id="getAttrNameById" resultType="java.lang.String">
+        SELECT attr_name FROM gm_attr WHERE id = #{id}
+    </select>
 </mapper>

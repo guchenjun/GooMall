@@ -31,4 +31,8 @@
     <select id="getPasswordById" resultType="java.lang.String">
         SELECT password FROM gm_user WHERE id = #{id}
     </select>
+
+    <select id="getUsernameById" resultType="java.lang.String">
+        SELECT username FROM gm_user WHERE id = #{userId}
+    </select>
 </mapper>

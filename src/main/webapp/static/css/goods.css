@@ -139,7 +139,6 @@
 }
 
 .comment-tbl tr td:first-child {
-    width: 494px;
     padding-right: 30px;
     padding: 16px 7px;
     border-bottom: 1px solid rgb(227, 227, 227);
@@ -151,6 +150,8 @@
 }
 
 .col-author {
+    text-align: center;
+    width: 100px;
     padding: 16px 7px;
     border-bottom: 1px solid rgb(227, 227, 227);
 }
@@ -298,4 +299,31 @@
 
 .goods-buy {
     margin-top: 30px;
+}
+
+.attr-name {
+    display: inline-block;
+    width: 56px;
+}
+
+.comment-input-wrap {
+    padding-top: 15px;
+}
+
+.comment-input-wrap > textarea {
+    margin-top: 7px;
+    padding: 5px;
+    height: 55px;
+    width: 780px;
+}
+
+.comment-btn {
+    float: right;
+    width: 84px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.goods-bd-wrap {
+    margin-bottom: 31px;
 }

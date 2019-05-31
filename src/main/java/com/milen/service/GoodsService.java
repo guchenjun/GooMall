@@ -3,6 +3,7 @@ package com.milen.service;
 import com.milen.model.dto.SKUDTO;
 import com.milen.model.po.SKU;
 import com.milen.model.po.SPU;
+import com.milen.model.po.Shop;
 import com.milen.model.vo.*;
 
 import java.util.List;
@@ -33,4 +34,14 @@ public interface GoodsService {
     List<SKUVO> listSKUBySPUId(Long spuId);
 
     Long getSkuStockBySkuId(Long skuId);
+
+    boolean updateGoodsStatusById(Long spuId);
+
+    Shop getShopBySpuId(Long spuId);
+
+    boolean saveGoodsComment(Long spuId, String content, Long id);
+
+    List<CommentVO> listCommentsBySpuId(Long spuId);
+
+    String getSpuImageById(Long spuId);
 }

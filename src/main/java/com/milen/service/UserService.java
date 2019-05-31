@@ -1,6 +1,7 @@
 package com.milen.service;
 
 import com.milen.model.po.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserService {
 
@@ -17,4 +18,5 @@ public interface UserService {
     String getPasswordById(Long id);
 
     boolean updatePasswordById(String newPwd, Long id);
+
 }

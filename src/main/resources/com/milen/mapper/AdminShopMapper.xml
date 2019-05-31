@@ -7,6 +7,10 @@
         WHERE id = #{recordId}
     </update>
 
+    <update id="updateShopStatusByShopId">
+        UPDATE gm_shop SET shop_status = 1 WHERE id = #{shopId}
+    </update>
+
 
     <select id="listApplyShopRecord" resultType="com.milen.model.dto.ApplyShopRecordDTO">
         SELECT  a.id, u.real_name, u.credit, s.shop_name, s.shop_description, a.gmt_create, a.gmt_modified, a.admin_id, a.review_status
@@ -26,5 +30,9 @@
         shop_deposit, shop_account, shop_status, gmt_create, gmt_modified
         FROM gm_shop
         WHERE id = #{shopId}
+    </select>
+
+    <select id="getShopIdByRecordId" resultType="java.lang.Long">
+        SELECT shop_id FROM gm_apply_shop_record WHERE id = #{recordId}
     </select>
 </mapper>

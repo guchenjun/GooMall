@@ -9,6 +9,7 @@ import com.milen.model.vo.ShopVO;
 import com.milen.service.AdminShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,11 +44,14 @@ public class AdminShopServiceImpl implements AdminShopService {
         return recordListVO;
     }
 
+    @Transactional
     @Override
     public boolean updateAgreeShopRecord(int recordId, int adminId) {
         Date gmtModified = new Date();
         int row = adminShopMapper.updateAgreeShopRecord(recordId, adminId, gmtModified);
-        return row > 0;
+        Long shopId = adminShopMapper.getShopIdByRecordId(recordId);
+        int row2 = adminShopMapper.updateShopStatusByShopId(shopId);
+        return row > 0 && row2 > 0;
     }
 
     @Override

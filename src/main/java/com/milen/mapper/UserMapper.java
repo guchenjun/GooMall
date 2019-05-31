@@ -18,4 +18,6 @@ public interface UserMapper {
     String getPasswordById(@Param("id") Long id);
 
     int updatePasswordById(@Param("newPwd") String newPwdMd5, @Param("id") Long id);
+
+    String getUsernameById(@Param("userId") Long userId);
 }

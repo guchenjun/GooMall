@@ -24,6 +24,7 @@ public class SearchController {
     @RequestMapping("")
     public String search(@RequestParam(value = "q", required = false) String goodsName,
                          @RequestParam(value = "category1", required = false) Long category1Id,
+                         @RequestParam(value = "category2", required = false) Long category2Id,
                          Model model) {
         List<GoodsVO> goodsVOList = new ArrayList<>();
         if (goodsName != null) {
@@ -32,6 +33,8 @@ public class SearchController {
         } else if (category1Id != null) {
             // 根据一级分类搜索商品SPU列表
             goodsVOList = goodsService.listSPUByCategory1Id(category1Id);
+        } else if (category2Id != null) {
+            goodsVOList = goodsService.listSPUByCategory2Id(category2Id);
         }
         model.addAttribute("goodsList", goodsVOList);
         return "search";

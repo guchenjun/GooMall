@@ -103,7 +103,7 @@
                             <td th:text="${#dates.format(record.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${#dates.format(record.gmtModified, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${record.reviewAdmin}"></td>
-                            <td><span class="agreed-td" th:text="${record.reviewStatus}"></span></td>
+                            <td><span th:text="${record.reviewStatus}" th:classappend="${record.reviewStatus eq '已通过'}?'agreed-td':'no-agreed-td'"></span></td>
                             <td>
                                 <div class="agree-wrapper" th:if="${record.reviewAdmin eq '无'}">
                                     <a class="layui-btn layui-btn-normal record-agree-btn"
@@ -273,6 +273,14 @@
                     let msg = res['msg'];
                     if (code == 200) {
                         layer.msg(msg, {icon: 1});
+                        let currentIndex = 0;
+                        let prevName = $(e.previousElementSibling).children("label").text();
+                        if (prevName == undefined) {
+                            currentIndex = 1;
+                        } else {
+                            currentIndex = parseInt(prevName.replace("值", "")) + 1;
+                        }
+                        $(e).before('<div class="av-item-value"><label>值'+currentIndex+'</label><input type="text" value="'+text+'"></div>');
                         return;
                     }
                     if (code == 400) {
@@ -287,11 +295,15 @@
         $(".layui-layer-input").attr("type","text");    // 将layer默认密码输入改成文本输入
         $(".layui-layer-input").css({"display": "inline-block", "width": "150px"});
     }
+
+    function updateInitData() {
+
+    }
+
     // layui绑定事件
     $(function () {
         layui.use('element', function () {
             var element = layui.element;
-
         });
         layui.use('laypage', function () {
             var laypage = layui.laypage;
@@ -426,7 +438,7 @@
                         let shopCardBody = shopCardInfoElement.find(".shop-info-card-bd");
                         let shopCardHead = shopCardInfoElement.find(".shop-info-card-hd");
                         shopCardHead.append(data['shopName']);
-                        shopCardBody.append("<p>商铺头像：" + "<img src='" + ctxPath + "/image/head" + data['shopImage'] + "' width='50px' height='50px' />" + "</p>");
+                        shopCardBody.append("<p>商铺头像：" + "<img src='" + ctxPath + "/image/head/" + data['shopImage'] + "' width='50px' height='50px' />" + "</p>");
                         shopCardBody.append("<p>商铺商家：" + data['sellerName'] + "</p>");
                         shopCardBody.append("<p>商铺押金：" + data['shopDeposit'] + "</p>");
                         shopCardBody.append("<p>商铺评分：" + data['shopScore'] + "</p>");
@@ -497,7 +509,6 @@
                             let msg = res['msg'];
                             if (code === 200) {
                                 layer.msg("添加品牌" + text +"成功!", {icon: 1});
-                                window.location.href = ctxPath + "admin/goods/category";
                                 return;
                             }
                             layer.msg("添加品牌" + text +"失败!", {icon: 7});
@@ -598,6 +609,7 @@
                     form.on('select(category2)', function (data) {
                         category2Id = data.value;
                         $(".brand").html("");
+                        $(".cat2-attribute-value-wrapper").html("");
                         let first = true;
                         for (let i = 0; i < brandCategoryList.length; i++) {
                             if (data.value == brandCategoryList[i]['category2Id']) {

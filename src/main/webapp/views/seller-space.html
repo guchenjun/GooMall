@@ -169,7 +169,7 @@
                             <td th:text="${SPU.category}"></td>
                             <td th:text="${#dates.format(SPU.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${#dates.format(SPU.gmtModified, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                            <td><span th:classappend="${SPU.isOn eq '已上架'}?'goods-on':'goods-off'"><a class="goods-status" href="javascript:void(0);" th:text="${SPU.isOn}"></a></span></td>
+                            <td><span th:classappend="${SPU.isOn eq '已上架'}?'goods-on':'goods-off'"><a class="goods-status" onclick="toggleGoodsStatus(this)" th:text="${SPU.isOn}"></a></span></td>
                             <td>
                                 <span><a th:href="@{'/seller/manage/spu/' + ${SPU.id} + '/sku'}">库存信息</a></span>
                             </td>
@@ -292,14 +292,39 @@
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-    $(function () {
-        // 全局路径
-        var ctxPath = /*[[@{/}]]*/'';
-        // 声明类别选择以及品牌id变量
-        category1Id = 0, category2Id = 0, brandId = 0;
-        // 库存属性
-        attributeList = [[${attributeList}]];
+    // 全局路径
+    var ctxPath = /*[[@{/}]]*/'';
+    // 声明类别选择以及品牌id变量
+    category1Id = 0, category2Id = 0, brandId = 0;
+    // 库存属性
+    attributeList = [[${attributeList}]];
 
+    function toggleGoodsStatus(e) {
+        let spuId = $(e).parent().parent().parent().children("td:first").text();
+        $.ajax({
+            type: 'POST',
+            url: ctxPath + 'goods/toggle-status',
+            data: {spuId: spuId},
+            error: function (error) {
+                layer.msg("未知错误，更新商品状态失败!", {icon: 7});
+            },
+            success: function (res) {
+                let code = res['code'];
+                let msg = res['msg'];
+                if (code == 200) {
+                    layer.msg(msg, {icon: 1});
+                    window.setTimeout(function () {
+                        window.location.reload();
+                    }, 1500);
+                    return;
+                } else {
+                    layer.msg("更新失败!", {icon: 7});
+                }
+            }
+        });
+        console.log(e);
+    }
+    $(function () {
         layui.use('upload', function () {
             var upload = layui.upload;
             upload.render({
@@ -383,6 +408,9 @@
                         msg = res['msg'];
                         if (code === 200) {
                             layer.msg(msg, {icon: 1});
+                            setTimeout(function () {
+                                window.location.href = ctxPath + "seller/manage";
+                            }, 1800);
                         }
                         if (code == 400) {
                             layer.msg(msg, {icon: 7});
@@ -498,6 +526,9 @@
                     msg = res['msg'];
                     if (code === 200) {
                         layer.msg(msg, {icon: 1});
+                        window.setTimeout(function () {
+                            window.location.reload();
+                        }, 1500);
                     }
                     if (code == 400) {
                         layer.msg(msg, {icon: 7});

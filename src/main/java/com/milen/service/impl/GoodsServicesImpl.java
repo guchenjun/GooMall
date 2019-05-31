@@ -3,12 +3,14 @@ package com.milen.service.impl;
 import com.milen.mapper.AttributeMapper;
 import com.milen.mapper.GoodsMapper;
 import com.milen.mapper.ShopMapper;
+import com.milen.mapper.UserMapper;
 import com.milen.model.dto.AttrAndAttrValueDTO;
 import com.milen.model.dto.CategoryDescriptionDTO;
 import com.milen.model.dto.SKUDTO;
 import com.milen.model.po.*;
 import com.milen.model.vo.*;
 import com.milen.service.GoodsService;
+import com.milen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,9 @@ public class GoodsServicesImpl implements GoodsService {
 
     @Autowired
     AttributeMapper attributeMapper;
+
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public GoodsCategoryVO listCategoryAndBrand() {
@@ -80,7 +85,7 @@ public class GoodsServicesImpl implements GoodsService {
         List<SPU> spuList = goodsMapper.listSPUByGoodsName(goodsName);
         List<GoodsVO> goodsVOList = new ArrayList<>();
         for (SPU spu : spuList) {
-            String shopName = shopMapper.getShopNameById(spu.getId());
+            String shopName = shopMapper.getShopNameById(spu.getShopId());
             BigDecimal price = goodsMapper.getFirstSKUBySPUId(spu.getId());
             GoodsVO goodsVO = new GoodsVO(spu);
             goodsVO.setShopName(shopName);
@@ -95,7 +100,7 @@ public class GoodsServicesImpl implements GoodsService {
         List<SPU> spuList = goodsMapper.listSPUByCategory1Id(id);
         List<GoodsVO> goodsVOList = new ArrayList<>();
         for (SPU spu : spuList) {
-            String shopName = shopMapper.getShopNameById(spu.getId());
+            String shopName = shopMapper.getShopNameById(spu.getShopId());
             BigDecimal price = goodsMapper.getFirstSKUBySPUId(spu.getId());
             GoodsVO goodsVO = new GoodsVO(spu);
             goodsVO.setShopName(shopName);
@@ -110,9 +115,11 @@ public class GoodsServicesImpl implements GoodsService {
         List<SPU> spuList = goodsMapper.listSPUByCategory2Id(id);
         List<GoodsVO> goodsVOList = new ArrayList<>();
         for (SPU spu : spuList) {
-            String shopName = shopMapper.getShopNameById(spu.getId());
+            String shopName = shopMapper.getShopNameById(spu.getShopId());
+            BigDecimal price = goodsMapper.getFirstSKUBySPUId(spu.getId());
             GoodsVO goodsVO = new GoodsVO(spu);
             goodsVO.setShopName(shopName);
+            goodsVO.setPrice(price);
             goodsVOList.add(goodsVO);
         }
         return goodsVOList;
@@ -130,7 +137,7 @@ public class GoodsServicesImpl implements GoodsService {
         List<Map<String, Object>> attrValueIdList = new ArrayList<>();
         for (int i = 0; i < attrIdList.size(); i++) {
             Long attrId = attrIdList.get(i);
-            String attrName = attributeMapper.getAttrNameByAttrId(attrId);
+            String attrName = attributeMapper.getAttrNameById(attrId);
             Map<String, Object> innerAttrNameMap = new HashMap<>();
             innerAttrNameMap.put("id", attrId);
             innerAttrNameMap.put("name", attrName);
@@ -185,6 +192,52 @@ public class GoodsServicesImpl implements GoodsService {
     public Long getSkuStockBySkuId(Long skuId) {
         Long skuStock = goodsMapper.getSkuStockBySkuId(skuId);
         return skuStock;
+    }
+
+    @Override
+    public boolean updateGoodsStatusById(Long spuId) {
+        Long isOn = goodsMapper.getGoodsStatusById(spuId);
+        if (isOn == 0) {
+            goodsMapper.updateGoodsStatusOnById(spuId);
+            return true;
+        } else {
+            goodsMapper.updateGoodsStatusOffById(spuId);
+            return false;
+        }
+    }
+
+    @Override
+    public Shop getShopBySpuId(Long spuId) {
+        Shop shop = goodsMapper.getShopBySpuId(spuId);
+        return shop;
+    }
+
+    @Override
+    public boolean saveGoodsComment(Long spuId, String content, Long id) {
+        Date date = new Date();
+        int row = goodsMapper.insertGoodsComment(spuId, content, id, date);
+        return row > 0;
+    }
+
+    @Override
+    public List<CommentVO> listCommentsBySpuId(Long spuId) {
+        List<Comment> commentList = goodsMapper.listCommentsBySpuId(spuId);
+        List<CommentVO> commentVOList = new ArrayList<>();
+        for (int i = 0; i < commentList.size(); i++) {
+            Comment comment = commentList.get(i);
+            String username = userMapper.getUsernameById(comment.getUserId());
+            CommentVO commentVO = new CommentVO();
+            commentVO.setUsername(username);
+            commentVO.setContent(comment.getContent());
+            commentVO.setDate(comment.getGmtCreate());
+            commentVOList.add(commentVO);
+        }
+        return commentVOList;
+    }
+
+    @Override
+    public String getSpuImageById(Long spuId) {
+        return goodsMapper.getSpuImageById(spuId);
     }
 
 }

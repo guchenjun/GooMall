@@ -36,4 +36,8 @@ public interface AttributeMapper {
     int insertCatrgory2Brand(@Param("brandId") Long brandId, @Param("category2Id") Long category2Id,@Param("date") Date date);
 
     int insertAttrName(@Param("attrName") String attrName, @Param("category2Id") Long category2Id, @Param("date") Date date);
+
+    List<AttributeValue> getAttributeNameAndValueById(@Param("attrId") Long attrId);
+
+    String getAttrNameById(@Param("id") Long id);
 }

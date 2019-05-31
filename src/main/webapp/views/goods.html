@@ -20,11 +20,10 @@
                     <dd>
                         <div class="nav-menu-bd-panel">
                             <div class="nav-user-wrapper"><img
-                                    src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_80x80.jpg"
-                                    alt=""></div>
+                                    th:src="@{'/image/head/' + ${session.loginUser.headImage}}"></div>
                             <div class="nav-user-info">
                                 <p class="nav-user-operate" style="text-align: right">
-                                    <a th:href="@{/member}">帐号管理</a>
+                                    <a th:href="@{/member/info}">帐号管理</a>
                                     <span class="site-nav-pipe">|</span>
                                     <a th:href="@{/logout}">退出</a>
                                 </p>
@@ -122,8 +121,8 @@
     <div class="goods-bd-wrap">
         <div class="images-wrap">
             <div class="max-image">
-                <img width="400px" height="400px"
-                     src="https://img.alicdn.com/imgextra/i2/2838892713/O1CN01m752gx1Vub2JqDjZ3_!!2838892713.jpg_430x430q90.jpg">
+                <img class="sku-image" width="400px" height="400px"
+                     th:src="@{'/image/goods/' + ${goodsCover}}">
             </div>
             <div class="image-group"></div>
         </div>
@@ -164,10 +163,10 @@
     </div>
     <div class="goods-more-wrap">
         <div class="shop-info-wrap">
-            <div class="shop-name-bar">小李店铺</div>
+            <div class="shop-name-bar" th:text="${shop.shopName}"></div>
             <div class="shop-score">
                 <div>店铺评分</div>
-                <div>5.00<strong>↑</strong></div>
+                <div><span th:text="${shop.shopScore}"></span><strong>↑</strong></div>
             </div>
         </div>
         <div class="goods-comment-wrap">
@@ -176,38 +175,22 @@
             </div>
             <table class="comment-tbl">
                 <tbody>
-                <tr>
+                <tr th:each="comment : ${commentList}">
                     <td>
-                        <div class="rate-content">
+                        <div class="rate-content" th:text="${comment.content}">
                             手机很漂亮，好看性能不错，速度流畅，画面感强手感一流，摄像功能强大，你值得拥有，后续使用一段时间再来追加
                         </div>
-                        <div class="rate-date">05.11</div>
+                        <div class="rate-date" th:text="${#dates.format(comment.date, 'yyyy-MM-dd HH:mm')}"></div>
                     </td>
-                    <td>
-                        <div class="rate-sku">
-                            <p><span>网络类型：</span>4G全网通</p>
-                            <p><span>机身颜色：</span>天空之境</p>
-                        </div>
-                    </td>
-                    <td class="col-author">孙***0（匿名）</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="rate-content">
-                            手机很漂亮，好看性能不错，速度流畅，画面感强手感一流，摄像功能强大，你值得拥有，后续使用一段时间再来追加
-                        </div>
-                        <div class="rate-date">05.11</div>
-                    </td>
-                    <td>
-                        <div class="rate-sku">
-                            <p><span>网络类型：</span>4G全网通</p>
-                            <p><span>机身颜色：</span>天空之境</p>
-                        </div>
-                    </td>
-                    <td class="col-author">孙***0（匿名）</td>
+                    <td class="col-author" th:text="${comment.username}">孙***0（匿名）</td>
                 </tr>
                 </tbody>
             </table>
+            <div class="comment-input-wrap">
+                <h2>我的评论</h2>
+                <textarea class="comment-txt"></textarea>
+                <button class="layui-btn layui-btn-primary layui-btn-lg comment-btn">评论</button>
+            </div>
         </div>
     </div>
 </div>
@@ -243,19 +226,23 @@
             for (let i = 0; i < goodsInfoList['skuData'].length; i++) {
                 let sku = goodsInfoList['skuData'][i];
                 let changeFlag = false;
-                for (let j = 0; j < attrValueIdMap.size; j++) {
-                    if (sku['attrValueId'][j].toString() !== attrValueIdMap.get("attrId" + (j+1))) {
+                // let j = 0; j < attrValueIdMap.size; j++
+                let j = 0;
+                for (let value of attrValueIdMap.values()) {
+                    if (sku['attrValueId'][j].toString() !== value) {
                         break;
                     }
-                    if ((sku['attrValueId'][j].toString() === attrValueIdMap.get("attrId" + (j+1))) && (j === attrValueIdMap.size - 1)) {
+                    if ((sku['attrValueId'][j].toString() === value) && (j === attrValueIdMap.size - 1)) {
                         $(".goods-title").text(sku['sku']['skuName']);
                         $(".gm-price").text(sku['sku']['price']);
                         $(".stock-wrap > span").text(sku['sku']['stock']);
+                        $(".sku-image").attr("src", ctxPath + "image/goods/" + sku['sku']['images'][0]);
                         // console.log(sku);
                         currentSku = sku;
                         changeFlag = true;
                         break;
                     }
+                    j++;
                 }
                 if (changeFlag == true) {
                     break;
@@ -349,6 +336,38 @@
                     }
                 }
             });
+        });
+
+        // 评论事件
+        $(".comment-btn").bind("click", function () {
+            let reg = /goods\/(\d)/;
+            let url = window.location.href;
+            let spuId = reg.exec(url)[1];
+            console.log(spuId);
+            data = {
+                'spuId': spuId,
+                'content': $(".comment-txt").val()
+            };
+            $.ajax({
+                url: ctxPath + 'goods/comment/add',
+                method: 'POST',
+                data: data,
+                error: function (error) {
+                    layer.msg("未知错误, 添加评论失败!");
+                },
+                success: function (res) {
+                    let code = res['code'];
+                    let msg = res['msg'];
+                    if (code === 200) {
+                        layer.msg(msg, {icon: 1});
+                        window.setTimeout(function () {
+                            window.location.reload();
+                        }, 1500);
+                        return;
+                    }
+                    layer.msg(msg, {icon: 7});
+                }
+            })
         });
 
         function isPositiveInteger(val) {

@@ -392,3 +392,30 @@ body {
 .loginBtn, .regBtn {
     width: 120px;
 }
+
+.cat2-cnt {
+    margin-top: 7px;
+    margin-bottom: 18px;
+}
+
+.service-float-item {
+    padding: 15px;
+    padding-left: 25px;
+}
+
+.service-float-item > h3 {
+    color: #3C3C3C;
+    cursor: pointer;
+}
+
+.service-float-item > h3:hover {
+    color: #FF4400;
+}
+
+.cat2-cnt > a {
+    margin-right: 8px;
+}
+
+.service-bd a:hover {
+    color: #FF4400;
+}

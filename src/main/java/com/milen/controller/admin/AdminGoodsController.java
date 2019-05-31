@@ -52,7 +52,7 @@ public class AdminGoodsController {
     @RequestMapping(value = "/attribute/value/add", method = RequestMethod.POST)
     @ResponseBody
     public R addAttributeValue(@RequestParam("attrId") Long attrId, @RequestParam("attrValue") String attrValue) {
-        String attrName = attributeService.getAttrNameByAttrId(attrId);
+        String attrName = attributeService.getAttrNameById(attrId);
         boolean isSaved = attributeService.saveAttrValueAndAttrNameByAttrId(attrName, attrValue, attrId);
         if (isSaved) {
             return R.ok(200, "添加属性成功!");

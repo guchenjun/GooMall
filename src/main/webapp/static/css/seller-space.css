@@ -123,3 +123,7 @@
 .upload-sku-btn {
     width: 200px;
 }
+
+.goods-status {
+    cursor: pointer;
+}
