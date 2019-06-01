@@ -13,6 +13,7 @@ import com.milen.service.GoodsService;
 import com.milen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -194,8 +195,10 @@ public class GoodsServicesImpl implements GoodsService {
         return skuStock;
     }
 
+    @Transactional
     @Override
     public boolean updateGoodsStatusById(Long spuId) {
+        goodsMapper.updateGoodsGmtModified(spuId, new Date());
         Long isOn = goodsMapper.getGoodsStatusById(spuId);
         if (isOn == 0) {
             goodsMapper.updateGoodsStatusOnById(spuId);

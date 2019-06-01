@@ -51,12 +51,12 @@ public class AdminInterceptor implements HandlerInterceptor {
             request.setAttribute("locationMode", new LocationModeVO("user"));
             return true;
         }
-        if (requestURI.contains("ad")) {
-            request.setAttribute("locationMode", new LocationModeVO("ad"));
+        if (requestURI.contains("advertisement")) {
+            request.setAttribute("locationMode", new LocationModeVO("advertisement"));
             return true;
         }
-        if (requestURI.contains("report")) {
-            request.setAttribute("locationMode", new LocationModeVO("report"));
+        if (requestURI.contains("feedback")) {
+            request.setAttribute("locationMode", new LocationModeVO("feedback"));
             return true;
         }
         // 都不包含，跳到后台中心首页

@@ -127,3 +127,7 @@
 .record-agreed:hover {
     color: #666;
 }
+
+.m-title {
+    margin-bottom: 15px;
+}

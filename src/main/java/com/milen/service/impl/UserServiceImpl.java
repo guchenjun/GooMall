@@ -1,11 +1,15 @@
 package com.milen.service.impl;
 
+import com.milen.model.po.Feedback;
 import com.milen.model.po.User;
 import com.milen.mapper.UserMapper;
 import com.milen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.util.Date;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -55,5 +59,16 @@ public class UserServiceImpl implements UserService {
         String newPwdMd5 = DigestUtils.md5DigestAsHex(newPwd.getBytes());
         int row = userMapper.updatePasswordById(newPwdMd5, id);
         return row > 0;
+    }
+
+    @Override
+    public void saveFeedback(String content, String username) {
+        userMapper.insertFeedback(content, username, new Date());
+    }
+
+    @Override
+    public List<Feedback> listFeedback() {
+        List<Feedback> feedbackList = userMapper.listFeedback();
+        return feedbackList;
     }
 }

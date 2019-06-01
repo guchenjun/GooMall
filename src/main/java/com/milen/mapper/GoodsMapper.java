@@ -60,4 +60,6 @@ public interface GoodsMapper {
     List<Comment> listCommentsBySpuId(@Param("spuId") Long spuId);
 
     String getSpuImageById(@Param("spuId") Long spuId);
+
+    void updateGoodsGmtModified(@Param("spuId") Long spuId,@Param("date") Date date);
 }

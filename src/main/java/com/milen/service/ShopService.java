@@ -1,6 +1,7 @@
 package com.milen.service;
 
 import com.milen.model.po.Shop;
+import com.milen.model.vo.SPUAdminVO;
 import com.milen.model.vo.SPUVO;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ShopService {
     Long getShopIdByUserId(Long id);
 
     List<SPUVO> listSPU(Long shopId);
+
+    List<SPUAdminVO> listAllSPU();
 }

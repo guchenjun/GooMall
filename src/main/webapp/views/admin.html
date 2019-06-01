@@ -47,8 +47,8 @@
                                th:classappend="${locationMode?.mode eq 'review'}? 'admin-nav-on'">商铺审核</a></dd>
                         <dd><a th:href="@{/admin/shop/info}"
                                th:classappend="${locationMode?.mode eq 'info'}? 'admin-nav-on'">商铺信息</a></dd>
-                        <dd><a th:href="@{/admin/shop/seller}"
-                               th:classappend="${locationMode?.mode eq 'seller'}? 'admin-nav-on'">卖家管理</a></dd>
+<!--                        <dd><a th:href="@{/admin/shop/seller}"-->
+<!--                               th:classappend="${locationMode?.mode eq 'seller'}? 'admin-nav-on'">卖家管理</a></dd>-->
                     </dl>
                 </li>
                 <li class="layui-nav-item" th:classappend="${locationMode?.location eq 'goods'} ? 'layui-nav-itemed'">
@@ -56,16 +56,16 @@
                     <dl class="layui-nav-child">
                         <dd><a th:href="@{/admin/goods/category}"
                                th:classappend="${locationMode?.mode eq 'spu-category'}? 'admin-nav-on'">商品分类</a></dd>
-                        <dd><a th:href="@{/admin/goods/spu}"
+                        <dd><a th:href="@{/admin/goods/spu-info}"
                                th:classappend="${locationMode?.mode eq 'spu-info'}? 'admin-nav-on'">商品信息</a></dd>
-                        <dd><a th:href="@{/admin/goods/sku}"
-                               th:classappend="${locationMode?.mode eq 'sku-info'}? 'admin-nav-on'">库存信息</a></dd>
+<!--                        <dd><a th:href="@{/admin/goods/sku-info}"-->
+<!--                               th:classappend="${locationMode?.mode eq 'sku-info'}? 'admin-nav-on'">库存信息</a></dd>-->
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">订单管理</a></li>
-                <li class="layui-nav-item"><a href="">用户管理</a></li>
-                <li class="layui-nav-item"><a href="">广告运营</a></li>
-                <li class="layui-nav-item"><a href="">举报反馈</a></li>
+<!--                <li class="layui-nav-item"><a href="">订单管理</a></li>-->
+<!--                <li class="layui-nav-item"><a href="">用户管理</a></li>-->
+                <li class="layui-nav-item"><a th:href="@{/admin/advertisement}">广告运营</a></li>
+                <li class="layui-nav-item"><a th:href="@{/admin/feedback}">意见反馈</a></li>
             </ul>
         </div>
     </div>
@@ -198,23 +198,64 @@
                             </div>
                         </div>
                     </form>
-                    <div th:if="${locationMode?.mode eq 'spu-info'}" class="spu-info">
-                        <!-- 商家上传的商品SPU信息，设置上架和下架，查看详情显示更多信息，以及展示SKU库存信息-->
-                    </div>
-                    <div th:if="${locationMode?.mode eq 'sku-info'}" class="sku-info">
-                        <!-- 所有商品SKU表格，可以根据SPU名称查找-->
-                    </div>
+
                 </div>
-                <div th:if="${locationMode?.location eq 'order'}" class="order-m"></div>
-                <div th:if="${locationMode?.location eq 'user'}" class="user-m">
-                    <!-- 用户基本信息表格，根据用户名或id查询指定用户，删除违规头像-->
+                <div th:if="${locationMode?.mode eq 'spu-info'}" class="spu-info">
+                    <!-- 商家上传的商品SPU信息，设置上架和下架，查看详情显示更多信息，以及展示SKU库存信息-->
+                    <table class="layui-table">
+                        <thead>
+                        <tr>
+                            <th>商品id</th>
+                            <th>商家名称</th>
+                            <th width="250px">商品名称</th>
+                            <th>商品封面</th>
+                            <th>商品分类</th>
+                            <th>上架时间</th>
+                            <th>修改时间</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="spu : ${spuList}">
+                            <td th:text="${spu.id}"></td>
+                            <td th:text="${spu.shopName}"></td>
+                            <td th:text="${spu.spuName}"></td>
+                            <td><img th:src="@{'/image/goods/' + ${spu.image}}" /></td>
+                            <td th:text="${spu.categoryDescription}"></td>
+                            <td th:text="${#dates.format(spu.gmtCreate, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${#dates.format(spu.gmtModified, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${spu.on eq true}? '已上架': '未上架'"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="spu-page-info" style="float: right"></div>
                 </div>
-                <div th:if="${locationMode?.location eq 'ad'}" class="ad-m">
-                    <!-- 首页顶部、边缘；商品页边缘；-->
-                </div>
-                <div th:if="${locationMode?.location eq 'report'}" class="report-m">
-                    <!-- 用户举报信息，建议信息-->
-                </div>
+            </div>
+            <div th:if="${locationMode?.location eq 'advertisement'}" class="ad-m">
+                <!-- 首页顶部、边缘；商品页边缘；-->
+            </div>
+            <div th:if="${locationMode?.location eq 'feedback'}" class="report-m">
+                <!-- 用户意见反馈-->
+                <h2 class="m-title">意见反馈</h2>
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>评论人</th>
+                        <th>评论内容</th>
+                        <th>评论时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="feedback : ${feedbackList}">
+                        <td th:text="${feedback.id}"></td>
+                        <td th:text="${feedback.username}"></td>
+                        <td th:text="${feedback.content}"></td>
+                        <td th:text="${#dates.format(feedback.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="feedback-page-info" style="float: right"></div>
             </div>
             <div class="templates" style="display: none;">
                 <div class="shop-more-info-template">
@@ -275,7 +316,7 @@
                         layer.msg(msg, {icon: 1});
                         let currentIndex = 0;
                         let prevName = $(e.previousElementSibling).children("label").text();
-                        if (prevName == undefined) {
+                        if (prevName == '') {
                             currentIndex = 1;
                         } else {
                             currentIndex = parseInt(prevName.replace("值", "")) + 1;
@@ -322,6 +363,46 @@
                             window.location.href = position + "/" + obj.curr;
                         } else {
                             window.location.href = position.substring(0, end) + "review/" + obj.curr;
+                        }
+                    }
+                }
+            });
+
+            // SPU 分页
+            laypage.render({
+                elem: 'spu-page-info',
+                count: [[${spuPage?.total}]], // 数据总数
+                limit: [[${spuPage?.pageSize}]], // 每页最多显示条数
+                curr: [[${spuPage?.pageNum}]],
+                jump: function (obj, first) {
+                    console.log(obj);
+                    if (!first) {
+                        position = window.location.href;
+                        end = position.lastIndexOf("spu-info/");
+                        if (end === -1) {
+                            window.location.href = position + "/" + obj.curr;
+                        } else {
+                            window.location.href = position.substring(0, end) + "spu-info/" + obj.curr;
+                        }
+                    }
+                }
+            });
+
+            // feedback 分页
+            laypage.render({
+                elem: 'feedback-page-info',
+                count: [[${feedBackPage?.total}]], // 数据总数
+                limit: [[${feedBackPage?.pageSize}]], // 每页最多显示条数
+                curr: [[${feedBackPage?.pageNum}]],
+                jump: function (obj, first) {
+                    console.log(obj);
+                    if (!first) {
+                        position = window.location.href;
+                        end = position.lastIndexOf("feedback/");
+                        if (end === -1) {
+                            window.location.href = position + "/" + obj.curr;
+                        } else {
+                            window.location.href = position.substring(0, end) + "feedback/" + obj.curr;
                         }
                     }
                 }

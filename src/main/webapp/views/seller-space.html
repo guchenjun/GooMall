@@ -262,7 +262,7 @@
                             <th>商品图片</th>
                             <th>库存量</th>
                             <th>价格（单位元）</th>
-                            <th>操作</th>
+                            <th>上架时间</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -276,14 +276,47 @@
                             </td>
                             <td th:text="${SKU.stock}">4</td>
                             <td th:text="${SKU.price}">5</td>
-                            <td>修改</td>
+                            <td th:width="250px" th:text="${#dates.format(SKU.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}">修改</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="main-order-bd" th:if="${locationMode?.location eq 'order'}">
-                订单管理
+                <div class="m-title"><a href="#">订单管理</a></div>
+                <table class="m-order-tbl">
+                    <thead>
+                    <tr>
+                        <th>订单id</th>
+                        <th>商品(名称、图片、规格)</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>付款金额</th>
+                        <th>买家</th>
+                        <th>交易时间</th>
+                        <th>交易状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="tradeOrder : ${tradeOrderList}">
+                            <td th:text="${tradeOrder.id}"></td>
+                            <td class="order-sku-td" width="380px">
+                                <div class="sku-image"><img th:src="@{'/image/goods/' + ${tradeOrder.image}}" width="80px" height="80px"></div>
+                                <div class="sku-more-info">
+                                    <a class="order-sku-name" th:text="${tradeOrder.skuName}" th:href="@{'/goods/' + ${tradeOrder.spuId}}" target="_blank"></a>
+                                    <p class="order-sku-attr-desc" th:text="${tradeOrder.attrDescription}"></p>
+                                </div>
+                            </td>
+                            <td th:text="${tradeOrder.price}"></td>
+                            <td th:text="${tradeOrder.amount}"></td>
+                            <td th:text="${tradeOrder.totalPrice}"></td>
+                            <td th:text="${tradeOrder.buyerName}"></td>
+                            <td th:text="${#dates.format(tradeOrder.date, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td><span class="trade-finish">交易完成</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="seller-order-page" style="float: right"></div>
             </div>
         </div>
     </div>
@@ -291,6 +324,31 @@
 </body>
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        layui.use('laypage', function () {
+            let laypage = layui.laypage;
+            laypage.render({
+                elem: 'seller-order-page',
+                count: [[${page?.total}]], // 数据总数
+                limit: [[${page?.pageSize}]], // 每页最多显示条数
+                curr: [[${page?.pageNum}]],
+                jump: function (obj, first) {
+                    console.log(obj);
+                    if (!first) {
+                        position = window.location.href;
+                        end = position.lastIndexOf("order/");
+                        if (end === -1) {
+                            window.location.href = position + "/" + obj.curr;
+                        } else {
+                            window.location.href = position.substring(0, end) + "order/" + obj.curr;
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>
 <script type="text/javascript" th:inline="javascript">
     // 全局路径
     var ctxPath = /*[[@{/}]]*/'';

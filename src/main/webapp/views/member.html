@@ -142,6 +142,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <div id="member-order-page" style="float: right"></div>
             </div>
             <div class="main-member-cart-bd" th:if="${locationMode?.location eq 'cart'}">
                 <h2>我的购物车</h2>
@@ -180,6 +181,31 @@
 </body>
 <script type="text/javascript" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/layui/layui.all.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        layui.use('laypage', function () {
+            let laypage = layui.laypage;
+            laypage.render({
+                elem: 'member-order-page',
+                count: [[${page?.total}]], // 数据总数
+                limit: [[${page?.pageSize}]], // 每页最多显示条数
+                curr: [[${page?.pageNum}]],
+                jump: function (obj, first) {
+                    console.log(obj);
+                    if (!first) {
+                        position = window.location.href;
+                        end = position.lastIndexOf("order/");
+                        if (end === -1) {
+                            window.location.href = position + "/" + obj.curr;
+                        } else {
+                            window.location.href = position.substring(0, end) + "order/" + obj.curr;
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>
 <script type="text/javascript" th:inline="javascript">
     $(function () {
         // 项目根路径

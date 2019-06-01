@@ -35,7 +35,7 @@
             </li>
 
             <li class="layui-nav-item f-right">
-                <a href="">意见反馈</a>
+                <a href="javascript:void(0)" onclick="feedBack()">意见反馈</a>
             </li>
             <li class="layui-nav-item f-right">
                 <a href="">卖家中心</a>
@@ -576,6 +576,9 @@
     });
 </script>
 <script type="text/javascript" th:inline="javascript">
+
+    const ctxPath = /*[[@{/}]]*/'';
+
     // Layui的组件初始化
     $(function () {
         // layui组件轮播图
@@ -672,8 +675,6 @@
 
     // DOM元素绑定点击事件和功能函数
     $(function () {
-
-        const ctxPath = /*[[@{/}]]*/'';
         var enterItem = false;
 
         $(".service-bd li").bind("mouseenter", function (e) {
@@ -734,7 +735,39 @@
             window.location.href = ctxPath + "search?q=" + searchData;
         }
 
+
     });
+
+    function feedBack() {
+        layer.prompt({title: '请输入您的意见反馈:', formType: 1}, function(text, index){
+            layer.close(index);
+            $.ajax({
+                type: 'POST',
+                url: ctxPath + 'feedback',
+                data: {
+                    'content': text
+                },
+                error: function (error) {
+                    layer.msg("未知错误，添加意见反馈失败!", {icon: 7});
+                },
+                success: function (res) {
+                    let code = res['code'];
+                    let msg = res['msg'];
+                    if (code === 200) {
+                        layer.msg("添加意见反馈成功!", {icon: 1});
+                        return;
+                    }
+                    layer.msg(msg, {icon: 7});
+                }
+            });
+        });
+        $(".layui-layer-input").css("display","none");
+        $(".layui-layer-content").append("<textarea class='layui-layer-textarea' cols='36' rows='8' style='padding: 8px 10px;'></textarea>");
+        $(".layui-layer-textarea").bind("propertychange input", function () {
+            $(".layui-layer-input").val($(".layui-layer-textarea").val());
+        });
+
+    }
 
     // 检测并关闭弹出层
     function checkAndCloseLayer() {

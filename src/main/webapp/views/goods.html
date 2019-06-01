@@ -370,6 +370,22 @@
             })
         });
 
+        // 搜索按钮点击事件
+        $(".search-ipt").bind("keydown", function (event) {
+            if (event.keyCode === 13){
+                searchGoods();
+            }
+        });
+        $(".search-btn").bind("click", function () {
+            searchGoods();
+        });
+
+
+        function searchGoods() {
+            let searchData = $('.search-ipt').val();
+            window.location.href = ctxPath + "search?q=" + searchData;
+        }
+
         function isPositiveInteger(val) {
             let r = /^\+?[1-9][0-9]*$/;
             return r.test(val);

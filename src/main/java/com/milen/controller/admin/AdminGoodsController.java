@@ -1,10 +1,13 @@
 package com.milen.controller.admin;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.milen.model.dto.CategoryBrandDTO;
-import com.milen.model.vo.GoodsCategoryVO;
-import com.milen.model.vo.R;
+import com.milen.model.vo.*;
 import com.milen.service.AttributeService;
 import com.milen.service.GoodsService;
+import com.milen.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,9 @@ public class AdminGoodsController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private ShopService shopService;
 
     @Autowired
     private AttributeService attributeService;
@@ -71,12 +77,21 @@ public class AdminGoodsController {
         return R.error(400, "品牌添加失败!");
     }
 
-    @RequestMapping("/spu")
-    public String spu() {
+    @RequestMapping(value = {"/spu-info", "/spu-info/pageNum"}, method = RequestMethod.GET)
+    public String spu(@PathVariable(value = "pageNum", required = false) Integer pageNum, Model model) {
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+        int pageSize = 4;
+        Page<SPUAdminVO> page = PageHelper.startPage(pageNum, pageSize);
+        List<SPUAdminVO> spuVOList = shopService.listAllSPU();
+        PageInfo<SPUAdminVO> pageVO = new PageInfo<>(page.getResult());
+        model.addAttribute("spuList", spuVOList);
+        model.addAttribute("spuPage", pageVO);
         return "admin";
     }
 
-    @RequestMapping("/sku")
+    @RequestMapping("/sku-info")
     public String sku() {
         return "admin";
     }

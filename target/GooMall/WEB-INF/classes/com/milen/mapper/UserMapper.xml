@@ -8,6 +8,13 @@
         (#{username},#{realName},#{password},#{eMail},#{phoneNumber},#{gmtCreate},#{gmtModified})
     </insert>
 
+    <insert id="insertFeedback">
+        INSERT INTO gm_feedback
+        (username, content, gmt_create, gmt_modified)
+        VALUES
+        (#{username}, #{content}, #{date}, #{date})
+    </insert>
+
     <update id="updateHeadImageById">
         UPDATE gm_user SET head_image = #{imagePath} WHERE id = #{id}
     </update>
@@ -34,5 +41,9 @@
 
     <select id="getUsernameById" resultType="java.lang.String">
         SELECT username FROM gm_user WHERE id = #{userId}
+    </select>
+
+    <select id="listFeedback" resultType="com.milen.model.po.Feedback">
+        SELECT * FROM gm_feedback
     </select>
 </mapper>

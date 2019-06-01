@@ -34,4 +34,8 @@
         SELECT shop_name FROM gm_shop
         WHERE id = #{id}
     </select>
+
+    <select id="listAllSPU" resultType="com.milen.model.po.SPU">
+        SELECT *  FROM gm_spu
+    </select>
 </mapper>

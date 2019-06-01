@@ -19,4 +19,6 @@ public interface ShopMapper {
     CategoryDescriptionDTO getCategoryDescription(@Param("category1Id") Long category1Id, @Param("category2Id") Long category2Id, @Param("brandId") Long brandId);
 
     String getShopNameById(@Param("id") Long id);
+
+    List<SPU> listAllSPU();
 }

@@ -1,5 +1,8 @@
 package com.milen.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.milen.constant.ResultConstant;
 import com.milen.model.dto.SKUDTO;
 import com.milen.model.po.SKU;
@@ -37,6 +40,9 @@ public class SellerController {
 
     @Autowired
     ApplyShopRecordService applyShopRecordService;
+
+    @Autowired
+    TradeService tradeService;
 
     @RequestMapping(value = "/open-shop", method = RequestMethod.GET)
     public String openShop() {
@@ -132,9 +138,19 @@ public class SellerController {
         return R.ok(400,"商品库存单元上传失败!");
     }
 
-    @RequestMapping(value = "/order", method = RequestMethod.GET)
-    public String order() {
-
+    @RequestMapping(value = {"/order", "/order/{pageNum}"}, method = RequestMethod.GET)
+    public String order(@PathVariable(value = "pageNum", required = false) Integer pageNum,
+                        HttpSession session, Model model) {
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+        int pageSize = 4;
+        User user = (User)session.getAttribute("loginUser");
+        Page<TradeOrderSellerVO> page = PageHelper.startPage(pageNum, pageSize);
+        List<TradeOrderSellerVO> tradeOrderVOList = tradeService.listTradeOrderBySellerId(user.getId());
+        PageInfo<TradeOrderSellerVO> pageVO = new PageInfo<>(page.getResult());
+        model.addAttribute("tradeOrderList", tradeOrderVOList);
+        model.addAttribute("page", pageVO);
         return "seller-space";
     }
 

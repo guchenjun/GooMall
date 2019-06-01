@@ -3,7 +3,9 @@ package com.milen.service.impl;
 import com.milen.mapper.GoodsMapper;
 import com.milen.mapper.TradeMapper;
 import com.milen.model.dto.TradeOrderDTO;
+import com.milen.model.po.TradeOrder;
 import com.milen.model.po.User;
+import com.milen.model.vo.TradeOrderSellerVO;
 import com.milen.model.vo.TradeOrderVO;
 import com.milen.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,27 @@ public class TradeServiceImpl implements TradeService {
     public boolean updateSkuStockBySkuId(Long skuId, Long skuStock, Long amount) {
         int row = goodsMapper.updateSkuStockBySkuId(skuId, skuStock, amount);
         return row > 0;
+    }
+
+    @Override
+    public List<TradeOrderSellerVO> listTradeOrderBySellerId(Long id) {
+        List<TradeOrder> tradeOrderDTOList = tradeMapper.listTradeOrderBySellerId(id);
+        List<TradeOrderSellerVO> tradeOrderSellerVOList = new ArrayList<>();
+        for (int i = 0; i < tradeOrderDTOList.size(); i++) {
+            TradeOrder tradeOrder = tradeOrderDTOList.get(i);
+            TradeOrderSellerVO tradeOrderSellerVO = new TradeOrderSellerVO();
+            tradeOrderSellerVO.setId(tradeOrder.getId());
+            tradeOrderSellerVO.setSpuId(tradeOrder.getSpuId());
+            tradeOrderSellerVO.setSkuName(tradeOrder.getSkuName());
+            tradeOrderSellerVO.setImage(tradeOrder.getImage());
+            tradeOrderSellerVO.setAttrDescription(tradeOrder.getAttrDescription());
+            tradeOrderSellerVO.setPrice(tradeOrder.getPrice());
+            tradeOrderSellerVO.setAmount(tradeOrder.getAmount());
+            tradeOrderSellerVO.setTotalPrice(tradeOrder.getPrice().multiply(BigDecimal.valueOf(tradeOrder.getAmount())));
+            tradeOrderSellerVO.setBuyerName(tradeMapper.getUsernameById(tradeOrder.getUserId()));
+            tradeOrderSellerVO.setDate(tradeOrder.getGmtCreate());
+            tradeOrderSellerVOList.add(tradeOrderSellerVO);
+        }
+        return tradeOrderSellerVOList;
     }
 }

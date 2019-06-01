@@ -3,6 +3,7 @@ package com.milen.model.vo;
 import com.milen.model.po.SKU;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class SKUVO {
@@ -19,6 +20,8 @@ public class SKUVO {
 
     private List<String> images;
 
+    private Date gmtCreate;
+
     public SKUVO() {
     }
 
@@ -28,6 +31,7 @@ public class SKUVO {
         this.skuName = sku.getSkuName();
         this.stock = sku.getStock();
         this.price = sku.getPrice();
+        this.gmtCreate = sku.getGmtCreate();
         this.images = images;
     }
 
@@ -79,6 +83,10 @@ public class SKUVO {
         this.images = images;
     }
 
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
     @Override
     public String toString() {
         return "SKUVO{" +
@@ -88,6 +96,12 @@ public class SKUVO {
                 ", stock=" + stock +
                 ", price=" + price +
                 ", images=" + images +
+                ", gmtCreate=" + gmtCreate +
                 '}';
     }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
 }

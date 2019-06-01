@@ -1,5 +1,7 @@
 package com.milen.controller;
 
+import com.milen.model.po.User;
+import com.milen.model.vo.R;
 import com.milen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,18 @@ public class IndexController {
             session.removeAttribute("msg");
         }
         return "index";
+    }
+
+    @RequestMapping(value = "/feedback", method = RequestMethod.POST)
+    @ResponseBody
+    public R feedback(@RequestParam("content") String content,
+                      HttpSession session) {
+        User user = (User)session.getAttribute("loginUser");
+        if (user == null) {
+            return R.error(400, "请先登录!");
+        }
+        userService.saveFeedback(content, user.getUsername());
+        return R.ok(200, "添加反馈成功，感谢您的支持！");
     }
 
 }

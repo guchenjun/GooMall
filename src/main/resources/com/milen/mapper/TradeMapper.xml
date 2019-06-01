@@ -21,4 +21,13 @@
     <select id="listTradeOrderByUserId" resultType="com.milen.model.dto.TradeOrderDTO">
         SELECT * FROM gm_trade_order WHERE user_id = #{userId}
     </select>
+
+    <select id="listTradeOrderBySellerId" resultType="com.milen.model.po.TradeOrder">
+        SELECT * FROM gm_trade_order WHERE spu_id IN
+        (SELECT spu.id FROM gm_spu spu WHERE spu.shop_id = (SELECT shop.id FROM gm_shop shop WHERE shop.user_id = #{sellerId}))
+    </select>
+
+    <select id="getUsernameById" resultType="java.lang.String">
+        SELECT username FROM gm_user WHERE id = #{userId}
+    </select>
 </mapper>

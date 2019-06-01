@@ -64,6 +64,10 @@
         UPDATE gm_spu SET is_on = 0 WHERE id = #{spuId}
     </update>
 
+    <update id="updateGoodsGmtModified">
+        UPDATE gm_spu SET gmt_modified = #{date} WHERE id = #{spuId}
+    </update>
+
     <select id="listCategory1" resultType="com.milen.model.po.Category1">
         SELECT id, category1_name FROM gm_category1
     </select>
