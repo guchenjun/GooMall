@@ -11,60 +11,47 @@
 <div class="gm-cover-wrap">
     <div class="gm-cover">
         <ul class="layui-nav" style="padding: 0">
-            <li class="layui-nav-item"><a th:href="@{/}" style="padding: 0">首页</a></li>
-            <li class="layui-nav-item" style="margin: 0px 10px 0px 20px;"><a th:href="@{/}"
-                                                                             style="padding: 0;">gcj顾晨俊</a></li>
-            <li class="layui-nav-item"><a th:href="@{/logout}" style="padding: 0">退出</a></li>
-            <li class="layui-nav-item f-right"><a href="#">收藏夹</a></li>
-            <li class="layui-nav-item layui-this f-right">
-                <a href="">购物车</a>
-                <dl class="layui-nav-child mini-cart">
-                    <dd style="margin-left: 7px;">最近加入的宝贝：</dd>
+            <li class="layui-nav-item"><a th:href="@{/}">首页</a></li>
+            <li th:if="${session.loginUser eq null}" class="layui-nav-item"><a href="javascript:void(0);" onclick="loginLayer()">你好，请登录</a></li>
+            <li th:if="${session.loginUser != null}" class="layui-nav-item">
+                <a href="#" th:text="${session.loginUser.username}"></a>
+                <dl class="layui-nav-child">
                     <dd>
-                        <div class="mini-cart-img f-left">
-                            <a href="#" style="margin: 0 7px;">
-                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
-                            </a>
-                        </div>
-                        <div class="mini-cart-count f-right" style="font-family: Arial;">
-                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
-                        </div>
-                        <div class="mini-cart-title">
-                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
-                        </div>
-                        <div class="mini-cart-del f-right">
-                            <a href="" style="font-size: 13px;">删除</a>
-                        </div>
-                        <div class="mini-cart-info">
-                            <span>口味:圆形奶油夹心125g*1包 </span>
-                        </div>
-                    </dd>
-                    <dd>
-                        <div class="mini-cart-img f-left">
-                            <a href="#" style="margin: 0 7px;">
-                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
-                            </a>
-                        </div>
-                        <div class="mini-cart-count f-right" style="font-family: Arial;">
-                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
-                        </div>
-                        <div class="mini-cart-title">
-                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
-                        </div>
-                        <div class="mini-cart-del f-right">
-                            <a href="" style="font-size: 13px;">删除</a>
-                        </div>
-                        <div class="mini-cart-info">
-                            <span>口味:圆形奶油夹心125g*1包 </span>
+                        <div class="nav-menu-bd-panel">
+                            <div class="nav-user-wrapper"><img th:src="@{'/image/head/' + ${session.loginUser.headImage}}"></div>
+                            <div class="nav-user-info">
+                                <p class="nav-user-operate" style="text-align: right">
+                                    <a th:href="@{/member/info}">帐号管理</a>
+                                    <span class="site-nav-pipe">|</span>
+                                    <a th:href="@{/logout}">退出</a>
+                                </p>
+                                <p class="level-info gm-score" th:text="'逛购值: ' + ${session.loginUser.experience}">逛购值:123</p>
+                                <p class="level-info">LV1</p>
+                            </div>
+                            <a class="site-nav-user-privilege" href="#" target="_top">查看你的专属权益</a>
                         </div>
                     </dd>
                 </dl>
             </li>
-            <li class="layui-nav-item layui-this f-right">
+
+            <li class="layui-nav-item f-right">
+                <a href="javascript:void(0)" onclick="feedBack()">意见反馈</a>
+            </li>
+            <li class="layui-nav-item f-right">
+                <a href="">卖家中心</a>
+                <dl class="layui-nav-child">
+                    <dd><a th:href="@{/seller/open-shop}">免费开店</a></dd>
+                    <dd><a th:href="@{/seller/release}" th:if="${session.loginUser?.role eq 1}">发布商品</a></dd>
+                    <dd><a th:href="@{/seller/manage}" th:if="${session.loginUser?.role eq 1}">管理发布商品</a></dd>
+                    <dd><a th:href="@{/seller/order}" th:if="${session.loginUser?.role eq 1}">商品订单管理</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item site-nav-pipe f-right">|</li>
+            <li class="layui-nav-item f-right">
                 <a href="">我的逛购</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">我的订单</a></dd>
-                    <dd><a href="">浏览足迹</a></dd>
+                    <dd><a th:href="@{/member/order}">我的订单</a></dd>
+                    <dd><a th:href="@{/member/cart}">购物车</a></dd>
                 </dl>
             </li>
         </ul>

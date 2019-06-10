@@ -78,7 +78,9 @@
     </select>
 
     <select id="listAttrValueByAttrId" resultType="com.milen.model.po.AttributeValue">
-        SELECT id, attr_id, attr_value FROM gm_attr_value WHERE attr_id = #{attrId}
+
+    SELECT a.id, a.attr_id, a.attr_value FROM gm_attr_value a INNER JOIN gm_sku_attr_value s WHERE a.attr_id = #{attrId}
+    AND a.id = s.attr_value_id
     </select>
 
     <select id="getAttributeNameAndValueById" resultType="com.milen.model.po.AttributeValue">

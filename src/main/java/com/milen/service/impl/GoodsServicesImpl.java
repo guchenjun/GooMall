@@ -145,9 +145,13 @@ public class GoodsServicesImpl implements GoodsService {
             attrNameIdList.add(innerAttrNameMap);
 
             List<AttributeValue> attributeValueList = attributeMapper.listAttrValueByAttrId(attrId);
+            Set<Long> set = new HashSet<>();
             for (int j = 0; j < attributeValueList.size(); j++) {
                 Map<String, Object> innerAttrValueMap = new HashMap<>();
                 AttributeValue attributeValue = attributeValueList.get(j);
+                if (!set.add(attributeValue.getId())) {
+                    continue;
+                }
                 innerAttrValueMap.put("valueId", attributeValue.getId());
                 innerAttrValueMap.put("attrId", attributeValue.getAttrId());
                 innerAttrValueMap.put("value", attributeValue.getAttrValue());

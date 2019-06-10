@@ -58,7 +58,7 @@
     </div>
 </div>
 <div class="gm-head-wrap" style="width: 100%;">
-    <div class="gm-head">
+    <div class="gm-head" style="position: relative;">
         <div class="gm-head-logo" style="float: left;">
             <img src="http://img.alicdn.com/tfs/TB1_uT8a5ERMeJjSspiXXbZLFXa-143-59.png" alt="">
         </div>
@@ -73,6 +73,11 @@
                 <a th:href="@{'/search?q=男鞋'}">男鞋</a>
                 <a th:href="@{'/search?q=电脑'}">电脑</a>
             </div>
+        </div>
+        <div class="ad-top-index" th:if="${ad0?.on}">
+            <a th:href="${ad0?.adUrl}" href="https://act.you.163.com" target="_blank">
+                <img th:src="@{'/image/goods/' + ${ad0?.adImage}}" src="https://yanxuan.nosdn.127.net/614fedbc7bead7710a3e83ebd14f24a8.gif?r=1559792069199" width="250px" />
+            </a>
         </div>
     </div>
 </div>

@@ -64,8 +64,8 @@
                 </li>
 <!--                <li class="layui-nav-item"><a href="">订单管理</a></li>-->
 <!--                <li class="layui-nav-item"><a href="">用户管理</a></li>-->
-                <li class="layui-nav-item"><a th:href="@{/admin/advertisement}">广告运营</a></li>
-                <li class="layui-nav-item"><a th:href="@{/admin/feedback}">意见反馈</a></li>
+                <li class="layui-nav-item"><a th:href="@{/admin/advertisement}" th:classappend="${locationMode?.location eq 'advertisement'}? 'admin-nav-on'">广告运营</a></li>
+                <li class="layui-nav-item"><a th:href="@{/admin/feedback}" th:classappend="${locationMode?.location eq 'feedback'}? 'admin-nav-on'">意见反馈</a></li>
             </ul>
         </div>
     </div>
@@ -233,6 +233,39 @@
             </div>
             <div th:if="${locationMode?.location eq 'advertisement'}" class="ad-m">
                 <!-- 首页顶部、边缘；商品页边缘；-->
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>首页顶部右侧广告(宽高：250 * 70)</legend>
+                </fieldset>
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">广告名称</label>
+                        <div class="layui-input-block" style="width: 350px">
+                            <input type="text"  class="layui-input ad-index-top-title" lay-verify="adIndexTopTitle" name="adName" th:value="${ad0?.adName}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">广告地址</label>
+                        <div class="layui-input-block" style="width: 420px;">
+                            <input type="text" class="layui-input ad-index-top-url" lay-verify="adIndexTopUrl" name="adUrl" th:value="${ad0?.adUrl}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">广告图片</label>
+                        <div class="layui-input-inline">
+                            <input class="ad-index-top-right-ipt" type="hidden" name="adImage" value="" lay-verify="adImage" th:value="${ad0?.adImage}">
+                            <img class="ad-index-top-right-img" th:src="@{'/image/goods/' + ${ad0?.adImage}}" width="250px" height="70px">
+                            <button type="button" class="layui-btn" id="uploadBtn">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="button" class="layui-btn layui-btn-primary" lay-submit lay-filter="update-ad1">更新内容</button>
+                            <button type="button" class="layui-btn layui-btn-primary" lay-submit lay-filter="toggle-ad1" th:text="${ad0?.on}?'关闭广告': '开启广告'">关闭广告</button>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div th:if="${locationMode?.location eq 'feedback'}" class="report-m">
                 <!-- 用户意见反馈-->
@@ -337,10 +370,6 @@
         $(".layui-layer-input").css({"display": "inline-block", "width": "150px"});
     }
 
-    function updateInitData() {
-
-    }
-
     // layui绑定事件
     $(function () {
         layui.use('element', function () {
@@ -438,8 +467,93 @@
             });
         });
 
+        // 广告图片上传
+        layui.use('upload', function(){
+            var upload = layui.upload;
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#uploadBtn'
+                ,url: '../upload/goods'
+                ,done: function(res){
+                    //上传完毕回调
+                    imageName = res['data'];
+                    $(".ad-index-top-right-ipt").val(imageName);
+                    $(".ad-index-top-right-img").attr("src", "../image/goods/" + imageName);
+                }
+                ,error: function(err){
+                    layer.msg("广告图片上传失败!", {icon: 7});
+                }
+            });
+        });
 
+        // 广告上传
+        layui.use("form", function () {
+            var form = layui.form;
+            form.verify({
+                adIndexTopTitle: function (value) {
+                    if (value.length < 3) {
+                        return '广告名不得小于3个字符';
+                    }
+                },
+                adIndexTopUrl: function (value) {
+                    if (value.length <= 0) {
+                        return '广告URL不能为空';
+                    }
+                },
+                adImage: function (value) {
+                    if (value.length <= 0) {
+                        return '请先上传广告图片';
+                    }
+                }
+            });
 
+            form.on('submit(update-ad1)', function (data) {
+                delete data.field['file'];
+                data.field['id'] = "1";
+                $.ajax({
+                    type: 'POST',
+                    url: ctxPath + 'admin/advertisement/add',
+                    data: JSON.stringify(data.field),
+                    contentType : "application/json;charset=UTF-8",
+                    error: function (error) {
+                        layer.msg("未知错误，广告更新失败!", {icon: 7});
+                    },
+                    success: function (res) {
+                        code = res['code'];
+                        msg = res['msg'];
+                        if (code === 200) {
+                            layer.msg(msg, {icon: 1});
+                        } else {
+                            layer.msg(msg, {icon: 7});
+                        }
+                    }
+                });
+                return false;
+            });
+
+            form.on('submit(toggle-ad1)', function (data) {
+                $.ajax({
+                    type: 'GET',
+                    url: ctxPath + 'admin/advertisement/toggle-status/1',
+                    error: function (error) {
+                        layer.msg("未知错误，广告更新失败!", {icon: 7});
+                    },
+                    success: function (res) {
+                        code = res['code'];
+                        msg = res['msg'];
+                        if (code === 200) {
+                            layer.msg(msg, {icon: 1});
+                        } else {
+                            layer.msg(msg, {icon: 7});
+                        }
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1500);
+                    }
+                });
+                return false;
+            });
+        });
     });
 
     // JQ入口

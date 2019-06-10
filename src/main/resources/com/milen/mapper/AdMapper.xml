@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milen.mapper.AdMapper">
+
+    <update id="updateAd">
+        UPDATE gm_ad
+        SET
+        ad_name = #{ad.adName},
+        ad_url = #{ad.adUrl},
+        ad_image = #{ad.adImage},
+        gmt_modified = #{date}
+        WHERE id = #{ad.id}
+    </update>
+
+    <update id="updateStatusOnById">
+        UPDATE gm_ad SET is_on = 1 , gmt_modified = #{date} WHERE id = #{id}
+    </update>
+
+    <update id="updateStatusOffById">
+        UPDATE gm_ad SET is_on = 0 , gmt_modified = #{date} WHERE id = #{id}
+    </update>
+
+    <select id="listAd" resultType="com.milen.model.po.Ad">
+        SELECT * FROM gm_ad
+    </select>
+
+    <select id="getStatusById" resultType="java.lang.Boolean">
+        SELECT is_on FROM gm_ad WHERE id = #{id}
+    </select>
+</mapper>

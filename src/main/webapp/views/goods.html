@@ -45,55 +45,12 @@
                 <dl class="layui-nav-child">
                     <dd><a th:href="@{/seller/open-shop}">免费开店</a></dd>
                     <dd><a th:href="@{/seller/release}" th:if="${session.loginUser?.role eq 1}">发布商品</a></dd>
-                    <dd><a th:href="@{/seller/goods}" th:if="${session.loginUser?.role eq 1}">管理发布商品</a></dd>
+                    <dd><a th:href="@{/seller/manage}" th:if="${session.loginUser?.role eq 1}">管理发布商品</a></dd>
                     <dd><a th:href="@{/seller/order}" th:if="${session.loginUser?.role eq 1}">商品订单管理</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item site-nav-pipe f-right">|</li>
-            <li class="layui-nav-item f-right">
-                <a href="">购物车</a>
-                <dl class="layui-nav-child mini-cart">
-                    <dd style="margin-left: 7px;">最近加入的宝贝：</dd>
-                    <dd>
-                        <div class="mini-cart-img f-left">
-                            <a href="#" style="margin: 0 7px;">
-                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
-                            </a>
-                        </div>
-                        <div class="mini-cart-count f-right" style="font-family: Arial;">
-                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
-                        </div>
-                        <div class="mini-cart-title">
-                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
-                        </div>
-                        <div class="mini-cart-del f-right">
-                            <a href="" style="font-size: 13px;">删除</a>
-                        </div>
-                        <div class="mini-cart-info">
-                            <span>口味:圆形奶油夹心125g*1包 </span>
-                        </div>
-                    </dd>
-                    <dd>
-                        <div class="mini-cart-img f-left">
-                            <a href="#" style="margin: 0 7px;">
-                                <img src="//img.alicdn.com/bao/uploaded/img.alicdn.com/bao/uploaded/i1/3253223961/O1CN01Lir2FN1f8BIlmNVtS_!!0-item_pic.jpg_40x40.jpg">
-                            </a>
-                        </div>
-                        <div class="mini-cart-count f-right" style="font-family: Arial;">
-                            <strong class="mini-cat-price" style="color: red;">￥22.00</strong>
-                        </div>
-                        <div class="mini-cart-title">
-                            <a href="https://www.baidu.com">VICENZI意大利进口奶油夹心饼干休闲零食喜饼点心维鲜千层酥小吃</a>
-                        </div>
-                        <div class="mini-cart-del f-right">
-                            <a href="" style="font-size: 13px;">删除</a>
-                        </div>
-                        <div class="mini-cart-info">
-                            <span>口味:圆形奶油夹心125g*1包 </span>
-                        </div>
-                    </dd>
-                </dl>
-            </li>
+
             <li class="layui-nav-item f-right">
                 <a href="">我的逛购</a>
                 <dl class="layui-nav-child">
