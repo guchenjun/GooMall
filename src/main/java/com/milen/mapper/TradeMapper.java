@@ -19,4 +19,6 @@ public interface TradeMapper {
     List<TradeOrder> listTradeOrderBySellerId(@Param("sellerId") Long id);
 
     String getUsernameById(@Param("userId") Long userId);
+
+    int updateSkuStockById(@Param("skuId") Long skuId);
 }

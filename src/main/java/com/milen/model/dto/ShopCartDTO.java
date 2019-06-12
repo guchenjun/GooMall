@@ -1,9 +1,10 @@
 package com.milen.model.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ShopCartDTO {
+public class ShopCartDTO implements Serializable {
     private Long id;
 
     private Long spuId;

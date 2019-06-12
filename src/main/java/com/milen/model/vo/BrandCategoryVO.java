@@ -1,6 +1,8 @@
 package com.milen.model.vo;
 
-public class BrandCategoryVO {
+import java.io.Serializable;
+
+public class BrandCategoryVO implements Serializable {
 
 
 }

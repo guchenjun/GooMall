@@ -1,8 +1,9 @@
 package com.milen.model.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Feedback {
+public class Feedback implements Serializable {
 
     private Long id;
 

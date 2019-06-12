@@ -1,8 +1,9 @@
 package com.milen.model.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ApplyShopRecord {
+public class ApplyShopRecord implements Serializable {
 
     private Long id;
 

@@ -5,9 +5,10 @@ import com.milen.model.po.BrandCategory;
 import com.milen.model.po.Category1;
 import com.milen.model.po.Category2;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GoodsCategoryVO {
+public class GoodsCategoryVO implements Serializable {
 
     private List<Category1> category1List;
     private List<Category2> category2List;

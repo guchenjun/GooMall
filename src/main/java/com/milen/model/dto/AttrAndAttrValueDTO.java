@@ -1,6 +1,8 @@
 package com.milen.model.dto;
 
-public class AttrAndAttrValueDTO {
+import java.io.Serializable;
+
+public class AttrAndAttrValueDTO implements Serializable {
 
     private Long attrId;
 

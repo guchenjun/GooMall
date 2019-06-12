@@ -1,9 +1,10 @@
 package com.milen.model.po;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Shop {
+public class Shop implements Serializable {
 
     private Long id;
 

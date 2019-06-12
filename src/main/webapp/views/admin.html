@@ -154,7 +154,6 @@
                     </table>
                     <div id="shop-info-page-info" style="float: right"></div>
                 </div>
-                <div th:if="${locationMode?.mode eq 'seller'}" class="seller-manage"></div>
             </div>
             <div th:if="${locationMode?.location eq 'goods'}" class="spu-m">
                 <div th:if="${locationMode?.mode eq 'spu-category'}" class="spu-category">
@@ -397,6 +396,25 @@
                 }
             });
 
+            laypage.render({
+                elem: 'shop-info-page-info',
+                count: [[${page?.total}]], // 数据总数
+                limit: [[${page?.pageSize}]], // 每页最多显示条数
+                curr: [[${page?.pageNum}]],
+                jump: function (obj, first) {
+                    console.log(obj);
+                    if (!first) {
+                        position = window.location.href;
+                        end = position.lastIndexOf("info/");
+                        if (end === -1) {
+                            window.location.href = position + "/" + obj.curr;
+                        } else {
+                            window.location.href = position.substring(0, end) + "info/" + obj.curr;
+                        }
+                    }
+                }
+            });
+
             // SPU 分页
             laypage.render({
                 elem: 'spu-page-info',
@@ -618,7 +636,7 @@
             // @{'/admin/shop/info/more/' + ${shop.id}}
             $.ajax({
                 type: 'GET',
-                url: './info/more/' + shopId,
+                url: ctxPath + 'admin/shop/info/more/' + shopId,
                 error: function (error) {
                     layer.msg("未知错误，获取详细信息失败!", {icon: 7});
                 },

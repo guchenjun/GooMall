@@ -53,7 +53,8 @@ public class ShopCartServiceImpl implements ShopCartService {
         Date date = new Date();
         ShopCart shopCart = shopCartMapper.getShopCartSkuById(shopCartId);
         int row = tradeMapper.insertTradeOrderByShopCart(shopCart, id, date);
-        int row2 = shopCartMapper.removeShopCartSkuById(shopCartId);
-        return row > 0 && row2 > 0;
+        int row2 = tradeMapper.updateSkuStockById(shopCart.getSkuId());
+        int row3 = shopCartMapper.removeShopCartSkuById(shopCartId);
+        return row > 0 && row2 > 0 && row3 > 0;
     }
 }

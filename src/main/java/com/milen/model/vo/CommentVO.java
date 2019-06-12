@@ -1,8 +1,9 @@
 package com.milen.model.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class CommentVO {
+public class CommentVO implements Serializable {
 
     private String content;
 

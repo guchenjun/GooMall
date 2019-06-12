@@ -1,8 +1,9 @@
 package com.milen.model.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class CategoryBrandDTO {
+public class CategoryBrandDTO implements Serializable {
 
     private Long id;
 

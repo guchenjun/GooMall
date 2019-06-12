@@ -1,8 +1,9 @@
 package com.milen.model.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SPUAdminVO {
+public class SPUAdminVO implements Serializable {
     /**
      * <th>商品id</th>
      * <th>商家名称</th>

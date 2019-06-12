@@ -1,6 +1,8 @@
 package com.milen.model.vo;
 
-public class LocationModeVO {
+import java.io.Serializable;
+
+public class LocationModeVO implements Serializable {
 
     private String location;
 

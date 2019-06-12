@@ -2,9 +2,10 @@ package com.milen.model.vo;
 
 import com.milen.model.dto.ApplyShopRecordDTO;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ApplyShopRecordVO {
+public class ApplyShopRecordVO implements Serializable {
 
     private Long id;
 

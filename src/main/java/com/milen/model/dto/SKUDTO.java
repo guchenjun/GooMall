@@ -1,9 +1,10 @@
 package com.milen.model.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class SKUDTO {
+public class SKUDTO implements Serializable {
 
     private Long id;
 

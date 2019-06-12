@@ -18,6 +18,10 @@
         #{shopCart.price}, #{shopCart.amount}, #{shopCart.attrDescription}, #{date}, #{date})
     </insert>
 
+    <update id="updateSkuStockById">
+        UPDATE gm_sku SET stock = stock - 1 WHERE stock > 0
+    </update>
+
     <select id="listTradeOrderByUserId" resultType="com.milen.model.dto.TradeOrderDTO">
         SELECT * FROM gm_trade_order WHERE user_id = #{userId}
     </select>

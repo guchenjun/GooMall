@@ -1,6 +1,8 @@
 package com.milen.model.dto;
 
-public class CategoryDescriptionDTO {
+import java.io.Serializable;
+
+public class CategoryDescriptionDTO implements Serializable {
 
     private String category1Name;
 

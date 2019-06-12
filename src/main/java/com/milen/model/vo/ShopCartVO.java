@@ -2,9 +2,10 @@ package com.milen.model.vo;
 
 import com.milen.model.dto.ShopCartDTO;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ShopCartVO {
+public class ShopCartVO implements Serializable {
     private Long id;
 
     private Long spuId;

@@ -2,10 +2,11 @@ package com.milen.model.vo;
 
 import com.milen.model.po.Shop;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ShopVO {
+public class ShopVO implements Serializable {
     private Long id;
 
     private Long userId;

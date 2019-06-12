@@ -1,9 +1,10 @@
 package com.milen.model.vo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TradeOrderSellerVO {
+public class TradeOrderSellerVO implements Serializable {
 
     private Long id;
 

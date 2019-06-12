@@ -1,6 +1,8 @@
 package com.milen.model.vo;
 
-public class AttrValueSKUVO {
+import java.io.Serializable;
+
+public class AttrValueSKUVO implements Serializable {
 
     private String attrValue;
 

@@ -2,10 +2,11 @@ package com.milen.model.vo;
 
 import com.milen.model.po.SPU;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class GoodsVO {
+public class GoodsVO implements Serializable {
 
     private Long id;
 

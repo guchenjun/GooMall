@@ -77,7 +77,7 @@ public class AdminGoodsController {
         return R.error(400, "品牌添加失败!");
     }
 
-    @RequestMapping(value = {"/spu-info", "/spu-info/pageNum"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/spu-info", "/spu-info/{pageNum}"}, method = RequestMethod.GET)
     public String spu(@PathVariable(value = "pageNum", required = false) Integer pageNum, Model model) {
         if (pageNum == null) {
             pageNum = 1;

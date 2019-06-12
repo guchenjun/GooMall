@@ -1,6 +1,8 @@
 package com.milen.model.dto;
 
-public class AttributeValueDTO {
+import java.io.Serializable;
+
+public class AttributeValueDTO implements Serializable {
 
     private Long id;
 

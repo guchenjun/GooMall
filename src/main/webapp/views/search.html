@@ -21,7 +21,7 @@
                             <div class="nav-user-wrapper"><img src="http://gw.alicdn.com/tps/i3/TB1yeWeIFXXXXX5XFXXuAZJYXXX-210-210.png_80x80.jpg" alt=""></div>
                             <div class="nav-user-info">
                                 <p class="nav-user-operate" style="text-align: right">
-                                    <a th:href="@{/member}">帐号管理</a>
+                                    <a th:href="@{/member/info}">帐号管理</a>
                                     <span class="site-nav-pipe">|</span>
                                     <a th:href="@{/logout}">退出</a>
                                 </p>
@@ -105,7 +105,7 @@
     <div class="gm-head-wrap" style="width: 100%;">
         <div class="gm-head">
             <div class="gm-head-logo" style="float: left;">
-                <img src="http://img.alicdn.com/tfs/TB1_uT8a5ERMeJjSspiXXbZLFXa-143-59.png" alt="">
+                <img th:src="@{/static/image/logo2.png}" height="93px" />
             </div>
             <div class="gm-head-search">
                 <div class="search-fm">

@@ -556,6 +556,11 @@
                 delete formData['skuImages'];
                 formData['skuImages'] = [tmp];
             }
+            if (typeof(formData['attributes']) == "string") {
+                let tmp = formData['attributes'];
+                delete formData['attributes'];
+                formData['attributes'] = [tmp];
+            }
             // JSON.stringify($(".m-attribute-form").serializeJson())
             $.ajax({
                 type: 'POST',

@@ -2,9 +2,10 @@ package com.milen.model.vo;
 
 import com.milen.model.po.SPU;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SPUVO {
+public class SPUVO implements Serializable {
     private Long id;
 
     private String spuName;

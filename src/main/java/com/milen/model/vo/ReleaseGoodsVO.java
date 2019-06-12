@@ -1,6 +1,8 @@
 package com.milen.model.vo;
 
-public class ReleaseGoodsVO {
+import java.io.Serializable;
+
+public class ReleaseGoodsVO implements Serializable {
 
     private String spuName;
 
